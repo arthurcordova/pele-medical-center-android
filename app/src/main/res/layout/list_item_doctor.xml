@@ -60,25 +60,4 @@
         android:text="CRM: 54987/SC"
         android:textSize="10sp" />
 
-
-    <!--<android.support.constraint.ConstraintLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content">-->
-
-    <!---->
-
-    -->
-
-
-    <!--<TextView-->
-    <!--android:id="@+id/tv_specialty"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Cardiologista"-->
-    <!--android:textSize="12sp"-->
-    <!--app:layout_constraintStart_toStartOf="@+id/tv_name"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/tv_name" />-->
-
-
-    <!--</android.support.constraint.ConstraintLayout>-->
 </RelativeLayout>
