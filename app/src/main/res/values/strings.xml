@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Pele Medical Center</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_nav_doctors">Médicos</string>
+    <string name="title_nav_schedules">Agendamentos</string>
+    <string name="title_nav_notifications">Notificações</string>
+    <string name="title_nav_my_data">Meus dados</string>
 </resources>
