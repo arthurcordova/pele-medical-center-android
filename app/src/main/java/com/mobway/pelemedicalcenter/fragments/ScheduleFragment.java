@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterDoctor;
+import com.mobway.pelemedicalcenter.adapters.RVAdapterSchedule;
 import com.mobway.pelemedicalcenter.models.Doctor;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class ScheduleFragment extends android.support.v4.app.Fragment {
         }
         // MOCK ONLY
 
-        RVAdapterDoctor adapterDoctor = new RVAdapterDoctor(doctors);
+        RVAdapterSchedule adapterDoctor = new RVAdapterSchedule(doctors);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_schedule);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
