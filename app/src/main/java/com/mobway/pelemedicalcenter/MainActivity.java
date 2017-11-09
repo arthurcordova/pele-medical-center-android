@@ -46,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         BottomNavUtils.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        replaceFragment(new DoctorFragment());
+
     }
 
     protected void replaceFragment(Fragment fragment) {
