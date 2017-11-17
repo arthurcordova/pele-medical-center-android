@@ -13,4 +13,6 @@
     <color name="lightGray">#A4AAB3</color>
     <color name="gray">#6D787D</color>
     <color name="darkGray">#3B484E</color>
+
+    <color name="green">#23D881</color>
 </resources>
