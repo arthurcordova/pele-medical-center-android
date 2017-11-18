@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mobway.pelemedicalcenter.R;
-import com.mobway.pelemedicalcenter.models.Doctor;
+import com.mobway.pelemedicalcenter.models.Physician;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ import java.util.List;
 
 public class RVAdapterDoctor extends RecyclerView.Adapter<RVAdapterDoctor.ViewHolder> {
 
-    private List<Doctor> mList;
+    private List<Physician> mList;
 
-    public RVAdapterDoctor(List<Doctor> list) {
+    public RVAdapterDoctor(List<Physician> list) {
         mList = list;
     }
 
@@ -33,7 +33,7 @@ public class RVAdapterDoctor extends RecyclerView.Adapter<RVAdapterDoctor.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int index) {
-        final Doctor model = mList.get(index);
+        final Physician model = mList.get(index);
 
         holder.tvName.setText(model.getName());
 //        Picasso.with(holder.imgCategory.getContext())
@@ -41,7 +41,7 @@ public class RVAdapterDoctor extends RecyclerView.Adapter<RVAdapterDoctor.ViewHo
 //                .into(holder.imgCategory);
     }
 
-    public void setFilter(List<Doctor> list) {
+    public void setFilter(List<Physician> list) {
         if (!mList.isEmpty()) {
             mList.clear();
         }

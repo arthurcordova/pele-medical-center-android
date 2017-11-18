@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "98680356904",
+    "firebase_url": "https://scheduling-tracker.firebaseio.com",
+    "project_id": "scheduling-tracker",
+    "storage_bucket": "scheduling-tracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98680356904:android:528670add69cac3c",
+        "android_client_info": {
+          "package_name": "com.mobway.pelemedicalcenter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "98680356904-0jeudvb6vmad6jr2bodfq1pvogsikcrf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mobway.pelemedicalcenter",
+            "certificate_hash": "702837a898af5731034587d97dee581ea0da479f"
+          }
+        },
+        {
+          "client_id": "98680356904-cdril8m774htv96dfkpoutfjoo9gc1cm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvAo4pB61TtphlKq327EHPvYJMV4DP_gk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "98680356904-cdril8m774htv96dfkpoutfjoo9gc1cm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

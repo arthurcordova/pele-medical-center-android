@@ -15,25 +15,25 @@ import java.util.List;
  * Created by arthur.stapassoli on 01/11/2017.
  */
 
-public class RVAdapterSchedule extends RecyclerView.Adapter<RVAdapterSchedule.ViewHolder> {
+public class RVAdapterSpecialty extends RecyclerView.Adapter<RVAdapterSpecialty.ViewHolder> {
 
-    private List<Physician> mList;
+    private List<String> mList;
 
-    public RVAdapterSchedule(List<Physician> list) {
+    public RVAdapterSpecialty(List<String> list) {
         mList = list;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_schedule, null);
+                .inflate(R.layout.list_item_specialty, null);
         ViewHolder viewHolder = new ViewHolder(itemLayoutView);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int index) {
-        final Physician model = mList.get(index);
+        final String model = mList.get(index);
 
 //        holder.tvName.setText(model.getName());
 //        Picasso.with(holder.imgCategory.getContext())
@@ -41,7 +41,7 @@ public class RVAdapterSchedule extends RecyclerView.Adapter<RVAdapterSchedule.Vi
 //                .into(holder.imgCategory);
     }
 
-    public void setFilter(List<Physician> list) {
+    public void setFilter(List<String> list) {
         if (!mList.isEmpty()) {
             mList.clear();
         }
@@ -60,7 +60,9 @@ public class RVAdapterSchedule extends RecyclerView.Adapter<RVAdapterSchedule.Vi
 
         ViewHolder(View view) {
             super(view);
-//            tvName = view.findViewById(R.id.tv_name);
+
+
+
         }
     }
 }

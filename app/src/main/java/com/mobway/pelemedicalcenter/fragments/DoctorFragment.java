@@ -3,7 +3,6 @@ package com.mobway.pelemedicalcenter.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +11,8 @@ import android.view.ViewGroup;
 
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterDoctor;
-import com.mobway.pelemedicalcenter.models.Doctor;
+import com.mobway.pelemedicalcenter.controllers.PhysicianController;
+import com.mobway.pelemedicalcenter.models.Physician;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,20 +46,23 @@ public class DoctorFragment extends android.support.v4.app.Fragment {
         View view = inflater.inflate(R.layout.fragment_doctor, container, false);
 
         // MOCK ONLY
-        List<Doctor> doctors = new ArrayList<>();
+        List<Physician> physicians = new ArrayList<>();
 
         for (int i = 0; i < 30; i++) {
-            Doctor d1 = new Doctor();
+            Physician d1 = new Physician();
             d1.setName("Arthur Cordova Stapassoli");
-            doctors.add(d1);
+            physicians.add(d1);
         }
         // MOCK ONLY
 
-        RVAdapterDoctor adapterDoctor = new RVAdapterDoctor(doctors);
+        RVAdapterDoctor adapterDoctor = new RVAdapterDoctor(physicians);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_doctor);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapterDoctor);
+
+        new PhysicianController(getActivity()).getPhysicians();
+
 
         return view;
     }

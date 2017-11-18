@@ -11,14 +11,14 @@
         android:icon="@drawable/ic_calendar"
         android:title="@string/title_nav_schedules" />
 
-    <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notification"
-        android:title="@string/title_nav_notifications" />
+    <!--<item-->
+        <!--android:id="@+id/navigation_notifications"-->
+        <!--android:icon="@drawable/ic_notification"-->
+        <!--android:title="@string/title_nav_notifications" />-->
 
-    <item
-        android:id="@+id/navigation_my_data"
-        android:icon="@drawable/ic_user"
-        android:title="@string/title_nav_my_data" />
+    <!--<item-->
+        <!--android:id="@+id/navigation_my_data"-->
+        <!--android:icon="@drawable/ic_user"-->
+        <!--android:title="@string/title_nav_my_data" />-->
 
 </menu>

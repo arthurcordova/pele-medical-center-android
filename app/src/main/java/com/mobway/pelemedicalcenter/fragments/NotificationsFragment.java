@@ -1,6 +1,8 @@
 package com.mobway.pelemedicalcenter.fragments;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mobway.pelemedicalcenter.R;
+import com.mobway.pelemedicalcenter.models.TemperatureData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,11 +64,33 @@ public class NotificationsFragment extends android.support.v4.app.Fragment {
         }
     }
 
+    ViewDataBinding notificationsFragment;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notifications, container, false);
+//        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
+
+        final TemperatureData temperatureData = new TemperatureData();
+        temperatureData.location.set("Blumenau");
+        temperatureData.celsius.set("19");
+
+        notificationsFragment = DataBindingUtil.inflate(inflater, R.layout.fragment_notifications, container, false);
+        View root = notificationsFragment.getRoot();
+        notificationsFragment.setVariable(1, temperatureData);
+
+        root.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                temperatureData.celsius.set(String.valueOf(Integer.parseInt(temperatureData.celsius.get()) + 10) );
+
+            }
+        });
+
+
+
+
+        return root;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -3,37 +3,36 @@ package com.mobway.pelemedicalcenter.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 
 import com.mobway.pelemedicalcenter.R;
-import com.mobway.pelemedicalcenter.adapters.RVAdapterSchedule;
-import com.mobway.pelemedicalcenter.models.Physician;
+import com.mobway.pelemedicalcenter.adapters.RVAdapterSpecialty;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScheduleFragment extends android.support.v4.app.Fragment {
+public class FilterFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
 
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-    public ScheduleFragment() {
+    public FilterFragment() {
         // Required empty public constructor
     }
 
-
-    public static ScheduleFragment newInstance(String param1, String param2) {
-        ScheduleFragment fragment = new ScheduleFragment();
+    public static FilterFragment newInstance(String param1, String param2) {
+        FilterFragment fragment = new FilterFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -53,24 +52,31 @@ public class ScheduleFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_schedule, container, false);
+        View root = inflater.inflate(R.layout.fragment_filter, container, false);
 
-        // MOCK ONLY
-        List<Physician> physicians = new ArrayList<>();
+        RecyclerView recyclerView = root.findViewById(R.id.rv_specialty);
 
-        for (int i = 0; i < 30; i++) {
-            Physician d1 = new Physician();
-            physicians.add(d1);
-        }
-        // MOCK ONLY
+        List<String> list = new ArrayList<>();
+        list.add("A");
+        list.add("B");
+        list.add("C");
+        list.add("D");
+        list.add("E");
 
-        RVAdapterSchedule adapterDoctor = new RVAdapterSchedule(physicians);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), list.size()));
+        recyclerView.setAdapter(new RVAdapterSpecialty(list));
 
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_schedule);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapterDoctor);
+        Switch switchEmergency = root.findViewById(R.id.switch_emergency);
+        Switch switchPrivate = root.findViewById(R.id.switch_private);
 
-        return view;
+        root.findViewById(R.id.button_apply_filter).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new DoctorFragment()).commit();
+            }
+        });
+
+        return root;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -95,7 +101,6 @@ public class ScheduleFragment extends android.support.v4.app.Fragment {
         super.onDetach();
         mListener = null;
     }
-
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

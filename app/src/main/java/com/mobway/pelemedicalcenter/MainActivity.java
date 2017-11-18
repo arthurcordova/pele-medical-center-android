@@ -5,12 +5,22 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.mobway.pelemedicalcenter.controllers.PhysicianController;
 import com.mobway.pelemedicalcenter.fragments.DoctorFragment;
+import com.mobway.pelemedicalcenter.fragments.FilterFragment;
 import com.mobway.pelemedicalcenter.fragments.NotificationsFragment;
 import com.mobway.pelemedicalcenter.fragments.ProfileFragment;
 import com.mobway.pelemedicalcenter.fragments.ScheduleFragment;
+import com.mobway.pelemedicalcenter.services.PhysicianService;
 import com.mobway.pelemedicalcenter.utils.BottomNavUtils;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,16 +37,18 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_schedule:
                     replaceFragment(new ScheduleFragment());
                     return true;
-                case R.id.navigation_notifications:
-                    replaceFragment(new NotificationsFragment());
-                    return true;
-                case R.id.navigation_my_data:
-                    replaceFragment(new ProfileFragment());
-                    return true;
+//                case R.id.navigation_notifications:
+//                    replaceFragment(new NotificationsFragment());
+//                    return true;
+//                case R.id.navigation_my_data:
+//                    replaceFragment(new ProfileFragment());
+//                    return true;
             }
             return false;
         }
     };
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +59,40 @@ public class MainActivity extends AppCompatActivity {
         BottomNavUtils.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        replaceFragment(new DoctorFragment());
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuth.signInWithEmailAndPassword("arthur.stapassoli@gmail.com", "123456")
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("FIREBASE", "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Log.d("TOKEN", "TOKEN:"+ user.zzEI());
+                            Log.d("TOKEN", "REFRESH:"+ user.zzEH());
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("FIREBASE", "signInWithEmail:failure", task.getException());
+
+                        }
+
+                        // ...
+                    }
+                });
+
+        replaceFragment(new FilterFragment());
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        new PhysicianController(this).getPhysicians();
+
 
     }
 
