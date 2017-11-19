@@ -1,6 +1,7 @@
 package com.mobway.pelemedicalcenter.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 
+import com.mobway.pelemedicalcenter.MainActivity;
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterSpecialty;
 
@@ -72,7 +74,8 @@ public class FilterFragment extends Fragment {
         root.findViewById(R.id.button_apply_filter).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new DoctorFragment()).commit();
+                Intent it = new Intent(getContext(), MainActivity.class);
+                startActivity(it);
             }
         });
 

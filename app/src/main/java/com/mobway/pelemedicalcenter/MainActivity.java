@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        replaceFragment(new FilterFragment());
+        replaceFragment(new DoctorFragment());
 
     }
 
