@@ -29,6 +29,10 @@
         <activity
             android:name=".FilterActivity"
             android:label="@string/title_activity_filter"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".DateTimeActivity"
+            android:label="@string/title_activity_date_time"
             android:theme="@style/AppTheme"></activity>
     </application>
 

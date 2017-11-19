@@ -1,11 +1,13 @@
 package com.mobway.pelemedicalcenter.adapters;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.mobway.pelemedicalcenter.DateTimeActivity;
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.models.Physician;
 
@@ -36,6 +38,8 @@ public class RVAdapterDoctor extends RecyclerView.Adapter<RVAdapterDoctor.ViewHo
         final Physician model = mList.get(index);
 
         holder.tvName.setText(model.getName());
+        holder.onClick(model.getName());
+
 //        Picasso.with(holder.imgCategory.getContext())
 //                .load(model.getImagem())
 //                .into(holder.imgCategory);
@@ -57,10 +61,24 @@ public class RVAdapterDoctor extends RecyclerView.Adapter<RVAdapterDoctor.ViewHo
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvName;
+        View content;
 
         ViewHolder(View view) {
             super(view);
             tvName = view.findViewById(R.id.tv_name);
+            content = view;
         }
+
+        public void onClick(String name) {
+            content.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent it = new Intent(view.getContext(), DateTimeActivity.class);
+                    view.getContext().startActivity(it);
+                }
+            });
+        }
+
+
     }
 }
