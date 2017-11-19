@@ -1,5 +1,6 @@
 package com.mobway.pelemedicalcenter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -82,6 +84,14 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         replaceFragment(new DoctorFragment());
+
+        findViewById(R.id.button_filter).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getBaseContext(), FilterActivity.class);
+                startActivity(it);
+            }
+        });
 
     }
 
