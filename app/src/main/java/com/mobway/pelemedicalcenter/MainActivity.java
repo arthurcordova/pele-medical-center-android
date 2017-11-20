@@ -105,7 +105,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    protected void replaceFragment(Fragment fragment) {
+    protected Fragment replaceFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
+        return  fragment;
     }
+
+    public String getStringTest() {
+        return "MUhaha";
+    }
+
 }
