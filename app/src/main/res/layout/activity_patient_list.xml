@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mobway.pelemedicalcenter.DateTimeActivity">
+    tools:context="com.mobway.pelemedicalcenter.PatientListActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,9 +20,10 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_date_time" />
+    <include layout="@layout/content_patient_list" />
 
     <Button
+        android:id="@+id/button_next"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_gravity="bottom"
