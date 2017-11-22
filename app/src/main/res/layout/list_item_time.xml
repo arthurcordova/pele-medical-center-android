@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    >
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:padding="12dp"
+        android:lines="1"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tv_specialty"
+        android:layout_alignTop="@+id/img_avatar"
+        android:background="@drawable/bg_radius_white"
+        android:text="14:00"
+        android:textColor="#212121"
+        android:textSize="12sp" />
+
+</RelativeLayout>

@@ -99,7 +99,7 @@
                 android:gravity="center_vertical"
                 android:text="Selecione uma data:"
                 android:textColor="#555555"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/button_date"
@@ -111,16 +111,18 @@
                 android:background="@android:color/transparent"
                 android:textAlignment="textEnd"
                 android:textColor="#212121"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
         </RelativeLayout>
 
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/content_calendar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollIndicators="none">
+        android:scrollIndicators="none"
+        android:visibility="gone">
 
         <CalendarView
             android:id="@+id/calendar_view"
@@ -130,6 +132,35 @@
             android:background="#ffffff" />
 
     </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/content_time"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="center_vertical"
+            android:text="Selecione um horário:"
+            android:textColor="#555555"
+            android:textSize="12sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_time"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="46dp"
+            android:paddingStart="12dp" />
+
+    </LinearLayout>
+
 
 </LinearLayout>
 

@@ -29,14 +29,17 @@
         <activity
             android:name=".FilterActivity"
             android:label="@string/title_activity_filter"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".DateTimeActivity"
             android:label="@string/title_activity_date_time"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".PatientListActivity"
             android:label="@string/title_activity_patient_list"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"></activity>
     </application>
 

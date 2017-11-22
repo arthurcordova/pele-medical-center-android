@@ -23,6 +23,7 @@
     <include layout="@layout/content_date_time" />
 
     <Button
+        android:id="@+id/button_next"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_gravity="bottom"
