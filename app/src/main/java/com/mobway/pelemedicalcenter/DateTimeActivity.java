@@ -35,6 +35,7 @@ public class DateTimeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Data/Horário");
 
         mButtonDate = findViewById(R.id.button_date);
         mButtonNext = findViewById(R.id.button_next);
