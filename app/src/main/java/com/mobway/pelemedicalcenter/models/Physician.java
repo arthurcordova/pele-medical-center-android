@@ -1,24 +1,29 @@
 package com.mobway.pelemedicalcenter.models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+import java.io.Serializable;
+
 /**
  * Created by arthur.stapassoli on 01/11/2017.
  */
 
-public class Physician {
+public class Physician implements Serializable {
 
-    private String uid;
+    private String uuid;
     private String name;
     private String gender;
     private String crm;
     private String specialty;
     private String avatar;
 
-    public String getUid() {
-        return uid;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getName() {
