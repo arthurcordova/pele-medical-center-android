@@ -51,7 +51,6 @@
             android:layout_alignStart="@+id/tv_specialty"
             android:layout_alignTop="@+id/img_avatar"
             android:layout_marginTop="4dp"
-            android:fontFamily="sans-serif-medium"
             android:text="Arthur Cordova Stapassoli"
             android:textColor="#212121"
             android:textSize="14sp" />

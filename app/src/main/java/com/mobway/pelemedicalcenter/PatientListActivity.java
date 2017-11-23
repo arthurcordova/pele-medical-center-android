@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 
 import com.mobway.pelemedicalcenter.adapters.RVAdapterPatient;
 import com.mobway.pelemedicalcenter.controllers.PatientController;
@@ -22,6 +23,7 @@ public class PatientListActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RVAdapterPatient mRvAdapterPatient;
     private PatientController mController;
+    private Button mButtonNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,8 @@ public class PatientListActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mRvAdapterPatient);
 
+        mButtonNext = findViewById(R.id.button_next);
+
         findViewById(R.id.fab_add_patient).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,6 +49,17 @@ public class PatientListActivity extends AppCompatActivity {
                 startActivity(it);
             }
         });
+
+        mButtonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getBaseContext(), PaymentActivity.class);
+                startActivity(it);
+            }
+        });
+
+
+
 
     }
 

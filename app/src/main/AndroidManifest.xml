@@ -46,7 +46,11 @@
             android:label="@string/title_activity_patient_record"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".PaymentActivity"
+            android:label="@string/title_activity_payment"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

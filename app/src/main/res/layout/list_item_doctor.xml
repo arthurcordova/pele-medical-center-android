@@ -34,7 +34,6 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/tv_specialty"
         android:layout_alignTop="@+id/img_avatar"
-        android:fontFamily="sans-serif-medium"
         android:text="Arthur Cordov"
         android:textColor="#212121"
         android:textSize="14sp" />
