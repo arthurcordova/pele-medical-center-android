@@ -5,14 +5,17 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Switch;
 
 import com.mobway.pelemedicalcenter.MainActivity;
+import com.mobway.pelemedicalcenter.PaymentActivity;
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterSpecialty;
 
@@ -70,6 +73,8 @@ public class FilterFragment extends Fragment {
 
         Switch switchEmergency = root.findViewById(R.id.switch_emergency);
         Switch switchPrivate = root.findViewById(R.id.switch_private);
+        final Button buttonPlace = root.findViewById(R.id.button_place);
+
 
         root.findViewById(R.id.button_apply_filter).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +83,32 @@ public class FilterFragment extends Fragment {
                 startActivity(it);
             }
         });
+        buttonPlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                View v = getLayoutInflater().inflate(R.layout.dialog_select_place, null);
+                builder.setView(v);
+                final AlertDialog alert = builder.create();
+                v.findViewById(R.id.line_fortaleza).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        buttonPlace.setText("Fortaleza");
+                        alert.dismiss();
+                    }
+                });
+                v.findViewById(R.id.line_maceio).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        buttonPlace.setText("Maceió");
+                        alert.dismiss();
+                    }
+                });
+
+                alert.show();
+            }
+        });
+
 
         return root;
     }
