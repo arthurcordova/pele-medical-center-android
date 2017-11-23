@@ -39,8 +39,9 @@ public class PatientController extends Controller {
 
     public void getPatients(RVAdapterPatient adapterPatient){
         this.adapterPatient = adapterPatient;
+        boolean isCancelled = mPatientControllerTask.isCancelled();
 
-        mPatientControllerTask.delegateTask(TaskDao.TASK_FIND_ALL).execute();
+        mPatientControllerTask.delegateTask(TaskDao.TASK_FIND_ALL).delegateAdapter(adapterPatient).execute();
     }
 
 

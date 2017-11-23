@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mobway.pelemedicalcenter.DateTimeActivity">
+    tools:context="com.mobway.pelemedicalcenter.PatientRecordActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,15 +21,15 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_date_time" />
+    <include layout="@layout/content_patient_record" />
 
     <Button
-        android:id="@+id/button_next"
+        android:id="@+id/button_save"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_gravity="bottom"
         android:background="#23D881"
-        android:text="Avançar"
+        android:text="Salvar"
         android:textAllCaps="false"
         android:textColor="#ffffff" />
 

@@ -13,15 +13,24 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:theme="@style/ToolBarStyle"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:theme="@style/ToolBarStyle"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_patient_list" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add_patient"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="61dp"
+        android:layout_marginEnd="@dimen/fab_margin"
+        app:srcCompat="@drawable/ic_person_add" />
 
     <Button
         android:id="@+id/button_next"

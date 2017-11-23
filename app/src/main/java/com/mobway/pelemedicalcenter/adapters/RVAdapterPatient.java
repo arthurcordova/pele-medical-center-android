@@ -29,7 +29,7 @@ public class RVAdapterPatient extends RecyclerView.Adapter<RVAdapterPatient.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_doctor, null);
+                .inflate(R.layout.list_item_patient, null);
         ViewHolder viewHolder = new ViewHolder(itemLayoutView);
         return viewHolder;
     }
@@ -39,11 +39,10 @@ public class RVAdapterPatient extends RecyclerView.Adapter<RVAdapterPatient.View
         final Patient model = mList.get(index);
 
         holder.tvName.setText(model.getName());
+        holder.tvGender.setText(model.getGender());
+        holder.tvBirth.setText(model.getBirth());
         holder.onClick(model.getName());
 
-//        Picasso.with(holder.imgCategory.getContext())
-//                .load(model.getImagem())
-//                .into(holder.imgCategory);
     }
 
     public void setFilter(List<Patient> list) {
@@ -62,11 +61,15 @@ public class RVAdapterPatient extends RecyclerView.Adapter<RVAdapterPatient.View
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvName;
+        TextView tvGender;
+        TextView tvBirth;
         View content;
 
         ViewHolder(View view) {
             super(view);
             tvName = view.findViewById(R.id.tv_name);
+            tvGender = view.findViewById(R.id.tv_gender);
+            tvBirth = view.findViewById(R.id.tv_birth);
             content = view;
         }
 

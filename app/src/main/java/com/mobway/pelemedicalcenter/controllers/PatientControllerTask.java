@@ -68,6 +68,8 @@ public class PatientControllerTask extends AsyncTask<Patient, String, List<Patie
                 }
             }
         }
+        cancel(true);
+
     }
 }
 
