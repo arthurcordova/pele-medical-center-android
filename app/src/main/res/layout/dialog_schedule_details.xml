@@ -4,32 +4,172 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="0dp"
     android:layout_marginStart="0dp"
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="41dp">
+        android:layout_height="match_parent">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/label_payment_name"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="12dp"
-            android:textColor="#000000"
-            android:gravity="center_vertical|end"
-            android:text="Arthur Dialog"
-            android:textSize="14sp" />
-
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000000"
-            android:alpha="0.12"
-            android:layout_alignParentBottom="true"
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_marginTop="16dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_doctor" />
+
+            <TextView
+                android:id="@+id/tv_physician_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:lines="1"
+                android:text="Arthur Cordova"
+                android:textColor="#212121"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_specialty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:lines="1"
+
+                android:text="Cardiologista"
+                android:textSize="12sp" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="12dp"
+                    android:gravity="center_vertical|start"
+                    android:text="Data:"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/label_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="12dp"
+                    android:gravity="center_vertical|end"
+                    android:lines="1"
+                    android:text="Arthur Dialog"
+                    android:textColor="#212121"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="41dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="12dp"
+                    android:gravity="center_vertical|start"
+                    android:text="Horário:"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/label_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="12dp"
+                    android:gravity="center_vertical|end"
+                    android:lines="1"
+                    android:text="Arthur Dialog"
+                    android:textColor="#212121"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="41dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="12dp"
+                    android:gravity="center_vertical|start"
+                    android:text="Paciente:"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/label_patient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="12dp"
+                    android:gravity="center_vertical|end"
+                    android:lines="1"
+                    android:text="Arthur Dialog"
+                    android:textColor="#212121"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="41dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="12dp"
+                    android:gravity="center_vertical|start"
+                    android:text="Pagamento:"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/label_payment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="12dp"
+                    android:gravity="center_vertical|end"
+                    android:lines="1"
+                    android:text="Arthur Dialog"
+                    android:textColor="#212121"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <Button
+        android:id="@+id/button_next"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="16dp"
+        android:background="#23D881"
+        android:text="Confirmar agendamento"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:textSize="12sp" />
 
 </LinearLayout>
