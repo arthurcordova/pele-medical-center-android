@@ -48,11 +48,11 @@ public class DoctorFragment extends android.support.v4.app.Fragment {
         // MOCK ONLY
         List<Physician> physicians = new ArrayList<>();
 
-        for (int i = 0; i < 30; i++) {
-            Physician d1 = new Physician();
-            d1.setName("Arthur Cordova Stapassoli");
-            physicians.add(d1);
-        }
+//        for (int i = 0; i < 30; i++) {
+//            Physician d1 = new Physician();
+//            d1.setName("Arthur Cordova Stapassoli");
+//            physicians.add(d1);
+//        }
         // MOCK ONLY
 
         RVAdapterDoctor adapterDoctor = new RVAdapterDoctor(physicians);
@@ -61,7 +61,7 @@ public class DoctorFragment extends android.support.v4.app.Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapterDoctor);
 
-        new PhysicianController(getActivity()).getPhysicians();
+        new PhysicianController(getActivity()).delegateAdapter(adapterDoctor).getPhysicians();
 
 
         return view;

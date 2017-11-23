@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.mobway.pelemedicalcenter.DateTimeActivity;
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.models.Physician;
+import com.mobway.pelemedicalcenter.models.Schedule;
 
 import java.util.List;
 
@@ -38,11 +39,8 @@ public class RVAdapterDoctor extends RecyclerView.Adapter<RVAdapterDoctor.ViewHo
         final Physician model = mList.get(index);
 
         holder.tvName.setText(model.getName());
-        holder.onClick(model.getName());
+        holder.onClick(model);
 
-//        Picasso.with(holder.imgCategory.getContext())
-//                .load(model.getImagem())
-//                .into(holder.imgCategory);
     }
 
     public void setFilter(List<Physician> list) {
@@ -69,16 +67,18 @@ public class RVAdapterDoctor extends RecyclerView.Adapter<RVAdapterDoctor.ViewHo
             content = view;
         }
 
-        public void onClick(String name) {
+        public void onClick(final Physician physician) {
+            final Schedule schedule = new Schedule();
+            schedule.setPhysician(physician);
+
             content.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent it = new Intent(view.getContext(), DateTimeActivity.class);
+                    it.putExtra("schedule", schedule);
                     view.getContext().startActivity(it);
                 }
             });
         }
-
-
     }
 }

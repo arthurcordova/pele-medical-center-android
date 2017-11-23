@@ -31,7 +31,8 @@ public abstract class Controller {
                 .create();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("https://us-central1-scheduling-tracker.cloudfunctions.net")
+                .baseUrl("http://www2.beautyclinic.com.br/clinwebservice/servidor/pelews/")
+//                .baseUrl("https://us-central1-scheduling-tracker.cloudfunctions.net")
                 .addConverterFactory(GsonConverterFactory.create(gsonBuilder))
                 .build();
 
@@ -39,7 +40,7 @@ public abstract class Controller {
 
 
     public void start() {
-
+//
 //        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
 //            @Override
 //            public Response intercept(Chain chain) throws IOException {

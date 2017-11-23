@@ -30,7 +30,7 @@ public class PatientController extends Controller {
     public PatientController(Activity activity) {
         super(activity);
         mPatientControllerTask = new PatientControllerTask(activity);
-//        api = retrofit.create(PhysicianService.class);
+        api = retrofit.create(PhysicianService.class);
     }
 
     public void savePatient(Patient... patients) {
@@ -44,21 +44,4 @@ public class PatientController extends Controller {
         mPatientControllerTask.delegateTask(TaskDao.TASK_FIND_ALL).delegateAdapter(adapterPatient).execute();
     }
 
-
-//    @Override
-//    public void onResponse(Call<List<Physician>> call, Response<List<Physician>> response) {
-//        Log.e("SUCCESS", response.body().toString());
-//        if (response.isSuccessful()) {
-//            List<Physician> banners = response.body();
-//
-//        } else {
-//
-//        }
-//    }
-//
-//    @Override
-//    public void onFailure(Call<List<Physician>> call, Throwable t) {
-//
-//        Log.e("FAIL", "FAIL");
-//    }
 }

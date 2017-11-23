@@ -1,6 +1,7 @@
 package com.mobway.pelemedicalcenter;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.mobway.pelemedicalcenter.adapters.RVAdapterPayment;
@@ -46,6 +48,18 @@ public class PaymentActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(PaymentActivity.this);
                 View v = getLayoutInflater().inflate(R.layout.dialog_schedule_details, null);
 
+                v.findViewById(R.id.button_confirm).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // this will clear all the stack
+                        startActivity(intent);
+                        finish();
+                        //finishAffinity();
+                    }
+                });
+
+
                 builder.setView(v);
                 AlertDialog alert = builder.create();
                 alert.show();
@@ -54,5 +68,12 @@ public class PaymentActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }

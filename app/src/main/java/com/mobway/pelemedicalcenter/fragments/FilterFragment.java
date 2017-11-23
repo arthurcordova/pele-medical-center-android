@@ -18,6 +18,8 @@ import com.mobway.pelemedicalcenter.MainActivity;
 import com.mobway.pelemedicalcenter.PaymentActivity;
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterSpecialty;
+import com.mobway.pelemedicalcenter.models.Filter;
+import com.mobway.pelemedicalcenter.utils.FilterManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,7 @@ public class FilterFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private FilterManager mFilterManager;
 
     public FilterFragment() {
         // Required empty public constructor
@@ -58,6 +61,9 @@ public class FilterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_filter, container, false);
+        
+        mFilterManager = new FilterManager(getContext());
+        Filter filterSaved = mFilterManager.getFilters();
 
         RecyclerView recyclerView = root.findViewById(R.id.rv_specialty);
 
@@ -71,14 +77,24 @@ public class FilterFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), list.size()));
         recyclerView.setAdapter(new RVAdapterSpecialty(list));
 
-        Switch switchEmergency = root.findViewById(R.id.switch_emergency);
-        Switch switchPrivate = root.findViewById(R.id.switch_private);
+        final Switch switchEmergency = root.findViewById(R.id.switch_emergency);
+        final Switch switchPrivate = root.findViewById(R.id.switch_private);
         final Button buttonPlace = root.findViewById(R.id.button_place);
 
+        switchEmergency.setChecked(filterSaved.getEmergency());
+        switchPrivate.setChecked(filterSaved.getPrivateSchedule());
+        buttonPlace.setText(filterSaved.getPlace());
 
         root.findViewById(R.id.button_apply_filter).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Filter filter = new Filter();
+                filter.setPlace(buttonPlace.getText().toString());
+                filter.setEmergency(switchEmergency.isChecked());
+                filter.setPrivateSchedule(switchPrivate.isChecked());
+                mFilterManager.save(filter);
+
                 Intent it = new Intent(getContext(), MainActivity.class);
                 startActivity(it);
             }

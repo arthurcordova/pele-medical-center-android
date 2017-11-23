@@ -14,7 +14,7 @@ import retrofit2.http.Path;
 
 public interface PhysicianService {
 
-    @GET("/getPhysicians")
+    @GET("medicos/getmedicos/3")
     Call<List<Physician>> physicians();
 
 }
