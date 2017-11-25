@@ -9,21 +9,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.mobway.pelemedicalcenter.controllers.PhysicianController;
 import com.mobway.pelemedicalcenter.fragments.DoctorFragment;
-import com.mobway.pelemedicalcenter.fragments.FilterFragment;
-import com.mobway.pelemedicalcenter.fragments.NotificationsFragment;
-import com.mobway.pelemedicalcenter.fragments.ProfileFragment;
 import com.mobway.pelemedicalcenter.fragments.ScheduleFragment;
-import com.mobway.pelemedicalcenter.services.PhysicianService;
 import com.mobway.pelemedicalcenter.utils.BottomNavUtils;
+import com.mobway.pelemedicalcenter.utils.MobwayDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -107,7 +102,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        mNavigation.setSelectedItemId(R.id.navigation_schedule);
+        if (MobwayDialog.TAB_SCHEDULE) {
+            MobwayDialog.TAB_SCHEDULE = false;
+            mNavigation.setSelectedItemId(R.id.navigation_schedule);
+        }
     }
 
 

@@ -40,7 +40,7 @@ public class RVAdapterSchedule extends RecyclerView.Adapter<RVAdapterSchedule.Vi
         holder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MobwayDialog.dialogDetailSchedule(view.getContext(), model);
+                MobwayDialog.dialogDetailSchedule(view.getContext(), model, false);
             }
         });
 

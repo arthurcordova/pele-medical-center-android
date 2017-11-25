@@ -5,12 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mobway.pelemedicalcenter.DateTimeActivity;
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.models.Physician;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +23,12 @@ import java.util.List;
 public class RVAdapterPayment extends RecyclerView.Adapter<RVAdapterPayment.ViewHolder> {
 
     private List<String> mList;
+    private List<ViewHolder> mListHolders = new ArrayList<>();
+    private String mSelectedPayment;
+
+    public String getSelectedPayment() {
+        return mSelectedPayment;
+    }
 
     public RVAdapterPayment(List<String> list) {
         mList = list;
@@ -36,9 +45,19 @@ public class RVAdapterPayment extends RecyclerView.Adapter<RVAdapterPayment.View
     @Override
     public void onBindViewHolder(final ViewHolder holder, int index) {
         final String paymentName = mList.get(index);
-
+        mListHolders.add(holder);
         holder.tvName.setText(paymentName);
-//        holder.onClick(model.getName());
+
+        holder.content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (ViewHolder hold : mListHolders) {
+                    hold.setChecked(false, hold.mImgSelect);
+                }
+                mSelectedPayment = paymentName;
+                holder.setChecked(true, holder.mImgSelect);
+            }
+        });
 
     }
 
@@ -59,23 +78,24 @@ public class RVAdapterPayment extends RecyclerView.Adapter<RVAdapterPayment.View
 
         TextView tvName;
         View content;
+        ImageView mImgSelect;
 
         ViewHolder(View view) {
             super(view);
             tvName = view.findViewById(R.id.label_payment_name);
+            mImgSelect = view.findViewById(R.id.img_check);
             content = view;
         }
 
-//        public void onClick(String name) {
-//            content.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent it = new Intent(view.getContext(), DateTimeActivity.class);
-//                    view.getContext().startActivity(it);
-//                }
-//            });
-//        }
+        public void setChecked(boolean value, ImageView img) {
+            if (value) {
+                img.setImageDrawable(img.getContext().getDrawable(R.drawable.ic_checked));
 
+            } else {
+                img.setImageDrawable(img.getContext().getDrawable(R.drawable.ic_unchecked));
+
+            }
+        }
 
     }
 }

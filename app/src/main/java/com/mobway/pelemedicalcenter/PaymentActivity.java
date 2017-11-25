@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.mobway.pelemedicalcenter.adapters.RVAdapterPayment;
+import com.mobway.pelemedicalcenter.models.Schedule;
+import com.mobway.pelemedicalcenter.utils.MobwayDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,10 @@ import java.util.List;
 public class PaymentActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
+    private RVAdapterPayment mAdapterPayment;
+    private Schedule mSchedule;
+    private String mErrorMsg;
+    private String mErroTitle = "Oops, encontramos um erro!";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,38 +37,30 @@ public class PaymentActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Pagamento");
 
+        mSchedule = (Schedule) getIntent().getSerializableExtra("schedule");
+
         List<String> payments = new ArrayList<>();
         payments.add("Cartão");
         payments.add("Dinheiro");
         payments.add("Plano de saúde");
 
-        RVAdapterPayment adapterPayment = new RVAdapterPayment(payments);
+        mAdapterPayment = new RVAdapterPayment(payments);
 
         mRecyclerView = findViewById(R.id.recycler_view_payment);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(adapterPayment);
+        mRecyclerView.setAdapter(mAdapterPayment);
 
         findViewById(R.id.button_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(PaymentActivity.this);
-                View v = getLayoutInflater().inflate(R.layout.dialog_schedule_details, null);
+                if (!validateStep()) {
+                    MobwayDialog.show(view.getContext(), mErrorMsg, mErroTitle);
+                    return;
+                }
+                mSchedule.setPayment(mAdapterPayment.getSelectedPayment());
 
-                v.findViewById(R.id.button_confirm).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // this will clear all the stack
-                        startActivity(intent);
-                        finish();
-                        //finishAffinity();
-                    }
-                });
+                MobwayDialog.dialogDetailSchedule(PaymentActivity.this, mSchedule, true);
 
-
-                builder.setView(v);
-                AlertDialog alert = builder.create();
-                alert.show();
             }
         });
 
@@ -74,6 +72,14 @@ public class PaymentActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public boolean validateStep() {
+        if (mAdapterPayment.getSelectedPayment() == null) {
+            mErrorMsg = "Antes de avançar, por favor selecione uma forma de pagamento.";
+            return false;
+        }
+        return true;
     }
 
 }

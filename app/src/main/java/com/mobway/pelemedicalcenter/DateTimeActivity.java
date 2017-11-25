@@ -110,7 +110,7 @@ public class DateTimeActivity extends AppCompatActivity {
                     MobwayDialog.show(view.getContext(), mErrorMsg, mErroTitle);
                     return;
                 }
-                mSchedule.setDate(mButtonNext.getText().toString());
+                mSchedule.setDate(mButtonDate.getText().toString());
                 mSchedule.setTime(mAdapterTime.getSelectedTime().getHour());
                 Intent it = new Intent(getBaseContext(), PatientListActivity.class);
                 it.putExtra("schedule", mSchedule);

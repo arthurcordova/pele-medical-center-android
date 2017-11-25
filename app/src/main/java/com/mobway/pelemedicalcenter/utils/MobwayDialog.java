@@ -19,6 +19,8 @@ import com.mobway.pelemedicalcenter.models.Schedule;
 
 public class MobwayDialog {
 
+    public static boolean TAB_SCHEDULE = false;
+
     public static void show(Context context, String msg, String tit) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -34,7 +36,7 @@ public class MobwayDialog {
         alert.show();
     }
 
-    public static void dialogDetailSchedule(Context context, Schedule schedule) {
+    public static void dialogDetailSchedule(final Context context, Schedule schedule, boolean toHome) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.dialog_schedule_details, null);
@@ -54,18 +56,19 @@ public class MobwayDialog {
         patient.setText(schedule.getPatient().getName());
         payment.setText(schedule.getPayment());
 
+        if (toHome) {
+            v.findViewById(R.id.button_confirm).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    TAB_SCHEDULE = true;
+                    Intent intent = new Intent(context, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // this will clear all the stack
+                    context.startActivity(intent);
 
-//        v.findViewById(R.id.button_confirm).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // this will clear all the stack
-//                startActivity(intent);
-//                finish();
-//                //finishAffinity();
-//            }
-//        });
-
+                    //finishAffinity();
+                }
+            });
+        }
 
         builder.setView(v);
         AlertDialog alert = builder.create();
