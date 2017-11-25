@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.models.Physician;
+import com.mobway.pelemedicalcenter.models.Schedule;
+import com.mobway.pelemedicalcenter.utils.MobwayDialog;
 
 import java.util.List;
 
@@ -17,9 +19,9 @@ import java.util.List;
 
 public class RVAdapterSchedule extends RecyclerView.Adapter<RVAdapterSchedule.ViewHolder> {
 
-    private List<Physician> mList;
+    private List<Schedule> mList;
 
-    public RVAdapterSchedule(List<Physician> list) {
+    public RVAdapterSchedule(List<Schedule> list) {
         mList = list;
     }
 
@@ -33,15 +35,18 @@ public class RVAdapterSchedule extends RecyclerView.Adapter<RVAdapterSchedule.Vi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int index) {
-        final Physician model = mList.get(index);
+        final Schedule model = mList.get(index);
 
-//        holder.tvName.setText(model.getName());
-//        Picasso.with(holder.imgCategory.getContext())
-//                .load(model.getImagem())
-//                .into(holder.imgCategory);
+        holder.content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MobwayDialog.dialogDetailSchedule(view.getContext(), model);
+            }
+        });
+
     }
 
-    public void setFilter(List<Physician> list) {
+    public void setFilter(List<Schedule> list) {
         if (!mList.isEmpty()) {
             mList.clear();
         }
@@ -57,9 +62,11 @@ public class RVAdapterSchedule extends RecyclerView.Adapter<RVAdapterSchedule.Vi
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvName;
+        View content;
 
         ViewHolder(View view) {
             super(view);
+            content = view;
 //            tvName = view.findViewById(R.id.tv_name);
         }
     }

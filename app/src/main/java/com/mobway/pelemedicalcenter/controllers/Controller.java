@@ -31,7 +31,7 @@ public abstract class Controller {
                 .create();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://www2.beautyclinic.com.br/clinwebservice/servidor/pelews/")
+                .baseUrl("http://www2.beautyclinic.com.br/clickwebservice/servidor/pelews/")
 //                .baseUrl("https://us-central1-scheduling-tracker.cloudfunctions.net")
                 .addConverterFactory(GsonConverterFactory.create(gsonBuilder))
                 .build();
