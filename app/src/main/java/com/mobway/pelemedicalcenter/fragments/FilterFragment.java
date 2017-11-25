@@ -19,6 +19,7 @@ import com.mobway.pelemedicalcenter.PaymentActivity;
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterSpecialty;
 import com.mobway.pelemedicalcenter.models.Filter;
+import com.mobway.pelemedicalcenter.models.Specialty;
 import com.mobway.pelemedicalcenter.utils.FilterManager;
 
 import java.util.ArrayList;
@@ -67,15 +68,22 @@ public class FilterFragment extends Fragment {
 
         RecyclerView recyclerView = root.findViewById(R.id.rv_specialty);
 
-        List<String> list = new ArrayList<>();
-        list.add("A");
-        list.add("B");
-        list.add("C");
-        list.add("D");
-        list.add("E");
+        List<Specialty> list = new ArrayList<>();
+        list.add(new Specialty("1", "Cardiologista"));
+        list.add(new Specialty("2", "Cardiologista"));
+        list.add(new Specialty("3", "Cardiologista"));
+        list.add(new Specialty("4", "Cardiologista"));
+        list.add(new Specialty("5", "Cardiologista"));
+        list.add(new Specialty("6", "Cardiologista"));
+
+        for (Specialty specialty: list) {
+            specialty.mergeWithSaved(filterSaved.getSpecialties());
+        }
+
+        final RVAdapterSpecialty adapter = new RVAdapterSpecialty(list);
 
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), list.size()));
-        recyclerView.setAdapter(new RVAdapterSpecialty(list));
+        recyclerView.setAdapter(adapter);
 
         final Switch switchEmergency = root.findViewById(R.id.switch_emergency);
         final Switch switchPrivate = root.findViewById(R.id.switch_private);
@@ -89,10 +97,13 @@ public class FilterFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                List<Specialty> specialties = adapter.getSelectedSpecialties();
+
                 Filter filter = new Filter();
                 filter.setPlace(buttonPlace.getText().toString());
                 filter.setEmergency(switchEmergency.isChecked());
                 filter.setPrivateSchedule(switchPrivate.isChecked());
+                filter.setSpecialties(specialties);
                 mFilterManager.save(filter);
 
                 Intent it = new Intent(getContext(), MainActivity.class);

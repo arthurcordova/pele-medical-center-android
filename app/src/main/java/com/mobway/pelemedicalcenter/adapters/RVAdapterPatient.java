@@ -11,7 +11,9 @@ import com.mobway.pelemedicalcenter.DateTimeActivity;
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.models.Patient;
 import com.mobway.pelemedicalcenter.models.Physician;
+import com.mobway.pelemedicalcenter.models.Time;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +23,8 @@ import java.util.List;
 public class RVAdapterPatient extends RecyclerView.Adapter<RVAdapterPatient.ViewHolder> {
 
     private List<Patient> mList;
+    private List<ViewHolder> mListHolders = new ArrayList<>();
+    private Patient mSelectedPatient;
 
     public RVAdapterPatient(List<Patient> list) {
         mList = list;
@@ -37,11 +41,22 @@ public class RVAdapterPatient extends RecyclerView.Adapter<RVAdapterPatient.View
     @Override
     public void onBindViewHolder(final ViewHolder holder, int index) {
         final Patient model = mList.get(index);
+        mListHolders.add(holder);
 
         holder.tvName.setText(model.getName());
         holder.tvGender.setText(model.getGender());
         holder.tvBirth.setText(model.getBirth());
-        holder.onClick(model.getName());
+
+        holder.content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (ViewHolder hold : mListHolders) {
+                    hold.setChecked(false, hold.content);
+                }
+                mSelectedPatient = model;
+                holder.setChecked(true, view);
+            }
+        });
 
     }
 
@@ -73,14 +88,14 @@ public class RVAdapterPatient extends RecyclerView.Adapter<RVAdapterPatient.View
             content = view;
         }
 
-        public void onClick(String name) {
-            content.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent it = new Intent(view.getContext(), DateTimeActivity.class);
-                    view.getContext().startActivity(it);
-                }
-            });
+        public void setChecked(boolean value, View v) {
+            if (value) {
+                v.setBackgroundColor(v.getContext().getResources().getColor(R.color.lightGray));
+
+            } else {
+                v.setBackgroundColor(v.getContext().getResources().getColor(R.color.white));
+
+            }
         }
     }
 }

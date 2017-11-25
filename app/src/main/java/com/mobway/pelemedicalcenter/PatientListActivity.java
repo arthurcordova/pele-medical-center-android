@@ -15,6 +15,7 @@ import android.widget.Button;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterPatient;
 import com.mobway.pelemedicalcenter.controllers.PatientController;
 import com.mobway.pelemedicalcenter.models.Patient;
+import com.mobway.pelemedicalcenter.models.Schedule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,8 @@ public class PatientListActivity extends AppCompatActivity {
     private PatientController mController;
     private Button mButtonNext;
 
+    private Schedule mSchedule;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +37,8 @@ public class PatientListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Paciente");
+
+        mSchedule = (Schedule) getIntent().getSerializableExtra("schedule");
 
         mRvAdapterPatient = new RVAdapterPatient(new ArrayList<Patient>());
 

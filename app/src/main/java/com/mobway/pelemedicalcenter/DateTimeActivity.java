@@ -36,6 +36,10 @@ public class DateTimeActivity extends AppCompatActivity {
     private TextView mLabelSpecialty;
 
     private Schedule mSchedule;
+    private RVAdapterTime mAdapterTime;
+    private String mErrorMsg;
+    private String mErroTitle = "Oops, encontramos um erro!";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +84,8 @@ public class DateTimeActivity extends AppCompatActivity {
         times.add(new Time("10:15"));
 
 
-        RVAdapterTime adapter = new RVAdapterTime(times);
-        mRecyclerView.setAdapter(adapter);
+        mAdapterTime = new RVAdapterTime(times);
+        mRecyclerView.setAdapter(mAdapterTime);
 
         mButtonDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,10 +107,13 @@ public class DateTimeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!validateStep()) {
-                    MobwayDialog.show(view.getContext(), "Por favor, selecione uma data para avançar.", "Oops, temos um erro!");
+                    MobwayDialog.show(view.getContext(), mErrorMsg, mErroTitle);
                     return;
                 }
+                mSchedule.setDate(mButtonNext.getText().toString());
+                mSchedule.setTime(mAdapterTime.getSelectedTime().getHour());
                 Intent it = new Intent(getBaseContext(), PatientListActivity.class);
+                it.putExtra("schedule", mSchedule);
                 startActivity(it);
             }
         });
@@ -132,6 +139,11 @@ public class DateTimeActivity extends AppCompatActivity {
 
     public boolean validateStep() {
         if (mButtonDate.getText().equals("")){
+            mErrorMsg = "Antes de avançar, por favor selecione uma data.";
+            return false;
+        }
+        if (mAdapterTime.getSelectedTime() == null){
+            mErrorMsg = "Antes de avançar, por favor selecione um horário.";
             return false;
         }
         return true;

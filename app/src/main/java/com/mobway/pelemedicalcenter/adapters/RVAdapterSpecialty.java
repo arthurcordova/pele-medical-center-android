@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.models.Physician;
+import com.mobway.pelemedicalcenter.models.Specialty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,9 +19,14 @@ import java.util.List;
 
 public class RVAdapterSpecialty extends RecyclerView.Adapter<RVAdapterSpecialty.ViewHolder> {
 
-    private List<String> mList;
+    private List<Specialty> mList;
+    private List<Specialty> mSelectedSpecialties = new ArrayList<>();
 
-    public RVAdapterSpecialty(List<String> list) {
+    public List<Specialty> getSelectedSpecialties() {
+        return mSelectedSpecialties;
+    }
+
+    public RVAdapterSpecialty(List<Specialty> list) {
         mList = list;
     }
 
@@ -33,15 +40,26 @@ public class RVAdapterSpecialty extends RecyclerView.Adapter<RVAdapterSpecialty.
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int index) {
-        final String model = mList.get(index);
+        final Specialty model = mList.get(index);
+        holder.tvName.setText(model.getName());
+        holder.viewBack.setBackground(model.isSelected() ? holder.viewBack.getContext().getDrawable(R.drawable.ic_selected) : holder.viewBack.getContext().getDrawable(R.drawable.ic_unselected));
 
-//        holder.tvName.setText(model.getName());
-//        Picasso.with(holder.imgCategory.getContext())
-//                .load(model.getImagem())
-//                .into(holder.imgCategory);
+        holder.viewBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.setChecked(model.isSelected(), view);
+                if (holder.checked) {
+                    mSelectedSpecialties.add(model);
+                } else {
+                    mSelectedSpecialties.remove(model);
+                }
+            }
+        });
+
+
     }
 
-    public void setFilter(List<String> list) {
+    public void setFilter(List<Specialty> list) {
         if (!mList.isEmpty()) {
             mList.clear();
         }
@@ -57,12 +75,26 @@ public class RVAdapterSpecialty extends RecyclerView.Adapter<RVAdapterSpecialty.
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvName;
+        View viewBack;
+        boolean checked = false;
 
         ViewHolder(View view) {
             super(view);
-
-
-
+            viewBack = view.findViewById(R.id.img_background);
+            tvName = view.findViewById(R.id.tv_name);
         }
+
+        public void setChecked(boolean value, View v) {
+            if (!value && !checked) {
+                v.setBackground(v.getContext().getDrawable(R.drawable.ic_selected));
+                checked = true;
+
+            } else {
+                v.setBackground(v.getContext().getDrawable(R.drawable.ic_unselected));
+                checked = false;
+
+            }
+        }
+
     }
 }

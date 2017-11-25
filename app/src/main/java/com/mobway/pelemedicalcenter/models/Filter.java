@@ -13,12 +13,12 @@ public class Filter implements Serializable {
     private String place;
     private Boolean emergency;
     private Boolean privateSchedule;
-    private List<String> specialties;
+    private List<Specialty> specialties;
 
     public Filter() {
     }
 
-    public Filter(String place, Boolean emergency, Boolean privateSchedule, List<String> specialties) {
+    public Filter(String place, Boolean emergency, Boolean privateSchedule, List<Specialty> specialties) {
         this.place = place;
         this.emergency = emergency;
         this.privateSchedule = privateSchedule;
@@ -49,33 +49,36 @@ public class Filter implements Serializable {
         this.privateSchedule = privateSchedule;
     }
 
-    public List<String> getSpecialties() {
+    public List<Specialty> getSpecialties() {
         return specialties;
     }
 
-    public void setSpecialties(List<String> specialties) {
+    public void setSpecialties(List<Specialty> specialties) {
         this.specialties = specialties;
     }
 
-    public String convertSpecialtiesToSave(List<String> list) {
+    public String convertSpecialtiesToSave(List<Specialty> list) {
         String result = "";
         if (list != null) {
-            for (String str: list) {
-                result.concat(";").concat(str);
+            for (Specialty specialty: list) {
+                result = result + ";" +specialty.getUuid();
             }
         }
         return result;
     }
 
-    public List<String> convertSpecialtiesToList(String str) {
+    public List<Specialty> convertSpecialtiesToList(String str) {
         if (!str.equals("")){
             String[] ids = str.split(";");
-            List<String> idsList = new ArrayList<>();
+            List<Specialty> idsList = new ArrayList<>();
             for (int i = 0; i < ids.length ; i++) {
-                idsList.add(ids[i]);
+                if (!ids[i].equals("")){
+                    idsList.add(new Specialty(ids[i], null));
+                }
             }
             return idsList;
         }
         return null;
     }
+
 }
