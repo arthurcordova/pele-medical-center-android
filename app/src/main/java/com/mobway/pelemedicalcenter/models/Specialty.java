@@ -1,5 +1,7 @@
 package com.mobway.pelemedicalcenter.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,8 +10,9 @@ import java.util.List;
  */
 
 public class Specialty implements Serializable {
-
+    @SerializedName("id")
     private String uuid;
+    @SerializedName("descricao")
     private String name;
     private boolean selected = false;
 

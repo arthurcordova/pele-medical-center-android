@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mNavigation.setSelectedItemId(R.id.navigation_schedule);
+//        mNavigation.setSelectedItemId(R.id.navigation_schedule);
     }
 
 

@@ -18,6 +18,7 @@ import com.mobway.pelemedicalcenter.MainActivity;
 import com.mobway.pelemedicalcenter.PaymentActivity;
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterSpecialty;
+import com.mobway.pelemedicalcenter.controllers.SpecialtyController;
 import com.mobway.pelemedicalcenter.models.Filter;
 import com.mobway.pelemedicalcenter.models.Specialty;
 import com.mobway.pelemedicalcenter.utils.FilterManager;
@@ -35,6 +36,7 @@ public class FilterFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private FilterManager mFilterManager;
+    private SpecialtyController mController;
 
     public FilterFragment() {
         // Required empty public constructor
@@ -69,21 +71,13 @@ public class FilterFragment extends Fragment {
         RecyclerView recyclerView = root.findViewById(R.id.rv_specialty);
 
         List<Specialty> list = new ArrayList<>();
-        list.add(new Specialty("1", "Cardiologista"));
-        list.add(new Specialty("2", "Cardiologista"));
-        list.add(new Specialty("3", "Cardiologista"));
-        list.add(new Specialty("4", "Cardiologista"));
-        list.add(new Specialty("5", "Cardiologista"));
-        list.add(new Specialty("6", "Cardiologista"));
-
-        for (Specialty specialty: list) {
-            specialty.mergeWithSaved(filterSaved.getSpecialties());
-        }
 
         final RVAdapterSpecialty adapter = new RVAdapterSpecialty(list);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), list.size()));
-        recyclerView.setAdapter(adapter);
+        mController = new SpecialtyController(getActivity());
+        mController.delegateRecyclerView(recyclerView);
+        mController.delegateAdapter(adapter);
+        mController.getSpecialties();
 
         final Switch switchEmergency = root.findViewById(R.id.switch_emergency);
         final Switch switchPrivate = root.findViewById(R.id.switch_private);

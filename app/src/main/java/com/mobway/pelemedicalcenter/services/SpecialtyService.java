@@ -1,20 +1,20 @@
 package com.mobway.pelemedicalcenter.services;
 
 import com.mobway.pelemedicalcenter.models.Physician;
+import com.mobway.pelemedicalcenter.models.Specialty;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 
 /**
  * Created by acstapassoli on 10/11/17.
  */
 
-public interface PhysicianService {
+public interface SpecialtyService {
 
-    @GET("medicos/getmedicos/0")
-    Call<List<Physician>> physicians();
+    @GET("especialidade/getespecialidades/0")
+    Call<List<Specialty>> specialties();
 
 }

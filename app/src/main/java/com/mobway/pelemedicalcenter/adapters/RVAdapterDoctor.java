@@ -39,6 +39,7 @@ public class RVAdapterDoctor extends RecyclerView.Adapter<RVAdapterDoctor.ViewHo
         final Physician model = mList.get(index);
 
         holder.tvName.setText(model.getName());
+        holder.tvSpecialty.setText(model.getSpecialty());
         holder.onClick(model);
 
     }
@@ -59,11 +60,14 @@ public class RVAdapterDoctor extends RecyclerView.Adapter<RVAdapterDoctor.ViewHo
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvName;
+        TextView tvSpecialty;
         View content;
 
         ViewHolder(View view) {
             super(view);
             tvName = view.findViewById(R.id.tv_name);
+            tvSpecialty = view.findViewById(R.id.tv_specialty);
+
             content = view;
         }
 

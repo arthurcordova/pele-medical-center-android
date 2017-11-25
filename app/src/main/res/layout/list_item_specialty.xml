@@ -15,9 +15,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:lines="1"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
             android:text="Cardiologista"
             android:textColor="#ffffff"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
