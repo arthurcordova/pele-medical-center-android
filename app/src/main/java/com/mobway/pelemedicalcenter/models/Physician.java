@@ -27,6 +27,7 @@ public class Physician implements Serializable {
     private String place;
     @SerializedName("aceitaPlano")
     private Boolean acceptInsurance;
+    private String nextFreeSchedule;
 
     private String avatar;
     private String crm;
@@ -101,5 +102,13 @@ public class Physician implements Serializable {
 
     public void setCrm(String crm) {
         this.crm = crm;
+    }
+
+    public String getNextFreeSchedule() {
+        return nextFreeSchedule;
+    }
+
+    public void setNextFreeSchedule(String nextFreeSchedule) {
+        this.nextFreeSchedule = nextFreeSchedule;
     }
 }

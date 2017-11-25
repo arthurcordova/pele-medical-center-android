@@ -40,6 +40,7 @@ public class RVAdapterDoctor extends RecyclerView.Adapter<RVAdapterDoctor.ViewHo
 
         holder.tvName.setText(model.getName());
         holder.tvSpecialty.setText(model.getSpecialty());
+        holder.tvNextdate.setText("Disponível em: \n"+model.getNextFreeSchedule());
         holder.onClick(model);
 
     }
@@ -61,12 +62,14 @@ public class RVAdapterDoctor extends RecyclerView.Adapter<RVAdapterDoctor.ViewHo
 
         TextView tvName;
         TextView tvSpecialty;
+        TextView tvNextdate;
         View content;
 
         ViewHolder(View view) {
             super(view);
             tvName = view.findViewById(R.id.tv_name);
             tvSpecialty = view.findViewById(R.id.tv_specialty);
+            tvNextdate = view.findViewById(R.id.tv_crm);
 
             content = view;
         }
