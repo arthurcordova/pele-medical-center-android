@@ -6,6 +6,7 @@ import android.util.Log;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterDoctor;
 import com.mobway.pelemedicalcenter.models.Filter;
 import com.mobway.pelemedicalcenter.models.Physician;
+import com.mobway.pelemedicalcenter.models.Specialty;
 import com.mobway.pelemedicalcenter.services.PhysicianService;
 import com.mobway.pelemedicalcenter.utils.FilterManager;
 
@@ -49,17 +50,19 @@ public class PhysicianController extends Controller implements Callback<List<Phy
             if (mAdapterDoctor != null) {
                 Filter filter = new FilterManager(activity).getFilters();
                 List<Physician> filterdList = new ArrayList<>();
-                for (Physician p : physicians) {
-                    if (filter.getPrivateSchedule()) {
-                        if (!p.getAcceptInsurance()) {
 
+                if (filter.getSpecialties() != null) {
+                    for (Specialty sp : filter.getSpecialties()) {
+                        for (Physician ph : physicians) {
+                            if (sp.getUuid().equals(ph.getSpecialtyID())) {
+                                filterdList.add(ph);
+                            }
                         }
                     }
-
+                } else {
+                    filterdList = physicians;
                 }
-
-
-                mAdapterDoctor.setFilter(physicians);
+                mAdapterDoctor.setFilter(filterdList);
             }
 
         } else {
