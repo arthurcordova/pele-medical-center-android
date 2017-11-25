@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.mobway.pelemedicalcenter.adapters.RVAdapterTime;
 import com.mobway.pelemedicalcenter.models.Schedule;
+import com.mobway.pelemedicalcenter.models.Time;
+import com.mobway.pelemedicalcenter.utils.MobwayDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +46,7 @@ public class DateTimeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Data/Horário");
 
-        mSchedule = (Schedule)getIntent().getSerializableExtra("schedule");
+        mSchedule = (Schedule) getIntent().getSerializableExtra("schedule");
 
         mButtonDate = findViewById(R.id.button_date);
         mButtonNext = findViewById(R.id.button_next);
@@ -61,31 +63,22 @@ public class DateTimeActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
 
         //MOCK
-        List<String> times = new ArrayList<>();
-        times.add("10:00");
-        times.add("10:15");
-        times.add("10:30");
-        times.add("10:45");
-        times.add("10:00");
-        times.add("10:15");
-        times.add("10:30");
-        times.add("10:45");
-        times.add("10:00");
-        times.add("10:15");
-        times.add("10:30");
-        times.add("10:45");
-        times.add("10:00");
-        times.add("10:15");
-        times.add("10:30");
-        times.add("10:45");
-        times.add("10:00");
-        times.add("10:15");
-        times.add("10:30");
-        times.add("10:45");
-        times.add("10:00");
-        times.add("10:15");
-        times.add("10:30");
-        times.add("10:45");
+        List<Time> times = new ArrayList<>();
+        times.add(new Time("10:15"));
+        times.add(new Time("10:15"));
+        times.add(new Time("10:15"));
+        times.add(new Time("10:15"));
+        times.add(new Time("10:15"));
+        times.add(new Time("10:15"));
+        times.add(new Time("10:15"));
+        times.add(new Time("10:15"));
+        times.add(new Time("10:15"));
+        times.add(new Time("10:15"));
+        times.add(new Time("10:15"));
+        times.add(new Time("10:15"));
+        times.add(new Time("10:15"));
+        times.add(new Time("10:15"));
+
 
         RVAdapterTime adapter = new RVAdapterTime(times);
         mRecyclerView.setAdapter(adapter);
@@ -97,14 +90,6 @@ public class DateTimeActivity extends AppCompatActivity {
             }
         });
 
-        mButtonNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent it = new Intent(getBaseContext(), PatientListActivity.class);
-                startActivity(it);
-            }
-        });
-
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
@@ -113,6 +98,19 @@ public class DateTimeActivity extends AppCompatActivity {
                 mButtonDate.setText(date);
             }
         });
+
+        mButtonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!validateStep()) {
+                    MobwayDialog.show(view.getContext(), "Por favor, selecione uma data para avançar.", "Oops, temos um erro!");
+                    return;
+                }
+                Intent it = new Intent(getBaseContext(), PatientListActivity.class);
+                startActivity(it);
+            }
+        });
+
     }
 
     public void changeStatusView(View viewtoShow) {
@@ -130,6 +128,13 @@ public class DateTimeActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public boolean validateStep() {
+        if (mButtonDate.getText().equals("")){
+            return false;
+        }
+        return true;
     }
 
 }

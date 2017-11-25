@@ -5,12 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.mobway.pelemedicalcenter.DateTimeActivity;
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.models.Physician;
+import com.mobway.pelemedicalcenter.models.Time;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,9 +22,15 @@ import java.util.List;
 
 public class RVAdapterTime extends RecyclerView.Adapter<RVAdapterTime.ViewHolder> {
 
-    private List<String> mList;
+    private List<Time> mList;
+    private List<ViewHolder> mListHolders = new ArrayList<>();
+    private Time mSelectedTime;
 
-    public RVAdapterTime(List<String> list) {
+    public Time getSelectedTime() {
+        return mSelectedTime;
+    }
+
+    public RVAdapterTime(List<Time> list) {
         mList = list;
     }
 
@@ -35,11 +44,24 @@ public class RVAdapterTime extends RecyclerView.Adapter<RVAdapterTime.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int index) {
-        final String time = mList.get(index);
-        holder.tvTime.setText(time);
+        final Time time = mList.get(index);
+        mListHolders.add(holder);
+        holder.tvTime.setText(time.getHour());
+        holder.tvTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (ViewHolder hold : mListHolders) {
+                    hold.setChecked(false, hold.tvTime);
+                }
+                time.setSelected(true);
+                mSelectedTime = time;
+                holder.setChecked(time.isSelected(), view);
+            }
+        });
+
     }
 
-    public void setFilter(List<String> list) {
+    public void setFilter(List<Time> list) {
         if (!mList.isEmpty()) {
             mList.clear();
         }
@@ -63,5 +85,14 @@ public class RVAdapterTime extends RecyclerView.Adapter<RVAdapterTime.ViewHolder
             content = view;
         }
 
+        public void setChecked(boolean value, View v) {
+            if (value) {
+                v.setBackground(v.getContext().getDrawable(R.drawable.bg_radius_green));
+                ((TextView)v).setTextColor(v.getContext().getResources().getColor(R.color.white));
+            } else {
+                v.setBackground(v.getContext().getDrawable(R.drawable.bg_radius_white));
+                ((TextView)v).setTextColor(v.getContext().getResources().getColor(R.color.textPrimaryColor));
+            }
+        }
     }
 }

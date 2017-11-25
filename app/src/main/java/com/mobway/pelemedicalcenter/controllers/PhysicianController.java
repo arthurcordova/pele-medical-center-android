@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.mobway.pelemedicalcenter.adapters.RVAdapterDoctor;
+import com.mobway.pelemedicalcenter.models.Filter;
 import com.mobway.pelemedicalcenter.models.Physician;
 import com.mobway.pelemedicalcenter.services.PhysicianService;
+import com.mobway.pelemedicalcenter.utils.FilterManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -22,7 +25,7 @@ public class PhysicianController extends Controller implements Callback<List<Phy
     private PhysicianService mApi = null;
     private RVAdapterDoctor mAdapterDoctor;
 
-    public PhysicianController delegateAdapter(RVAdapterDoctor adapterDoctor){
+    public PhysicianController delegateAdapter(RVAdapterDoctor adapterDoctor) {
         mAdapterDoctor = adapterDoctor;
         return this;
     }
@@ -32,7 +35,7 @@ public class PhysicianController extends Controller implements Callback<List<Phy
         mApi = retrofit.create(PhysicianService.class);
     }
 
-    public void getPhysicians(){
+    public void getPhysicians() {
         Call<List<Physician>> call = mApi.physicians();
         call.enqueue(this);
     }
@@ -43,7 +46,19 @@ public class PhysicianController extends Controller implements Callback<List<Phy
             Log.e("SUCCESS", response.body().toString());
             List<Physician> physicians = response.body();
 
-            if (mAdapterDoctor != null){
+            if (mAdapterDoctor != null) {
+                Filter filter = new FilterManager(activity).getFilters();
+                List<Physician> filterdList = new ArrayList<>();
+                for (Physician p : physicians) {
+                    if (filter.getPrivateSchedule()) {
+                        if (!p.getAcceptInsurance()) {
+
+                        }
+                    }
+
+                }
+
+
                 mAdapterDoctor.setFilter(physicians);
             }
 

@@ -104,7 +104,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="8dp"
                         android:gravity="center_vertical"
-                        android:text="Particular:"
+                        android:text="Plano de saúde:"
                         android:textColor="#555555"
                         android:textSize="14sp" />
 

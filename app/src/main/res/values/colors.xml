@@ -15,4 +15,5 @@
     <color name="darkGray">#3B484E</color>
 
     <color name="green">#23D881</color>
+    <color name="textPrimaryColor">#212121</color>
 </resources>
