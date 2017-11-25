@@ -51,15 +51,16 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private FirebaseAuth mAuth;
+    private BottomNavigationView mNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        BottomNavUtils.disableShiftMode(navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        mNavigation = findViewById(R.id.navigation);
+        BottomNavUtils.disableShiftMode(mNavigation);
+        mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -100,10 +101,15 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-//        new PhysicianController(this).getPhysicians();
-
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mNavigation.setSelectedItemId(R.id.navigation_schedule);
+    }
+
 
     protected Fragment replaceFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
