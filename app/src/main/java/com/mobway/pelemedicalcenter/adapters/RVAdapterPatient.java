@@ -26,6 +26,10 @@ public class RVAdapterPatient extends RecyclerView.Adapter<RVAdapterPatient.View
     private List<ViewHolder> mListHolders = new ArrayList<>();
     private Patient mSelectedPatient;
 
+    public Patient getSelectedPatient() {
+        return mSelectedPatient;
+    }
+
     public RVAdapterPatient(List<Patient> list) {
         mList = list;
     }
@@ -90,7 +94,7 @@ public class RVAdapterPatient extends RecyclerView.Adapter<RVAdapterPatient.View
 
         public void setChecked(boolean value, View v) {
             if (value) {
-                v.setBackgroundColor(v.getContext().getResources().getColor(R.color.lightGray));
+                v.setBackgroundColor(v.getContext().getResources().getColor(R.color.lighterGray));
 
             } else {
                 v.setBackgroundColor(v.getContext().getResources().getColor(R.color.white));

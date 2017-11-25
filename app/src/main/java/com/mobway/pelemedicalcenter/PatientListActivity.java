@@ -16,6 +16,7 @@ import com.mobway.pelemedicalcenter.adapters.RVAdapterPatient;
 import com.mobway.pelemedicalcenter.controllers.PatientController;
 import com.mobway.pelemedicalcenter.models.Patient;
 import com.mobway.pelemedicalcenter.models.Schedule;
+import com.mobway.pelemedicalcenter.utils.MobwayDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,8 @@ public class PatientListActivity extends AppCompatActivity {
     private Button mButtonNext;
 
     private Schedule mSchedule;
+    private String mErrorMsg;
+    private String mErroTitle = "Oops, encontramos um erro!";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +62,16 @@ public class PatientListActivity extends AppCompatActivity {
         mButtonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!validateStep()) {
+                    MobwayDialog.show(view.getContext(), mErrorMsg, mErroTitle);
+                    return;
+                }
+                mSchedule.setPatient(mRvAdapterPatient.getSelectedPatient());
                 Intent it = new Intent(getBaseContext(), PaymentActivity.class);
+                it.putExtra("schedule", mSchedule);
                 startActivity(it);
             }
         });
-
-
-
 
     }
 
@@ -84,5 +90,13 @@ public class PatientListActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public boolean validateStep() {
+        if (mRvAdapterPatient.getSelectedPatient() == null) {
+            mErrorMsg = "Antes de avançar, por favor selecione um paciente.";
+            return false;
+        }
+        return true;
     }
 }
