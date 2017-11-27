@@ -41,7 +41,7 @@ public class TimeController extends Controller implements Callback<List<Time>> {
     }
 
     public void getHours(String date, String codeRoom) {
-        startProgress();
+//        startProgress();
         String url = "/clickwebservice/servidor/pelews/agenda/horarios/1/"+date+"/"+codeRoom;
         Call<List<Time>> call = mApi.hours(url);
         call.enqueue(this);
@@ -61,7 +61,7 @@ public class TimeController extends Controller implements Callback<List<Time>> {
 
     @Override
     public void onResponse(Call<List<Time>> call, Response<List<Time>> response) {
-        endProgress();
+//        endProgress();
         if (response.isSuccessful()) {
             Log.e("SUCCESS", response.body().toString());
             List<Time> hours = response.body();
