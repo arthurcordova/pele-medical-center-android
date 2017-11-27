@@ -122,7 +122,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollIndicators="none"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <CalendarView
             android:id="@+id/calendar_view"
@@ -133,6 +133,35 @@
 
     </ScrollView>
 
+    <LinearLayout
+        android:id="@+id/line_warning"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginEnd="0dp"
+        android:visibility="gone"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="8dp"
+        android:background="#FF5B62">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical"
+                android:text="Este médico atende por ordem de chegada."
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/content_time"

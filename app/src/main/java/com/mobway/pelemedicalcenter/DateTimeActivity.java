@@ -34,6 +34,7 @@ public class DateTimeActivity extends AppCompatActivity {
     private View mContentTime;
     private TextView mLabelName;
     private TextView mLabelSpecialty;
+    private View mWarningLine;
 
     private Schedule mSchedule;
     private RVAdapterTime mAdapterTime;
@@ -60,6 +61,7 @@ public class DateTimeActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_view_time);
         mLabelName = findViewById(R.id.tv_name);
         mLabelSpecialty = findViewById(R.id.tv_specialty);
+        mWarningLine = findViewById(R.id.line_warning);
 
         mLabelName.setText(mSchedule.getPhysician().getName());
         mLabelSpecialty.setText(mSchedule.getPhysician().getSpecialty());
@@ -97,7 +99,12 @@ public class DateTimeActivity extends AppCompatActivity {
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                changeStatusView(mContentTime);
+                if (mSchedule.getPhysician().getOrdemChegada()) {
+                    mWarningLine.setVisibility(View.VISIBLE);
+                    mContentCalendar.setVisibility(View.GONE);
+                } else {
+                    changeStatusView(mContentTime);
+                }
                 String date = i2 + "/" + (i1 + 1) + "/" + i;
                 mButtonDate.setText(date);
             }
@@ -111,7 +118,9 @@ public class DateTimeActivity extends AppCompatActivity {
                     return;
                 }
                 mSchedule.setDate(mButtonDate.getText().toString());
-                mSchedule.setTime(mAdapterTime.getSelectedTime().getHour());
+
+                mSchedule.setTime(!mSchedule.getPhysician().getOrdemChegada() ? mAdapterTime.getSelectedTime().getHour(): "Ordem de chegada");
+
                 Intent it = new Intent(getBaseContext(), PatientListActivity.class);
                 it.putExtra("schedule", mSchedule);
                 startActivity(it);
@@ -122,11 +131,13 @@ public class DateTimeActivity extends AppCompatActivity {
 
     public void changeStatusView(View viewtoShow) {
         viewtoShow.setVisibility(View.VISIBLE);
+
         if (viewtoShow.getId() == R.id.content_calendar) {
             mContentTime.setVisibility(View.GONE);
         } else if (viewtoShow.getId() == R.id.content_time) {
             mContentCalendar.setVisibility(View.GONE);
         }
+
     }
 
     @Override
@@ -138,13 +149,17 @@ public class DateTimeActivity extends AppCompatActivity {
     }
 
     public boolean validateStep() {
-        if (mButtonDate.getText().equals("")){
+        if (mButtonDate.getText().equals("")) {
             mErrorMsg = "Antes de avançar, por favor selecione uma data.";
             return false;
         }
-        if (mAdapterTime.getSelectedTime() == null){
-            mErrorMsg = "Antes de avançar, por favor selecione um horário.";
-            return false;
+        if (mAdapterTime.getSelectedTime() == null) {
+            if (!mSchedule.getPhysician().getOrdemChegada()) {
+                mErrorMsg = "Antes de avançar, por favor selecione um horário.";
+                return false;
+            } else {
+                return true;
+            }
         }
         return true;
     }
