@@ -12,11 +12,11 @@ import com.mobway.pelemedicalcenter.models.Schedule;
  * Created by acstapassoli on 05/10/17.
  */
 
-@Database(entities = {Patient.class, Schedule.class}, version = 2)
+@Database(entities = {Patient.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract PatientDao patientDao();
 
-    public abstract ScheduleDao scheduleDao();
+//    public abstract ScheduleDao scheduleDao();
 
 }

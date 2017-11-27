@@ -1,5 +1,7 @@
 package com.mobway.pelemedicalcenter.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -8,7 +10,12 @@ import java.io.Serializable;
 
 public class Time implements Serializable {
 
+    @SerializedName("codSala")
+    private String codeRoom;
+    @SerializedName("horarioInicial")
     private String hour;
+    @SerializedName("intervaloMinutos")
+    private String interval;
     private boolean selected = false;
 
     public Time(String hour) {
@@ -16,7 +23,11 @@ public class Time implements Serializable {
     }
 
     public String getHour() {
-        return hour;
+        if (hour == null) {
+            return null;
+        }
+        String form = hour.substring(0,5);
+        return form;
     }
 
     public void setHour(String hour) {

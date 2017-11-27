@@ -29,7 +29,7 @@ public class ScheduleControllerTask extends AsyncTask<Schedule, String, List<Sch
 
     public ScheduleControllerTask(Context context) {
         mAppDatabase = AppDatabaseBuilder.getInstance(context);
-        mDao = mAppDatabase.scheduleDao();
+//        mDao = mAppDatabase.scheduleDao();
     }
 
     public ScheduleControllerTask delegateTask(int task) {

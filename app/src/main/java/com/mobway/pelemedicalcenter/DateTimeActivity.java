@@ -13,10 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobway.pelemedicalcenter.adapters.RVAdapterTime;
+import com.mobway.pelemedicalcenter.controllers.TimeController;
 import com.mobway.pelemedicalcenter.models.Schedule;
 import com.mobway.pelemedicalcenter.models.Time;
 import com.mobway.pelemedicalcenter.utils.MobwayDialog;
@@ -35,11 +37,13 @@ public class DateTimeActivity extends AppCompatActivity {
     private TextView mLabelName;
     private TextView mLabelSpecialty;
     private View mWarningLine;
+    private ProgressBar mProgressBar;
 
     private Schedule mSchedule;
     private RVAdapterTime mAdapterTime;
     private String mErrorMsg;
     private String mErroTitle = "Oops, encontramos um erro!";
+    private TimeController mControllerTime;
 
 
     @Override
@@ -62,6 +66,7 @@ public class DateTimeActivity extends AppCompatActivity {
         mLabelName = findViewById(R.id.tv_name);
         mLabelSpecialty = findViewById(R.id.tv_specialty);
         mWarningLine = findViewById(R.id.line_warning);
+        mProgressBar = findViewById(R.id.progressBarTime);
 
         mLabelName.setText(mSchedule.getPhysician().getName());
         mLabelSpecialty.setText(mSchedule.getPhysician().getSpecialty());
@@ -70,20 +75,20 @@ public class DateTimeActivity extends AppCompatActivity {
 
         //MOCK
         List<Time> times = new ArrayList<>();
-        times.add(new Time("10:15"));
-        times.add(new Time("10:15"));
-        times.add(new Time("10:15"));
-        times.add(new Time("10:15"));
-        times.add(new Time("10:15"));
-        times.add(new Time("10:15"));
-        times.add(new Time("10:15"));
-        times.add(new Time("10:15"));
-        times.add(new Time("10:15"));
-        times.add(new Time("10:15"));
-        times.add(new Time("10:15"));
-        times.add(new Time("10:15"));
-        times.add(new Time("10:15"));
-        times.add(new Time("10:15"));
+//        times.add(new Time("10:15"));
+//        times.add(new Time("10:15"));
+//        times.add(new Time("10:15"));
+//        times.add(new Time("10:15"));
+//        times.add(new Time("10:15"));
+//        times.add(new Time("10:15"));
+//        times.add(new Time("10:15"));
+//        times.add(new Time("10:15"));
+//        times.add(new Time("10:15"));
+//        times.add(new Time("10:15"));
+//        times.add(new Time("10:15"));
+//        times.add(new Time("10:15"));
+//        times.add(new Time("10:15"));
+//        times.add(new Time("10:15"));
 
 
         mAdapterTime = new RVAdapterTime(times);
@@ -99,14 +104,19 @@ public class DateTimeActivity extends AppCompatActivity {
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+                String date = i2 + "/" + (i1 + 1) + "/" + i;
+                mButtonDate.setText(date);
                 if (mSchedule.getPhysician().getOrdemChegada()) {
                     mWarningLine.setVisibility(View.VISIBLE);
                     mContentCalendar.setVisibility(View.GONE);
                 } else {
+                    mControllerTime = new TimeController(DateTimeActivity.this)
+                            .delegateAdapter(mAdapterTime)
+                            .delegateProgressBar(mProgressBar);
+                    mControllerTime.getHours(date.replaceAll("/","-"),mSchedule.getPhysician().getCodSala());
+
                     changeStatusView(mContentTime);
                 }
-                String date = i2 + "/" + (i1 + 1) + "/" + i;
-                mButtonDate.setText(date);
             }
         });
 
