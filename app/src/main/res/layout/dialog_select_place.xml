@@ -47,7 +47,7 @@
             android:layout_toEndOf="@+id/imageView"
             android:gravity="center_vertical|start"
             android:lines="1"
-            android:text="Fortaleza"
+            android:text="Parque Shopping Maceió"
             android:textSize="14sp"
             android:tint="#555555" />
 
@@ -80,7 +80,7 @@
             android:layout_toEndOf="@+id/imageView2"
             android:gravity="center_vertical|start"
             android:lines="1"
-            android:text="Maceió"
+            android:text="Maceió Shopping"
             android:textSize="14sp"
             android:tint="#555555" />
 

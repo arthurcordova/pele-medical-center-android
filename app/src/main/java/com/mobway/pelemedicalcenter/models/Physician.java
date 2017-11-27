@@ -28,6 +28,8 @@ public class Physician implements Serializable {
     @SerializedName("aceitaPlano")
     private Boolean acceptInsurance;
     private String nextFreeSchedule;
+    private Boolean ordemChegada;
+    private String codSala;
 
     private String avatar;
     private String crm;
@@ -110,5 +112,21 @@ public class Physician implements Serializable {
 
     public void setNextFreeSchedule(String nextFreeSchedule) {
         this.nextFreeSchedule = nextFreeSchedule;
+    }
+
+    public Boolean getOrdemChegada() {
+        return ordemChegada;
+    }
+
+    public void setOrdemChegada(Boolean ordemChegada) {
+        this.ordemChegada = ordemChegada;
+    }
+
+    public String getCodSala() {
+        return codSala;
+    }
+
+    public void setCodSala(String codSala) {
+        this.codSala = codSala;
     }
 }

@@ -44,7 +44,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_toEndOf="@+id/textView"
                         android:background="@android:color/transparent"
-                        android:text="Fortaleza"
+                        android:text="Parque Shopping Maceió"
                         android:textAlignment="textEnd"
                         android:textAllCaps="false"
                         android:textColor="#212121"
@@ -71,7 +71,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="8dp"
                         android:gravity="center_vertical"
-                        android:text="Emergência:"
+                        android:text="Expressa:"
                         android:textColor="#555555"
                         android:textSize="14sp" />
 

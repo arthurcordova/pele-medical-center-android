@@ -3,7 +3,7 @@ package com.mobway.pelemedicalcenter.controllers;
 import android.app.Activity;
 import android.util.Log;
 
-import com.mobway.pelemedicalcenter.adapters.RVAdapterDoctor;
+import com.mobway.pelemedicalcenter.adapters.RVAdapterPhysician;
 import com.mobway.pelemedicalcenter.models.Filter;
 import com.mobway.pelemedicalcenter.models.Physician;
 import com.mobway.pelemedicalcenter.models.Specialty;
@@ -24,9 +24,9 @@ import retrofit2.Response;
 public class PhysicianController extends Controller implements Callback<List<Physician>> {
 
     private PhysicianService mApi = null;
-    private RVAdapterDoctor mAdapterDoctor;
+    private RVAdapterPhysician mAdapterDoctor;
 
-    public PhysicianController delegateAdapter(RVAdapterDoctor adapterDoctor) {
+    public PhysicianController delegateAdapter(RVAdapterPhysician adapterDoctor) {
         mAdapterDoctor = adapterDoctor;
         return this;
     }

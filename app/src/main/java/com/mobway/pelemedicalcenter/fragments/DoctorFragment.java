@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mobway.pelemedicalcenter.R;
-import com.mobway.pelemedicalcenter.adapters.RVAdapterDoctor;
+import com.mobway.pelemedicalcenter.adapters.RVAdapterPhysician;
 import com.mobway.pelemedicalcenter.controllers.PhysicianController;
 import com.mobway.pelemedicalcenter.models.Physician;
 
@@ -55,7 +55,7 @@ public class DoctorFragment extends android.support.v4.app.Fragment {
 //        }
         // MOCK ONLY
 
-        RVAdapterDoctor adapterDoctor = new RVAdapterDoctor(physicians);
+        RVAdapterPhysician adapterDoctor = new RVAdapterPhysician(physicians);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_doctor);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

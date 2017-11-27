@@ -18,11 +18,11 @@ import java.util.List;
  * Created by arthur.stapassoli on 01/11/2017.
  */
 
-public class RVAdapterDoctor extends RecyclerView.Adapter<RVAdapterDoctor.ViewHolder> {
+public class RVAdapterPhysician extends RecyclerView.Adapter<RVAdapterPhysician.ViewHolder> {
 
     private List<Physician> mList;
 
-    public RVAdapterDoctor(List<Physician> list) {
+    public RVAdapterPhysician(List<Physician> list) {
         mList = list;
     }
 
@@ -40,7 +40,7 @@ public class RVAdapterDoctor extends RecyclerView.Adapter<RVAdapterDoctor.ViewHo
 
         holder.tvName.setText(model.getName());
         holder.tvSpecialty.setText(model.getSpecialty());
-        holder.tvNextdate.setText("Disponível em: \n"+model.getNextFreeSchedule());
+        holder.tvNextdate.setText(model.getNextFreeSchedule()!=null ? "Disponível em: \n"+model.getNextFreeSchedule():"");
         holder.onClick(model);
 
     }

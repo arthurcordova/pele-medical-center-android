@@ -114,14 +114,14 @@ public class FilterFragment extends Fragment {
                 v.findViewById(R.id.line_fortaleza).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        buttonPlace.setText("Fortaleza");
+                        buttonPlace.setText("Parque Shopping Maceió");
                         alert.dismiss();
                     }
                 });
                 v.findViewById(R.id.line_maceio).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        buttonPlace.setText("Maceió");
+                        buttonPlace.setText("Maceió Shopping");
                         alert.dismiss();
                     }
                 });
