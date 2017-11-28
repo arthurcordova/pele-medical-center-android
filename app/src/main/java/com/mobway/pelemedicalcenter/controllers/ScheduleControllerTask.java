@@ -49,7 +49,7 @@ public class ScheduleControllerTask extends AsyncTask<Schedule, String, List<Sch
                 return mDao.find();
             case TASK_SAVE:
                 try {
-                    mDao.insert(schedules);
+//                    mDao.insert(schedules);
                 } catch (SQLiteConstraintException e) {
                     Log.e(TAG, "Constraint exception");
                 }
