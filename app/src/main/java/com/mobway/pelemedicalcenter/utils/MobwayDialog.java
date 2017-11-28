@@ -9,8 +9,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.mobway.pelemedicalcenter.MainActivity;
+import com.mobway.pelemedicalcenter.PatientRecordActivity;
 import com.mobway.pelemedicalcenter.PaymentActivity;
 import com.mobway.pelemedicalcenter.R;
+import com.mobway.pelemedicalcenter.controllers.Controller;
+import com.mobway.pelemedicalcenter.controllers.PatientController;
+import com.mobway.pelemedicalcenter.controllers.ScheduleController;
 import com.mobway.pelemedicalcenter.models.Schedule;
 
 /**
@@ -36,7 +40,7 @@ public class MobwayDialog {
         alert.show();
     }
 
-    public static void dialogDetailSchedule(final Context context, Schedule schedule, boolean toHome) {
+    public static void dialogDetailSchedule(final Context context, final Schedule schedule, boolean toHome) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.dialog_schedule_details, null);
@@ -60,6 +64,9 @@ public class MobwayDialog {
             v.findViewById(R.id.button_confirm).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ScheduleController mController = new ScheduleController(context);
+                    mController.saveSchedule(schedule);
+
                     TAB_SCHEDULE = true;
                     Intent intent = new Intent(context, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // this will clear all the stack

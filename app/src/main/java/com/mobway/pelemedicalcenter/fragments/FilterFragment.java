@@ -64,7 +64,7 @@ public class FilterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_filter, container, false);
-        
+
         mFilterManager = new FilterManager(getContext());
         Filter filterSaved = mFilterManager.getFilters();
 
@@ -80,11 +80,13 @@ public class FilterFragment extends Fragment {
         mController.getSpecialties();
 
         final Switch switchEmergency = root.findViewById(R.id.switch_emergency);
-        final Switch switchPrivate = root.findViewById(R.id.switch_private);
+//        final Switch switchPrivate = root.findViewById(R.id.switch_private);
+        final Button buttonCity = root.findViewById(R.id.button_city);
         final Button buttonPlace = root.findViewById(R.id.button_place);
+        final Button buttonInsurance = root.findViewById(R.id.button_insurance);
 
         switchEmergency.setChecked(filterSaved.getEmergency());
-        switchPrivate.setChecked(filterSaved.getPrivateSchedule());
+//        switchPrivate.setChecked(filterSaved.getPrivateSchedule());
         buttonPlace.setText(filterSaved.getPlace());
 
         root.findViewById(R.id.button_apply_filter).setOnClickListener(new View.OnClickListener() {
@@ -96,12 +98,37 @@ public class FilterFragment extends Fragment {
                 Filter filter = new Filter();
                 filter.setPlace(buttonPlace.getText().toString());
                 filter.setEmergency(switchEmergency.isChecked());
-                filter.setPrivateSchedule(switchPrivate.isChecked());
+//                filter.setPrivateSchedule(switchPrivate.isChecked());
                 filter.setSpecialties(specialties);
                 mFilterManager.save(filter);
 
                 Intent it = new Intent(getContext(), MainActivity.class);
                 startActivity(it);
+            }
+        });
+        buttonCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                View v = getLayoutInflater().inflate(R.layout.dialog_select_city, null);
+                builder.setView(v);
+                final AlertDialog alert = builder.create();
+                v.findViewById(R.id.line_fortaleza).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        buttonCity.setText("Fortaleza");
+                        alert.dismiss();
+                    }
+                });
+                v.findViewById(R.id.line_maceio).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        buttonCity.setText("Maceió");
+                        alert.dismiss();
+                    }
+                });
+
+                alert.show();
             }
         });
         buttonPlace.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +149,31 @@ public class FilterFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         buttonPlace.setText("Maceió Shopping");
+                        alert.dismiss();
+                    }
+                });
+
+                alert.show();
+            }
+        });
+        buttonInsurance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                View v = getLayoutInflater().inflate(R.layout.dialog_select_insurance, null);
+                builder.setView(v);
+                final AlertDialog alert = builder.create();
+                v.findViewById(R.id.line_fortaleza).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        buttonInsurance.setText("BRADESCO SAÚDE");
+                        alert.dismiss();
+                    }
+                });
+                v.findViewById(R.id.line_maceio).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        buttonInsurance.setText("UNIMED");
                         alert.dismiss();
                     }
                 });

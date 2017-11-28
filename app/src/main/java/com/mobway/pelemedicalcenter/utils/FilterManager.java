@@ -31,7 +31,7 @@ public final class FilterManager {
     public void save(Filter filter) {
         editor.putString(KEY_PLACE, filter.getPlace());
         editor.putBoolean(KEY_EMERGENCY, filter.getEmergency());
-        editor.putBoolean(KEY_PRIVATE, filter.getPrivateSchedule());
+//        editor.putBoolean(KEY_PRIVATE, filter.getPrivateSchedule());
         editor.putString(KEY_SPECIALTIES, filter.convertSpecialtiesToSave(filter.getSpecialties()));
         editor.commit();
     }
@@ -45,7 +45,7 @@ public final class FilterManager {
         Filter filter = new Filter();
         filter.setPlace(preferences.getString(KEY_PLACE,""));
         filter.setEmergency(preferences.getBoolean(KEY_EMERGENCY, false));
-        filter.setPrivateSchedule(preferences.getBoolean(KEY_PRIVATE, false));
+//        filter.setPrivateSchedule(preferences.getBoolean(KEY_PRIVATE, false));
         filter.setSpecialties(filter.convertSpecialtiesToList(preferences.getString(KEY_SPECIALTIES, "")));
 
         return filter;

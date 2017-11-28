@@ -14,4 +14,6 @@
     <string name="title_activity_patient_list">PatientListActivity</string>
     <string name="title_activity_patient_record">PatientRecordActivity</string>
     <string name="title_activity_payment">PaymentActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_splash">SplashActivity</string>
 </resources>

@@ -19,7 +19,7 @@
                 android:layout_height="42dp"
                 android:layout_marginEnd="0dp"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="12dp"
                 android:background="#ffffff">
 
                 <RelativeLayout
@@ -27,24 +27,24 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/textView34"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="8dp"
                         android:gravity="center_vertical"
-                        android:text="Selecione a clínica:"
+                        android:text="Cidade:"
                         android:textColor="#555555"
                         android:textSize="14sp" />
 
                     <Button
-                        android:id="@+id/button_place"
+                        android:id="@+id/button_city"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignParentTop="true"
                         android:layout_marginEnd="16dp"
-                        android:layout_toEndOf="@+id/textView"
+                        android:layout_toEndOf="@+id/textView34"
                         android:background="@android:color/transparent"
-                        android:text="Parque Shopping Maceió"
+                        android:text="Maceió"
                         android:textAlignment="textEnd"
                         android:textAllCaps="false"
                         android:textColor="#212121"
@@ -59,7 +59,85 @@
                 android:layout_height="42dp"
                 android:layout_marginEnd="0dp"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="1dp"
+                android:background="#ffffff">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:gravity="center_vertical"
+                        android:text="Clínica:"
+                        android:textColor="#555555"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/button_place"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_toEndOf="@+id/textView"
+                        android:background="@android:color/transparent"
+                        android:textAlignment="textEnd"
+                        android:textAllCaps="false"
+                        android:textColor="#212121"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="1dp"
+                android:background="#ffffff">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:id="@+id/text123"
+                        android:gravity="center_vertical"
+                        android:text="Convênio:"
+                        android:textColor="#555555"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/button_insurance"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_toEndOf="@+id/text123"
+                        android:background="@android:color/transparent"
+                        android:textAlignment="textEnd"
+                        android:textAllCaps="false"
+                        android:textColor="#212121"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="1dp"
                 android:background="#ffffff">
 
                 <RelativeLayout
@@ -87,45 +165,13 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="1dp"
-                android:background="#ffffff">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="8dp"
-                        android:gravity="center_vertical"
-                        android:text="Plano de saúde:"
-                        android:textColor="#555555"
-                        android:textSize="14sp" />
-
-                    <Switch
-                        android:id="@+id/switch_private"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="8dp"
-                        android:theme="@style/SwitchTheme" />
-
-                </RelativeLayout>
-
-            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif-light"
                 android:text="Especialidades"
                 android:textColor="#555555"
