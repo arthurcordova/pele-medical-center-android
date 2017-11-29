@@ -92,6 +92,44 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical"
+                android:text="Selecione o tipo da consulta:"
+                android:textColor="#555555"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/button_consult_type"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="8dp"
+                android:layout_toEndOf="@+id/textView8"
+                android:background="@android:color/transparent"
+                android:textAlignment="textEnd"
+                android:textColor="#212121"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="1dp"
+        android:background="#ffffff">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -137,9 +175,9 @@
         android:id="@+id/line_warning"
         android:layout_width="match_parent"
         android:layout_height="42dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="80dp"
         android:background="#FF5B62"
         android:visibility="gone">
 
@@ -197,7 +235,6 @@
         android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp" />
-
 
 </LinearLayout>
 

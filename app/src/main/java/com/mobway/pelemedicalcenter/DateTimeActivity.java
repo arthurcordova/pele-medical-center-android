@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -17,8 +19,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mobway.pelemedicalcenter.adapters.RVAdapterConsult;
+import com.mobway.pelemedicalcenter.adapters.RVAdapterInsurance;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterTime;
+import com.mobway.pelemedicalcenter.controllers.ConsultController;
+import com.mobway.pelemedicalcenter.controllers.InsuranceController;
 import com.mobway.pelemedicalcenter.controllers.TimeController;
+import com.mobway.pelemedicalcenter.models.Consult;
+import com.mobway.pelemedicalcenter.models.Insurance;
 import com.mobway.pelemedicalcenter.models.Schedule;
 import com.mobway.pelemedicalcenter.models.Time;
 import com.mobway.pelemedicalcenter.utils.MobwayDialog;
@@ -30,6 +38,7 @@ public class DateTimeActivity extends AppCompatActivity {
 
     private Button mButtonDate;
     private Button mButtonNext;
+    private Button mButtonConsultType;
     private CalendarView mCalendarView;
     private RecyclerView mRecyclerView;
     private View mContentCalendar;
@@ -45,7 +54,6 @@ public class DateTimeActivity extends AppCompatActivity {
     private String mErroTitle = "Oops, encontramos um erro!";
     private TimeController mControllerTime;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +66,7 @@ public class DateTimeActivity extends AppCompatActivity {
         mSchedule = (Schedule) getIntent().getSerializableExtra("schedule");
 
         mButtonDate = findViewById(R.id.button_date);
+        mButtonConsultType = findViewById(R.id.button_consult_type);
         mButtonNext = findViewById(R.id.button_next);
         mCalendarView = findViewById(R.id.calendar_view);
         mContentCalendar = findViewById(R.id.content_calendar);
@@ -73,26 +82,34 @@ public class DateTimeActivity extends AppCompatActivity {
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
 
-        //MOCK
         List<Time> times = new ArrayList<>();
-//        times.add(new Time("10:15"));
-//        times.add(new Time("10:15"));
-//        times.add(new Time("10:15"));
-//        times.add(new Time("10:15"));
-//        times.add(new Time("10:15"));
-//        times.add(new Time("10:15"));
-//        times.add(new Time("10:15"));
-//        times.add(new Time("10:15"));
-//        times.add(new Time("10:15"));
-//        times.add(new Time("10:15"));
-//        times.add(new Time("10:15"));
-//        times.add(new Time("10:15"));
-//        times.add(new Time("10:15"));
-//        times.add(new Time("10:15"));
-
-
         mAdapterTime = new RVAdapterTime(times);
         mRecyclerView.setAdapter(mAdapterTime);
+
+        mButtonConsultType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(DateTimeActivity.this);
+                View v = getLayoutInflater().inflate(R.layout.dialog_select_consult_type, null);
+                builder.setView(v);
+                final AlertDialog alert = builder.create();
+
+                RVAdapterConsult adapterConsult = new RVAdapterConsult(new ArrayList<Consult>());
+                adapterConsult.delegateDialog(alert);
+                adapterConsult.delegateButton(mButtonConsultType);
+
+                RecyclerView recyclerViewInsurance = v.findViewById(R.id.recycler_view_consult_type);
+                recyclerViewInsurance.setLayoutManager(new LinearLayoutManager(DateTimeActivity.this));
+                recyclerViewInsurance.setAdapter(adapterConsult);
+
+                mSchedule.setType(adapterConsult.getSelectedConsult());
+
+                ConsultController consultController = new ConsultController(DateTimeActivity.this).delegateAdapter(adapterConsult);
+                consultController.getTypes();
+
+                alert.show();
+            }
+        });
 
         mButtonDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,8 +145,9 @@ public class DateTimeActivity extends AppCompatActivity {
                     return;
                 }
                 mSchedule.setDate(mButtonDate.getText().toString());
-
                 mSchedule.setTime(!mSchedule.getPhysician().getOrdemChegada() ? mAdapterTime.getSelectedTime().getHour(): "Ordem de chegada");
+                mSchedule.setTimeInfo(!mSchedule.getPhysician().getOrdemChegada() ? mAdapterTime.getSelectedTime(): null);
+                mSchedule.setUuid(!mSchedule.getPhysician().getOrdemChegada() ? mAdapterTime.getSelectedTime().getId(): null);
 
                 Intent it = new Intent(getBaseContext(), PatientListActivity.class);
                 it.putExtra("schedule", mSchedule);
@@ -147,7 +165,6 @@ public class DateTimeActivity extends AppCompatActivity {
         } else if (viewtoShow.getId() == R.id.content_time) {
             mContentCalendar.setVisibility(View.GONE);
         }
-
     }
 
     @Override
@@ -159,6 +176,11 @@ public class DateTimeActivity extends AppCompatActivity {
     }
 
     public boolean validateStep() {
+        if (mButtonConsultType.getText().equals("")) {
+            mErrorMsg = "Antes de avançar, por favor selecione tipo da consulta.";
+            return false;
+        }
+
         if (mButtonDate.getText().equals("")) {
             mErrorMsg = "Antes de avançar, por favor selecione uma data.";
             return false;

@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 public class Time implements Serializable {
 
+    private String id;
     @SerializedName("codSala")
     private String codeRoom;
     @SerializedName("horarioInicial")
@@ -22,6 +23,14 @@ public class Time implements Serializable {
         this.hour = hour;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getHour() {
         if (hour == null) {
             return null;
@@ -32,6 +41,22 @@ public class Time implements Serializable {
 
     public void setHour(String hour) {
         this.hour = hour;
+    }
+
+    public String getCodeRoom() {
+        return codeRoom;
+    }
+
+    public void setCodeRoom(String codeRoom) {
+        this.codeRoom = codeRoom;
+    }
+
+    public String getInterval() {
+        return interval;
+    }
+
+    public void setInterval(String interval) {
+        this.interval = interval;
     }
 
     public boolean isSelected() {

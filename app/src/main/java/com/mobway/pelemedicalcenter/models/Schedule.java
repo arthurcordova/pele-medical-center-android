@@ -8,13 +8,14 @@ import java.io.Serializable;
 /**
  * Created by acstapassoli on 23/11/17.
  */
-@Entity
+
 public class Schedule implements Serializable {
 
-    @PrimaryKey
     private String uuid;
     private Patient patient;
     private Physician physician;
+    private Time timeInfo;
+    private Consult type;
     private String date;
     private String time;
     private String status;
@@ -74,5 +75,21 @@ public class Schedule implements Serializable {
 
     public void setPayment(String payment) {
         this.payment = payment;
+    }
+
+    public Time getTimeInfo() {
+        return timeInfo;
+    }
+
+    public void setTimeInfo(Time timeInfo) {
+        this.timeInfo = timeInfo;
+    }
+
+    public Consult getType() {
+        return type;
+    }
+
+    public void setType(Consult type) {
+        this.type = type;
     }
 }
