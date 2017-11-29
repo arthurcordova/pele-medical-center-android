@@ -13,8 +13,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_height="110dp">
+        android:layout_height="110dp"
+        android:background="@color/colorPrimary">
 
         <ImageView
             android:id="@+id/img_logo"
@@ -26,13 +26,12 @@
 
     </android.support.constraint.ConstraintLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="54dp"
         android:layout_marginStart="54dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/bg_radius_blur"
         android:orientation="vertical"
         android:paddingBottom="36dp"
@@ -40,22 +39,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:gravity="center"
-            android:text="Login"
-            android:textAllCaps="true"
-            android:textColor="#ffffff"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="Login"
+                android:textAllCaps="true"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/button_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="6dp"
+                android:alpha="0.70"
+                android:padding="8dp"
+                android:src="@drawable/ic_close"
+                android:tint="@color/white" />
+
+
+        </RelativeLayout>
+
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             android:layout_marginTop="6dp"
+            android:layout_weight="1"
             android:alpha="0.12"
             android:background="#ffffff" />
 
@@ -84,7 +103,7 @@
                 android:hint="E-mail"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -113,25 +132,26 @@
                 android:hint="Senha"
                 android:inputType="textPassword"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
         </android.support.design.widget.TextInputLayout>
 
         <TextView
+            android:id="@+id/button_forgot_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:layout_gravity="end"
             android:layout_marginEnd="12dp"
             android:layout_marginTop="6dp"
             android:fontFamily="sans-serif"
             android:gravity="end"
-            android:layout_gravity="end"
+            android:padding="8dp"
             android:text="Esqueceu sua senha?"
             android:textColor="#ffffff"
             android:textSize="10sp" />
 
         <Button
-            android:id="@+id/button_signin"
+            android:id="@+id/button_sign_in"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_gravity="bottom"
@@ -164,9 +184,9 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:alpha="0.32"
                 android:gravity="center"
                 android:text="OU"
-                android:alpha="0.32"
                 android:textColor="@color/white"
                 android:textSize="10sp" />
 
@@ -181,7 +201,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button_signup"
+            android:id="@+id/button_sign_up"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_gravity="bottom"

@@ -27,7 +27,7 @@
     </style>
 
     <style name="TextHintLabel" parent="TextAppearance.Design.Hint">
-        <item name="android:textSize">6sp</item>
+        <item name="android:textSize">8sp</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
