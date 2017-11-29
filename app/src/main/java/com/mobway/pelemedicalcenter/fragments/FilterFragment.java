@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +18,13 @@ import android.widget.Switch;
 import com.mobway.pelemedicalcenter.MainActivity;
 import com.mobway.pelemedicalcenter.PaymentActivity;
 import com.mobway.pelemedicalcenter.R;
+import com.mobway.pelemedicalcenter.adapters.RVAdapterInsurance;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterSpecialty;
+import com.mobway.pelemedicalcenter.controllers.Controller;
+import com.mobway.pelemedicalcenter.controllers.InsuranceController;
 import com.mobway.pelemedicalcenter.controllers.SpecialtyController;
 import com.mobway.pelemedicalcenter.models.Filter;
+import com.mobway.pelemedicalcenter.models.Insurance;
 import com.mobway.pelemedicalcenter.models.Specialty;
 import com.mobway.pelemedicalcenter.utils.FilterManager;
 
@@ -163,20 +168,17 @@ public class FilterFragment extends Fragment {
                 View v = getLayoutInflater().inflate(R.layout.dialog_select_insurance, null);
                 builder.setView(v);
                 final AlertDialog alert = builder.create();
-                v.findViewById(R.id.line_fortaleza).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        buttonInsurance.setText("BRADESCO SAÚDE");
-                        alert.dismiss();
-                    }
-                });
-                v.findViewById(R.id.line_maceio).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        buttonInsurance.setText("UNIMED");
-                        alert.dismiss();
-                    }
-                });
+
+                RVAdapterInsurance adapterInsurance = new RVAdapterInsurance(new ArrayList<Insurance>());
+                adapterInsurance.delegateDialog(alert);
+                adapterInsurance.delegateButton(buttonInsurance);
+
+                RecyclerView recyclerViewInsurance = v.findViewById(R.id.recycler_view_insurance);
+                recyclerViewInsurance.setLayoutManager(new LinearLayoutManager(getContext()));
+                recyclerViewInsurance.setAdapter(adapterInsurance);
+
+                InsuranceController insuranceController = new InsuranceController(getActivity()).delegateAdapter(adapterInsurance);
+                insuranceController.getInsurances();
 
                 alert.show();
             }

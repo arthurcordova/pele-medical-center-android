@@ -20,71 +20,9 @@
         android:textColor="#000000"
         android:textSize="14sp" />
 
-    <RelativeLayout
-        android:id="@+id/line_fortaleza"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_insurance"
         android:layout_width="match_parent"
-        android:layout_height="41dp"
-        android:layout_marginTop="16dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:visibility="visible">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="12dp"
-            android:gravity="center_vertical|start"
-            android:src="@drawable/ic_credit_card"
-            android:textSize="12sp"
-            android:tint="#555555" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="8dp"
-            android:layout_toEndOf="@+id/imageView"
-            android:gravity="center_vertical|start"
-            android:lines="1"
-            android:text="BRADESCO SAÚDE"
-            android:textSize="14sp"
-            android:tint="#555555" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/line_maceio"
-        android:layout_width="match_parent"
-        android:layout_height="41dp"
-        android:layout_marginTop="16dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true">
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="12dp"
-            android:gravity="center_vertical|start"
-            android:src="@drawable/ic_credit_card"
-            android:textSize="12sp"
-            android:tint="#555555" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="8dp"
-            android:layout_toEndOf="@+id/imageView2"
-            android:gravity="center_vertical|start"
-            android:lines="1"
-            android:text="UNIMED"
-            android:textSize="14sp"
-            android:tint="#555555" />
-
-    </RelativeLayout>
+        android:layout_height="match_parent" />
 
 </LinearLayout>
