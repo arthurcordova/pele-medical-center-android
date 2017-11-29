@@ -115,10 +115,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 title = "Esqueceu sua senha?";
                 break;
             case VIEW_CLOSE:
-                title = "Login";
+
                 break;
         }
         return title;
+    }
+
+    public void hide(View v) {
+        v.setVisibility(View.GONE);
+    }
+
+    public void show(View v) {
+        v.setVisibility(View.VISIBLE);
     }
 
 }
