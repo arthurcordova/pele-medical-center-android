@@ -10,6 +10,8 @@ import java.util.List;
 
 public class Filter implements Serializable {
 
+    private String clinic;
+    private String insurance;
     private String place;
     private Boolean emergency;
     private Boolean privateSchedule;
@@ -23,6 +25,22 @@ public class Filter implements Serializable {
         this.emergency = emergency;
         this.privateSchedule = privateSchedule;
         this.specialties = specialties;
+    }
+
+    public String getClinic() {
+        return clinic;
+    }
+
+    public void setClinic(String clinic) {
+        this.clinic = clinic;
+    }
+
+    public String getInsurance() {
+        return insurance;
+    }
+
+    public void setInsurance(String insurance) {
+        this.insurance = insurance;
     }
 
     public String getPlace() {

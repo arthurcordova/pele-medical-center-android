@@ -18,7 +18,9 @@ public final class FilterManager {
     private final String PREF_NAME = "filters_manager";
 
     private final String KEY_PLACE = "place";
+    private final String KEY_CLINIC = "clinic";
     private final String KEY_EMERGENCY = "emergency";
+    private final String KEY_INSURANCE = "insurance";
     private final String KEY_PRIVATE = "private";
     private final String KEY_SPECIALTIES = "specialties";
 
@@ -31,6 +33,8 @@ public final class FilterManager {
     public void save(Filter filter) {
         editor.putString(KEY_PLACE, filter.getPlace());
         editor.putBoolean(KEY_EMERGENCY, filter.getEmergency());
+        editor.putString(KEY_CLINIC, filter.getClinic());
+        editor.putString(KEY_INSURANCE, filter.getInsurance());
 //        editor.putBoolean(KEY_PRIVATE, filter.getPrivateSchedule());
         editor.putString(KEY_SPECIALTIES, filter.convertSpecialtiesToSave(filter.getSpecialties()));
         editor.commit();
@@ -44,6 +48,8 @@ public final class FilterManager {
     public Filter getFilters() {
         Filter filter = new Filter();
         filter.setPlace(preferences.getString(KEY_PLACE,""));
+        filter.setClinic(preferences.getString(KEY_CLINIC,""));
+        filter.setInsurance(preferences.getString(KEY_INSURANCE,""));
         filter.setEmergency(preferences.getBoolean(KEY_EMERGENCY, false));
 //        filter.setPrivateSchedule(preferences.getBoolean(KEY_PRIVATE, false));
         filter.setSpecialties(filter.convertSpecialtiesToList(preferences.getString(KEY_SPECIALTIES, "")));

@@ -91,8 +91,9 @@ public class FilterFragment extends Fragment {
         final Button buttonInsurance = root.findViewById(R.id.button_insurance);
 
         switchEmergency.setChecked(filterSaved.getEmergency());
-//        switchPrivate.setChecked(filterSaved.getPrivateSchedule());
-        buttonPlace.setText(filterSaved.getPlace());
+        buttonCity.setText(filterSaved.getPlace());
+        buttonPlace.setText(filterSaved.getClinic());
+        buttonInsurance.setText(filterSaved.getInsurance());
 
         root.findViewById(R.id.button_apply_filter).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,8 +102,10 @@ public class FilterFragment extends Fragment {
                 List<Specialty> specialties = adapter.getSelectedSpecialties();
 
                 Filter filter = new Filter();
-                filter.setPlace(buttonPlace.getText().toString());
+                filter.setPlace(buttonCity.getText().toString());
                 filter.setEmergency(switchEmergency.isChecked());
+                filter.setInsurance(buttonInsurance.getText().toString());
+                filter.setClinic(buttonPlace.getText().toString());
 //                filter.setPrivateSchedule(switchPrivate.isChecked());
                 filter.setSpecialties(specialties);
                 mFilterManager.save(filter);
