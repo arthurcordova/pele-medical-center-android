@@ -89,7 +89,7 @@ public class PaymentActivity extends AppCompatActivity {
                 final AlertDialog alert = builder.create();
                 alert.show();
 
-                v.findViewById(R.id.button_confirm).setOnClickListener(new View.OnClickListener() {
+                button.findViewById(R.id.button_confirm).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         alert.dismiss();
@@ -102,12 +102,8 @@ public class PaymentActivity extends AppCompatActivity {
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // this will clear all the stack
                         startActivity(intent);
 
-
-                        //finishAffinity();
                     }
                 });
-
-
 
             }
         });

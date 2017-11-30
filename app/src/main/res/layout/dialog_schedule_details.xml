@@ -64,7 +64,7 @@
                     android:layout_marginEnd="12dp"
                     android:gravity="center_vertical|end"
                     android:lines="1"
-                     
+
                     android:textColor="#212121"
                     android:textSize="12sp" />
 
@@ -91,7 +91,7 @@
                     android:layout_marginEnd="12dp"
                     android:gravity="center_vertical|end"
                     android:lines="1"
-                     
+
                     android:textColor="#212121"
                     android:textSize="12sp" />
 
@@ -118,7 +118,7 @@
                     android:layout_marginEnd="12dp"
                     android:gravity="center_vertical|end"
                     android:lines="1"
-                     
+
                     android:textColor="#212121"
                     android:textSize="12sp" />
 
@@ -145,7 +145,7 @@
                     android:layout_marginEnd="12dp"
                     android:gravity="center_vertical|end"
                     android:lines="1"
-                     
+
                     android:textColor="#212121"
                     android:textSize="12sp" />
 
@@ -157,16 +157,42 @@
     </android.support.v4.widget.NestedScrollView>
 
 
-    <Button
-        android:id="@+id/button_confirm"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_gravity="bottom"
         android:layout_marginTop="16dp"
-        android:background="#23D881"
-        android:text="Confirmar agendamento"
-        android:textAllCaps="false"
-        android:textColor="#ffffff"
-        android:textSize="12sp" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:background="#FF5B62"
+            android:text="Cancelar"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/button_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:background="#23D881"
+            android:text="Confirmar"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
 
 </LinearLayout>
