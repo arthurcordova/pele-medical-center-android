@@ -27,6 +27,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private View mButtonSignUp;
     private View mButtonForgot;
 
+    private View mViewSignIn;
+    private View mViewSignUp;
+    private View mViewForgot;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mButtonSignIn = findViewById(R.id.button_sign_in);
         mButtonSignUp = findViewById(R.id.button_sign_up);
         mButtonForgot = findViewById(R.id.button_forgot_password);
+
+        mViewSignIn = findViewById(R.id.content_sign_in);
+        mViewSignUp = findViewById(R.id.content_sign_up);
+        mViewForgot = findViewById(R.id.content_forgot);
 
         mButtonClose.setOnClickListener(this);
         mButtonSignIn.setOnClickListener(this);
@@ -73,14 +81,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void doSignUp() {
         mMainTitle.setText(changeTitle(VIEW_SIGN_UP));
+        hide(mViewSignIn);
+        show(mViewSignUp);
     }
 
     private void doForgotPassword() {
         mMainTitle.setText(changeTitle(VIEW_FORGOT_PWD));
+        hide(mViewSignIn);
+        show(mViewForgot);
     }
 
     private void doClose() {
         mMainTitle.setText(changeTitle(VIEW_CLOSE));
+        hide(mViewSignUp);
+        hide(mViewForgot);
+        show(mViewSignIn);
     }
 
     public String changeTitle(int viewType) {
@@ -93,7 +108,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 title = "Cadastre-se";
                 break;
             case VIEW_FORGOT_PWD:
-                title = "Esqueceu sua senha?";
+                title = "Recuperção de senha";
                 break;
             case VIEW_CLOSE:
                 title = "Login";

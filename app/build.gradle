@@ -11,7 +11,7 @@ android {
         applicationId "com.mobway.pelemedicalcenter"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 7
+        versionCode 8
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -52,15 +52,6 @@ dependencies {
 //    androidTestImplementation 'com.android.support.test:runner:1.0.1'
 //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
-
-
-
-
-
-
-
-
-
 
 
 apply plugin: 'com.google.gms.google-services'
