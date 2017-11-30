@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void doSignIn() {
-        changeTitle(VIEW_SIGN_IN);
+        mMainTitle.setText(changeTitle(VIEW_SIGN_IN));
         Intent it = new Intent(LoginActivity.this, StartActivity.class);
         startActivity(it);
         finish();
@@ -81,18 +81,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void doSignUp() {
         mMainTitle.setText(changeTitle(VIEW_SIGN_UP));
+        mButtonClose.setVisibility(View.VISIBLE);
         hide(mViewSignIn);
         show(mViewSignUp);
     }
 
     private void doForgotPassword() {
         mMainTitle.setText(changeTitle(VIEW_FORGOT_PWD));
+        mButtonClose.setVisibility(View.VISIBLE);
         hide(mViewSignIn);
         show(mViewForgot);
     }
 
     private void doClose() {
         mMainTitle.setText(changeTitle(VIEW_CLOSE));
+        mButtonClose.setVisibility(View.GONE);
         hide(mViewSignUp);
         hide(mViewForgot);
         show(mViewSignIn);
@@ -108,7 +111,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 title = "Cadastre-se";
                 break;
             case VIEW_FORGOT_PWD:
-                title = "Recuperção de senha";
+                title = "Recuperação de senha";
                 break;
             case VIEW_CLOSE:
                 title = "Login";
