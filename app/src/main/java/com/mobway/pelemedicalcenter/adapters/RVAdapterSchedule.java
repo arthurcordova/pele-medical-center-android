@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mobway.pelemedicalcenter.R;
-import com.mobway.pelemedicalcenter.models.Physician;
 import com.mobway.pelemedicalcenter.models.Schedule;
 import com.mobway.pelemedicalcenter.utils.MobwayDialog;
 
@@ -37,6 +36,12 @@ public class RVAdapterSchedule extends RecyclerView.Adapter<RVAdapterSchedule.Vi
     public void onBindViewHolder(final ViewHolder holder, int index) {
         final Schedule model = mList.get(index);
 
+        holder.tvDay.setText(model.getDay());
+        holder.tvMonth.setText(model.getMonthName());
+        holder.tvWeek.setText(model.getWeekName());
+        holder.tvTitle.setText(model.getDescProcedimento());
+        holder.tvTime.setText(model.getTime());
+
         holder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,13 +66,21 @@ public class RVAdapterSchedule extends RecyclerView.Adapter<RVAdapterSchedule.Vi
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvName;
+        TextView tvDay;
+        TextView tvMonth;
+        TextView tvWeek;
+        TextView tvTitle;
+        TextView tvTime;
         View content;
 
         ViewHolder(View view) {
             super(view);
             content = view;
-//            tvName = view.findViewById(R.id.tv_name);
+            tvDay = view.findViewById(R.id.tv_day_number);
+            tvMonth = view.findViewById(R.id.tv_month_name);
+            tvWeek = view.findViewById(R.id.tv_week_name);
+            tvTitle = view.findViewById(R.id.tv_title);
+            tvTime = view.findViewById(R.id.tv_time);
         }
     }
 }

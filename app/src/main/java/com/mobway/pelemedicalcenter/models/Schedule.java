@@ -2,10 +2,14 @@ package com.mobway.pelemedicalcenter.models;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by acstapassoli on 23/11/17.
@@ -19,7 +23,7 @@ public class Schedule implements Serializable {
     private Physician physician;
     private Time timeInfo;
     private Consult type;
-    @SerializedName("date")
+    @SerializedName("data")
     private String date;
     @SerializedName("horario")
     private String time;
@@ -62,6 +66,9 @@ public class Schedule implements Serializable {
     }
 
     public String getTime() {
+        if (time != null) {
+            return time.substring(0,5);
+        }
         return time;
     }
 
@@ -99,5 +106,62 @@ public class Schedule implements Serializable {
 
     public void setType(Consult type) {
         this.type = type;
+    }
+
+    public String getCodProcedimento() {
+        return codProcedimento;
+    }
+
+    public void setCodProcedimento(String codProcedimento) {
+        this.codProcedimento = codProcedimento;
+    }
+
+    public String getDescProcedimento() {
+        return descProcedimento;
+    }
+
+    public void setDescProcedimento(String descProcedimento) {
+        this.descProcedimento = descProcedimento;
+    }
+
+    public String getDay(){
+        return convertStringToDate(0);
+    }
+
+    public String getMonthName() {
+        return convertStringToDate(1);
+    }
+
+    public String getWeekName() {
+        return convertStringToDate(2);
+    }
+
+    private String convertStringToDate(int fieldToReturn) {
+        if (date != null) {
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+            try {
+                Date dt = format.parse(date);
+
+                switch (fieldToReturn) {
+                    case 0 :
+                        SimpleDateFormat formatDay = new SimpleDateFormat("dd");
+                        return formatDay.format(dt);
+
+                    case 1 :
+                        SimpleDateFormat formatMonth = new SimpleDateFormat("MMM");
+                        return formatMonth.format(dt);
+
+                    case 2 :
+                        SimpleDateFormat formatWeek = new SimpleDateFormat("EEE");
+                        return formatWeek.format(dt);
+                }
+
+
+            } catch (ParseException e) {
+                return null;
+            }
+        }
+        return null;
     }
 }

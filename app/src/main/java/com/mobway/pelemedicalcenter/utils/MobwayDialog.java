@@ -1,6 +1,7 @@
 package com.mobway.pelemedicalcenter.utils;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.controllers.Controller;
 import com.mobway.pelemedicalcenter.controllers.PatientController;
 import com.mobway.pelemedicalcenter.controllers.ScheduleController;
+import com.mobway.pelemedicalcenter.models.Physician;
 import com.mobway.pelemedicalcenter.models.Schedule;
 
 /**
@@ -53,29 +55,42 @@ public class MobwayDialog {
         TextView payment = v.findViewById(R.id.label_payment);
         Button button = v.findViewById(R.id.button_confirm);
 
-        physicianName.setText(schedule.getPhysician().getName());
-        specialty.setText(schedule.getPhysician().getSpecialty());
+        if (schedule.getPhysician() != null) {
+            physicianName.setText(schedule.getPhysician().getName());
+            specialty.setText(schedule.getPhysician().getSpecialty());
+        }
+        if (schedule.getPatient() != null) {
+            patient.setText(schedule.getPatient().getName());
+        }
         date.setText(schedule.getDate());
         time.setText(schedule.getTime());
-        patient.setText(schedule.getPatient().getName());
         payment.setText(schedule.getPayment());
 
-        if (toHome) {
-            v.findViewById(R.id.button_confirm).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-//                    ScheduleController mController = new ScheduleController(context);
-//                    mController.saveSchedule(schedule);
 
-                    TAB_SCHEDULE = true;
-                    Intent intent = new Intent(context, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // this will clear all the stack
-                    context.startActivity(intent);
+        v.findViewById(R.id.button_confirm).setVisibility(View.GONE);
+        v.findViewById(R.id.button_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                        alert.dismiss();
 
-                    //finishAffinity();
-                }
-            });
-        }
+                final AlertDialog.Builder b =
+                        new AlertDialog.Builder(context);
+                b.setTitle("Cancelar agendamento");
+                b.setMessage("Todos os dados do agendamento serão perdidos. Deseja cancelar o agendamento?");
+                b.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                b.setNegativeButton("Não", null);
+                b.show();
+
+
+            }
+        });
+
+
 
         builder.setView(v);
         AlertDialog alert = builder.create();
