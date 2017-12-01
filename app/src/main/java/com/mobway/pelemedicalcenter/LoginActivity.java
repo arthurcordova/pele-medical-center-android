@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -26,6 +29,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private View mButtonSignIn;
     private View mButtonSignUp;
     private View mButtonForgot;
+    private View mButtonSignUpSave;
+    private View mButtonForgotSave;
+
 
     private View mViewSignIn;
     private View mViewSignUp;
@@ -43,6 +49,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mButtonSignUp = findViewById(R.id.button_sign_up);
         mButtonForgot = findViewById(R.id.button_forgot_password);
 
+        mButtonSignUpSave = findViewById(R.id.button_register);
+        mButtonForgotSave = findViewById(R.id.button_recover);
+
         mViewSignIn = findViewById(R.id.content_sign_in);
         mViewSignUp = findViewById(R.id.content_sign_up);
         mViewForgot = findViewById(R.id.content_forgot);
@@ -51,6 +60,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mButtonSignIn.setOnClickListener(this);
         mButtonSignUp.setOnClickListener(this);
         mButtonForgot.setOnClickListener(this);
+        mButtonSignUpSave.setOnClickListener(this);
+        mButtonForgotSave.setOnClickListener(this);
 
     }
 
@@ -58,7 +69,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_sign_in:
-                doSignIn();
+                if (validateSignIn()){
+                    doSignIn();
+                }
                 break;
             case R.id.button_sign_up:
                 doSignUp();
@@ -69,6 +82,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.button_close:
                 doClose();
                 break;
+            case R.id.button_register:
+                validateSignUp();
+                break;
+            case R.id.button_recover:
+                validateSignForgot();
+                break;
+
         }
     }
 
@@ -146,5 +166,47 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void show(View v) {
         v.setVisibility(View.VISIBLE);
     }
+
+    public boolean validateSignIn() {
+        TextInputLayout tilEmail = findViewById(R.id.til_email);
+        TextInputEditText inputEmail = findViewById(R.id.input_email);
+        validateEmptyInput(tilEmail, inputEmail);
+
+        TextInputLayout tilSenha = findViewById(R.id.til_pwd);
+        TextInputEditText inputSenha = findViewById(R.id.input_pwd);
+        validateEmptyInput(tilSenha, inputSenha);
+
+        return true;
+    }
+
+    public boolean validateSignUp() {
+        TextInputLayout tilName = findViewById(R.id.til_signup_name);
+        TextInputEditText inputName = findViewById(R.id.input_signup_name);
+        validateEmptyInput(tilName, inputName);
+
+        TextInputLayout tilEmail = findViewById(R.id.til_signup_email);
+        TextInputEditText inputEmail = findViewById(R.id.input_signup_email);
+        validateEmptyInput(tilEmail, inputEmail);
+
+        TextInputLayout tilSenha = findViewById(R.id.til_signup_pwd);
+        TextInputEditText inputSenha = findViewById(R.id.input_signup_pwd);
+        validateEmptyInput(tilSenha, inputSenha);
+
+        return false;
+    }
+
+    public boolean validateSignForgot() {
+        return false;
+    }
+
+    private void validateEmptyInput(TextInputLayout layout, TextInputEditText input){
+        if (input.getText().toString().equals("")){
+            layout.setBackground(getDrawable(R.drawable.bg_button_error));
+//            layout.setErrorEnabled(true);
+//            layout.setError("some error..");
+        }
+
+    }
+
 
 }

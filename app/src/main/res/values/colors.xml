@@ -17,4 +17,8 @@
 
     <color name="green">#23D881</color>
     <color name="textPrimaryColor">#212121</color>
+
+    <color name="errorColor">#FF5B62</color>
+    <color name="successColor">#23D881</color>
+
 </resources>

@@ -2,6 +2,7 @@ package com.mobway.pelemedicalcenter;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -64,8 +65,6 @@ public class PaymentActivity extends AppCompatActivity {
                 }
                 mSchedule.setPayment(mAdapterPayment.getSelectedPayment());
 
-//                MobwayDialog.dialogDetailSchedule(PaymentActivity.this, mSchedule, true);
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(PaymentActivity.this);
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View v = inflater.inflate(R.layout.dialog_schedule_details, null);
@@ -76,7 +75,8 @@ public class PaymentActivity extends AppCompatActivity {
                 TextView time = v.findViewById(R.id.label_time);
                 TextView patient = v.findViewById(R.id.label_patient);
                 TextView payment = v.findViewById(R.id.label_payment);
-                Button button = v.findViewById(R.id.button_confirm);
+                Button buttonConfirm = v.findViewById(R.id.button_confirm);
+                Button buttonCancel = v.findViewById(R.id.button_cancel);
 
                 physicianName.setText(mSchedule.getPhysician().getName());
                 specialty.setText(mSchedule.getPhysician().getSpecialty());
@@ -89,18 +89,40 @@ public class PaymentActivity extends AppCompatActivity {
                 final AlertDialog alert = builder.create();
                 alert.show();
 
-                button.findViewById(R.id.button_confirm).setOnClickListener(new View.OnClickListener() {
+                buttonConfirm.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         alert.dismiss();
-//
-//                        ScheduleController mController = new ScheduleController(getBaseContext());
-//                        mController.saveSchedule(mSchedule);
 
                         MobwayDialog.TAB_SCHEDULE = true;
                         Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // this will clear all the stack
                         startActivity(intent);
+
+                    }
+                });
+
+                buttonCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+//                        alert.dismiss();
+
+                        final AlertDialog.Builder b =
+                                new AlertDialog.Builder(PaymentActivity.this);
+                        b.setTitle("Cancelar agendamento");
+                        b.setMessage("Todos os dados do agendamento serão perdidos. Deseja cancelar o agendamento?");
+                        b.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                MobwayDialog.TAB_SCHEDULE = false;
+                                Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // this will clear all the stack
+                                startActivity(intent);
+                            }
+                        });
+                        b.setNegativeButton("Não", null);
+                        b.show();
+
 
                     }
                 });

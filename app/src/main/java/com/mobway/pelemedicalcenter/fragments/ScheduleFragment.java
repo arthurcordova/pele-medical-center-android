@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterSchedule;
+import com.mobway.pelemedicalcenter.controllers.ScheduleController;
 import com.mobway.pelemedicalcenter.models.Patient;
 import com.mobway.pelemedicalcenter.models.Physician;
 import com.mobway.pelemedicalcenter.models.Schedule;
@@ -56,23 +57,24 @@ public class ScheduleFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
-
         // MOCK ONLY
-        List<Schedule> schedules = new ArrayList<>();
+//        List<Schedule> schedules = new ArrayList<>();
+//
+//        for (int i = 0; i < 5; i++) {
+//            Schedule d1 = new Schedule();
+//            d1.setPhysician(new Physician());
+//            d1.setPatient(new Patient());
+//            schedules.add(d1);
+//        }
+//        // MOCK ONLY
 
-        for (int i = 0; i < 5; i++) {
-            Schedule d1 = new Schedule();
-            d1.setPhysician(new Physician());
-            d1.setPatient(new Patient());
-            schedules.add(d1);
-        }
-        // MOCK ONLY
-
-        RVAdapterSchedule adapterDoctor = new RVAdapterSchedule(schedules);
-
+        RVAdapterSchedule adapterSchedule = new RVAdapterSchedule(new ArrayList<Schedule>());
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_schedule);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapterDoctor);
+        recyclerView.setAdapter(adapterSchedule);
+
+        ScheduleController controller = new ScheduleController(getActivity()).delegateAdapter(adapterSchedule);
+        controller.getSchedules("178");
 
         return view;
     }

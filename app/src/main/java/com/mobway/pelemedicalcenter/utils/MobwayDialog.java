@@ -64,8 +64,8 @@ public class MobwayDialog {
             v.findViewById(R.id.button_confirm).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ScheduleController mController = new ScheduleController(context);
-                    mController.saveSchedule(schedule);
+//                    ScheduleController mController = new ScheduleController(context);
+//                    mController.saveSchedule(schedule);
 
                     TAB_SCHEDULE = true;
                     Intent intent = new Intent(context, MainActivity.class);

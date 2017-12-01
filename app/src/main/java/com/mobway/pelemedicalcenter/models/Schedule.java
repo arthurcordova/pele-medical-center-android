@@ -3,6 +3,8 @@ package com.mobway.pelemedicalcenter.models;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -11,15 +13,21 @@ import java.io.Serializable;
 
 public class Schedule implements Serializable {
 
+    @SerializedName("codeAgenda")
     private String uuid;
     private Patient patient;
     private Physician physician;
     private Time timeInfo;
     private Consult type;
+    @SerializedName("date")
     private String date;
+    @SerializedName("horario")
     private String time;
     private String status;
     private String payment;
+
+    private String codProcedimento;
+    private String descProcedimento;
 
     public String getUuid() {
         return uuid;
