@@ -32,6 +32,8 @@ public class Schedule implements Serializable {
 
     private String codProcedimento;
     private String descProcedimento;
+    private String medico;
+    private String especialidade;
 
     public String getUuid() {
         return uuid;
@@ -122,6 +124,22 @@ public class Schedule implements Serializable {
 
     public void setDescProcedimento(String descProcedimento) {
         this.descProcedimento = descProcedimento;
+    }
+
+    public String getMedico() {
+        return medico;
+    }
+
+    public void setMedico(String medico) {
+        this.medico = medico;
+    }
+
+    public String getEspecialidade() {
+        return especialidade;
+    }
+
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
     }
 
     public String getDay(){

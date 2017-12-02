@@ -26,7 +26,7 @@ public class PeleMedicalCenterFirebaseMessagingService extends FirebaseMessaging
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
         notificationBuilder.setContentTitle("Pele Medical Center");
         notificationBuilder.setContentText(remoteMessage.getNotification().getBody());
-        notificationBuilder.setSmallIcon(R.drawable.ic_notification_logo);
+        notificationBuilder.setSmallIcon(R.drawable.ic_stat_name);
         notificationBuilder.setAutoCancel(true);
 //        notificationBuilder.setContentIntent(pendingIntent);
         notificationBuilder.setVibrate(new long[] { 500, 500, 500});

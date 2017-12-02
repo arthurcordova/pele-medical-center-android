@@ -41,6 +41,7 @@ public class RVAdapterSchedule extends RecyclerView.Adapter<RVAdapterSchedule.Vi
         holder.tvWeek.setText(model.getWeekName());
         holder.tvTitle.setText(model.getDescProcedimento());
         holder.tvTime.setText(model.getTime());
+        holder.tvPhysician.setText(model.getMedico());
 
         holder.content.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +72,8 @@ public class RVAdapterSchedule extends RecyclerView.Adapter<RVAdapterSchedule.Vi
         TextView tvWeek;
         TextView tvTitle;
         TextView tvTime;
+//        TextView tvSpecialty;
+        TextView tvPhysician;
         View content;
 
         ViewHolder(View view) {
@@ -81,6 +84,8 @@ public class RVAdapterSchedule extends RecyclerView.Adapter<RVAdapterSchedule.Vi
             tvWeek = view.findViewById(R.id.tv_week_name);
             tvTitle = view.findViewById(R.id.tv_title);
             tvTime = view.findViewById(R.id.tv_time);
+//            tvSpecialty = view.findViewById(R.id.tv_time);
+            tvPhysician = view.findViewById(R.id.tv_physician_name);
         }
     }
 }
