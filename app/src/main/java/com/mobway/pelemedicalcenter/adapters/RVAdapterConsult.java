@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.models.Consult;
 import com.mobway.pelemedicalcenter.models.Insurance;
+import com.mobway.pelemedicalcenter.models.Schedule;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class RVAdapterConsult extends RecyclerView.Adapter<RVAdapterConsult.View
     private Consult mSelectedConsult;
     private AlertDialog mDialog;
     private Button mButtonConsult;
+    private Schedule mParentSchedule;
 
     public Consult getSelectedConsult() {
         return mSelectedConsult;
@@ -35,6 +37,10 @@ public class RVAdapterConsult extends RecyclerView.Adapter<RVAdapterConsult.View
 
     public void delegateButton(Button button){
         mButtonConsult = button;
+    }
+
+    public void delegateSchedule(Schedule schedule){
+        mParentSchedule = schedule;
     }
 
     public RVAdapterConsult(List<Consult> list) {
@@ -56,9 +62,10 @@ public class RVAdapterConsult extends RecyclerView.Adapter<RVAdapterConsult.View
         holder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSelectedConsult = model;
+//                mSelectedConsult = model;
+                mParentSchedule.setType(model);
                 if (mButtonConsult != null) {
-                    mButtonConsult.setText(mSelectedConsult.getDescription());
+                    mButtonConsult.setText(model.getDescription());
                 }
 
                 if (mDialog != null) {

@@ -39,6 +39,7 @@ public class DateTimeActivity extends AppCompatActivity {
     private Button mButtonDate;
     private Button mButtonNext;
     private Button mButtonConsultType;
+    private Button mButtonConsultTypeID;
     private CalendarView mCalendarView;
     private RecyclerView mRecyclerView;
     private View mContentCalendar;
@@ -67,6 +68,7 @@ public class DateTimeActivity extends AppCompatActivity {
 
         mButtonDate = findViewById(R.id.button_date);
         mButtonConsultType = findViewById(R.id.button_consult_type);
+        mButtonConsultTypeID = findViewById(R.id.button_consult_type_id);
         mButtonNext = findViewById(R.id.button_next);
         mCalendarView = findViewById(R.id.calendar_view);
         mContentCalendar = findViewById(R.id.content_calendar);
@@ -97,12 +99,13 @@ public class DateTimeActivity extends AppCompatActivity {
                 RVAdapterConsult adapterConsult = new RVAdapterConsult(new ArrayList<Consult>());
                 adapterConsult.delegateDialog(alert);
                 adapterConsult.delegateButton(mButtonConsultType);
+                adapterConsult.delegateSchedule(mSchedule);
 
                 RecyclerView recyclerViewInsurance = v.findViewById(R.id.recycler_view_consult_type);
                 recyclerViewInsurance.setLayoutManager(new LinearLayoutManager(DateTimeActivity.this));
                 recyclerViewInsurance.setAdapter(adapterConsult);
 
-                mSchedule.setType(adapterConsult.getSelectedConsult());
+//                mSchedule.setType(adapterConsult.getSelectedConsult());
 
                 ConsultController consultController = new ConsultController(DateTimeActivity.this).delegateAdapter(adapterConsult);
                 consultController.getTypes();
