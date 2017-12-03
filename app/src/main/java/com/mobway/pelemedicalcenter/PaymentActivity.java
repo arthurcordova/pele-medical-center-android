@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterPayment;
 import com.mobway.pelemedicalcenter.controllers.ScheduleController;
 import com.mobway.pelemedicalcenter.models.Schedule;
+import com.mobway.pelemedicalcenter.models.ScheduleRequest;
 import com.mobway.pelemedicalcenter.utils.MobwayDialog;
 
 import java.util.ArrayList;
@@ -92,12 +93,20 @@ public class PaymentActivity extends AppCompatActivity {
                 buttonConfirm.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        alert.dismiss();
+//                        alert.dismiss();
 
-                        MobwayDialog.TAB_SCHEDULE = true;
-                        Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // this will clear all the stack
-                        startActivity(intent);
+                        ScheduleRequest request = new ScheduleRequest();
+                        request.setCodAgenda(mSchedule.getUuid());
+                        request.setCodProcedimento(mSchedule.getType().getUuid());
+                        request.setCodCliente("178");
+
+                        ScheduleController controller = new ScheduleController(PaymentActivity.this);
+                        controller.postSchedule(request);
+
+//                        MobwayDialog.TAB_SCHEDULE = true;
+//                        Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // this will clear all the stack
+//                        startActivity(intent);
 
                     }
                 });

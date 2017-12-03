@@ -1,4 +1,4 @@
-package com.mobway.pelemedicalcenter.services;
+package com.mobway.pelemedicalcenter.models;
 
 /**
  * Created by arthur.stapassoli on 29/11/2017.
