@@ -20,8 +20,10 @@ import android.widget.TextView;
 
 import com.mobway.pelemedicalcenter.adapters.RVAdapterPayment;
 import com.mobway.pelemedicalcenter.controllers.ScheduleController;
+import com.mobway.pelemedicalcenter.models.Patient;
 import com.mobway.pelemedicalcenter.models.Schedule;
 import com.mobway.pelemedicalcenter.models.ScheduleRequest;
+import com.mobway.pelemedicalcenter.preferences.SessionManager;
 import com.mobway.pelemedicalcenter.utils.MobwayDialog;
 
 import java.util.ArrayList;
@@ -44,7 +46,11 @@ public class PaymentActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Pagamento");
 
+        SessionManager sm = new SessionManager(this);
+        Patient patient = sm.getSessionUser();
+
         mSchedule = (Schedule) getIntent().getSerializableExtra("schedule");
+        mSchedule.setPatient(patient);
 
         List<String> payments = new ArrayList<>();
         payments.add("Cartão");
@@ -98,7 +104,7 @@ public class PaymentActivity extends AppCompatActivity {
                         ScheduleRequest request = new ScheduleRequest();
                         request.setCodAgenda(mSchedule.getUuid());
                         request.setCodProcedimento(mSchedule.getType().getUuid());
-                        request.setCodCliente("178");
+                        request.setCodCliente(mSchedule.getPatient().getUuid());
 
                         ScheduleController controller = new ScheduleController(PaymentActivity.this);
                         controller.postSchedule(request);

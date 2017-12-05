@@ -152,7 +152,8 @@ public class DateTimeActivity extends AppCompatActivity {
                 mSchedule.setTimeInfo(!mSchedule.getPhysician().getOrdemChegada() ? mAdapterTime.getSelectedTime(): null);
                 mSchedule.setUuid(!mSchedule.getPhysician().getOrdemChegada() ? mAdapterTime.getSelectedTime().getId(): null);
 
-                Intent it = new Intent(getBaseContext(), PatientListActivity.class);
+                Intent it = new Intent(getBaseContext(), PaymentActivity.class);
+//                Intent it = new Intent(getBaseContext(), PatientListActivity.class);
                 it.putExtra("schedule", mSchedule);
                 startActivity(it);
             }
