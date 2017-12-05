@@ -28,8 +28,8 @@ public class PatientControllerTask extends AsyncTask<Patient, String, List<Patie
     private RVAdapterPatient mAdapterPatient;
 
     public PatientControllerTask(Context context) {
-        mAppDatabase = AppDatabaseBuilder.getInstance(context);
-        mDao = mAppDatabase.patientDao();
+//        mAppDatabase = AppDatabaseBuilder.getInstance(context);
+//        mDao = mAppDatabase.patientDao();
     }
 
     public PatientControllerTask delegateTask(int task) {

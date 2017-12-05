@@ -6,6 +6,9 @@ import android.arch.persistence.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by arthur.stapassoli on 01/11/2017.
@@ -107,6 +110,16 @@ public class Physician implements Serializable {
     }
 
     public String getNextFreeSchedule() {
+        if (nextFreeSchedule != null){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            SimpleDateFormat sdfString = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            try {
+                Date date = sdf.parse(nextFreeSchedule);
+                return sdfString.format(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         return nextFreeSchedule;
     }
 

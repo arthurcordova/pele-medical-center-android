@@ -2,11 +2,7 @@ package com.mobway.pelemedicalcenter;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,6 +21,7 @@ public class SplashActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 finish();
             }
         }, 3000);

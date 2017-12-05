@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.mobway.pelemedicalcenter.controllers.PatientController;
+import com.mobway.pelemedicalcenter.models.UserRequest;
+
 import org.w3c.dom.Text;
 
 import java.util.Timer;
@@ -31,16 +34,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private View mButtonForgot;
     private View mButtonSignUpSave;
     private View mButtonForgotSave;
-
-
     private View mViewSignIn;
     private View mViewSignUp;
     private View mViewForgot;
+
+    private String mName;
+    private String mEmail;
+    private String mPwd;
+    private PatientController mPatientController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mPatientController = new PatientController(this);
 
         mMainTitle = findViewById(R.id.tv_title);
 
@@ -62,14 +70,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mButtonForgot.setOnClickListener(this);
         mButtonSignUpSave.setOnClickListener(this);
         mButtonForgotSave.setOnClickListener(this);
-
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_sign_in:
-                if (validateSignIn()){
+                if (validateSignIn()) {
                     doSignIn();
                 }
                 break;
@@ -83,20 +90,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 doClose();
                 break;
             case R.id.button_register:
-                validateSignUp();
+                if (validateSignUp()) {
+                    mPatientController.create(new UserRequest(mName, mEmail, mPwd));
+                }
                 break;
             case R.id.button_recover:
                 validateSignForgot();
                 break;
-
         }
     }
 
     private void doSignIn() {
         mMainTitle.setText(changeTitle(VIEW_SIGN_IN));
-        Intent it = new Intent(LoginActivity.this, StartActivity.class);
-        startActivity(it);
-        finish();
+        mPatientController.login(new UserRequest(mEmail, mPwd));
     }
 
     private void doSignUp() {
@@ -170,43 +176,54 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public boolean validateSignIn() {
         TextInputLayout tilEmail = findViewById(R.id.til_email);
         TextInputEditText inputEmail = findViewById(R.id.input_email);
-        validateEmptyInput(tilEmail, inputEmail);
-
         TextInputLayout tilSenha = findViewById(R.id.til_pwd);
         TextInputEditText inputSenha = findViewById(R.id.input_pwd);
-        validateEmptyInput(tilSenha, inputSenha);
-
-        return true;
+        if (validateEmptyInput(tilEmail, inputEmail) && validateEmptyInput(tilSenha, inputSenha)) {
+            mEmail = inputEmail.getText().toString();
+            mPwd = inputSenha.getText().toString();
+            return true;
+        } else {
+            mEmail = null;
+            mPwd = null;
+            return false;
+        }
     }
 
     public boolean validateSignUp() {
         TextInputLayout tilName = findViewById(R.id.til_signup_name);
         TextInputEditText inputName = findViewById(R.id.input_signup_name);
-        validateEmptyInput(tilName, inputName);
 
         TextInputLayout tilEmail = findViewById(R.id.til_signup_email);
         TextInputEditText inputEmail = findViewById(R.id.input_signup_email);
-        validateEmptyInput(tilEmail, inputEmail);
 
         TextInputLayout tilSenha = findViewById(R.id.til_signup_pwd);
         TextInputEditText inputSenha = findViewById(R.id.input_signup_pwd);
-        validateEmptyInput(tilSenha, inputSenha);
 
-        return false;
+        if (validateEmptyInput(tilName, inputName) && validateEmptyInput(tilEmail, inputEmail) && validateEmptyInput(tilSenha, inputSenha)) {
+            mName = inputName.getText().toString();
+            mEmail = inputEmail.getText().toString();
+            mPwd = inputSenha.getText().toString();
+            return true;
+        } else {
+            mName = null;
+            mEmail = null;
+            mPwd = null;
+            return false;
+        }
     }
 
     public boolean validateSignForgot() {
         return false;
     }
 
-    private void validateEmptyInput(TextInputLayout layout, TextInputEditText input){
-        if (input.getText().toString().equals("")){
+    private boolean validateEmptyInput(TextInputLayout layout, TextInputEditText input) {
+        if (input.getText().toString().equals("")) {
             layout.setBackground(getDrawable(R.drawable.bg_button_error));
 //            layout.setErrorEnabled(true);
 //            layout.setError("some error..");
+            return false;
         }
-
+        return true;
     }
-
 
 }

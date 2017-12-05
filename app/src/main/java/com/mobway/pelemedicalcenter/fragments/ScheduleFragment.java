@@ -15,6 +15,7 @@ import com.mobway.pelemedicalcenter.controllers.ScheduleController;
 import com.mobway.pelemedicalcenter.models.Patient;
 import com.mobway.pelemedicalcenter.models.Physician;
 import com.mobway.pelemedicalcenter.models.Schedule;
+import com.mobway.pelemedicalcenter.preferences.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,6 @@ public class ScheduleFragment extends android.support.v4.app.Fragment {
     public ScheduleFragment() {
         // Required empty public constructor
     }
-
 
     public static ScheduleFragment newInstance(String param1, String param2) {
         ScheduleFragment fragment = new ScheduleFragment();
@@ -73,8 +73,11 @@ public class ScheduleFragment extends android.support.v4.app.Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapterSchedule);
 
+        SessionManager sm = new SessionManager(getContext());
+        Patient user = sm.getSessionUser();
+
         ScheduleController controller = new ScheduleController(getActivity()).delegateAdapter(adapterSchedule);
-        controller.getSchedules("178");
+        controller.getSchedules(user.getUuid());
 
         return view;
     }
