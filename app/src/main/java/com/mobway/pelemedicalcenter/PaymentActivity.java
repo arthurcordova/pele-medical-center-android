@@ -84,6 +84,7 @@ public class PaymentActivity extends AppCompatActivity {
                 TextView payment = v.findViewById(R.id.label_payment);
                 Button buttonConfirm = v.findViewById(R.id.button_confirm);
                 Button buttonCancel = v.findViewById(R.id.button_cancel);
+                View buttonClose = v.findViewById(R.id.button_close);
 
                 physicianName.setText(mSchedule.getPhysician().getName());
                 specialty.setText(mSchedule.getPhysician().getSpecialty());
@@ -109,13 +110,16 @@ public class PaymentActivity extends AppCompatActivity {
                         ScheduleController controller = new ScheduleController(PaymentActivity.this);
                         controller.postSchedule(request);
 
-//                        MobwayDialog.TAB_SCHEDULE = true;
-//                        Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // this will clear all the stack
-//                        startActivity(intent);
-
                     }
                 });
+
+                buttonClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alert.dismiss();
+                    }
+                });
+
 
                 buttonCancel.setOnClickListener(new View.OnClickListener() {
                     @Override

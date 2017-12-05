@@ -54,6 +54,7 @@ public class MobwayDialog {
         TextView patient = v.findViewById(R.id.label_patient);
         TextView payment = v.findViewById(R.id.label_payment);
         Button button = v.findViewById(R.id.button_confirm);
+        View buttonClose = v.findViewById(R.id.button_close);
 
         if (schedule.getPhysician() != null) {
             physicianName.setText(schedule.getPhysician().getName());
@@ -85,16 +86,18 @@ public class MobwayDialog {
                 });
                 b.setNegativeButton("Não", null);
                 b.show();
-
-
             }
         });
 
-
-
         builder.setView(v);
-        AlertDialog alert = builder.create();
+        final AlertDialog alert = builder.create();
         alert.show();
+        buttonClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alert.dismiss();
+            }
+        });
     }
 
 }
