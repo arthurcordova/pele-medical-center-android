@@ -1,27 +1,20 @@
 package com.mobway.pelemedicalcenter;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.mobway.pelemedicalcenter.controllers.PatientController;
 import com.mobway.pelemedicalcenter.models.UserRequest;
 
-import org.w3c.dom.Text;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String TAG = LoginActivity.class.getName();
     public static final int VIEW_SIGN_IN = 0;
     public static final int VIEW_SIGN_UP = 1;
     public static final int VIEW_FORGOT_PWD = 2;
@@ -70,6 +63,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mButtonForgot.setOnClickListener(this);
         mButtonSignUpSave.setOnClickListener(this);
         mButtonForgotSave.setOnClickListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d(TAG, "VOLTANDO");
     }
 
     @Override
