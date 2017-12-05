@@ -16,6 +16,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mobway.pelemedicalcenter.fragments.DoctorFragment;
+import com.mobway.pelemedicalcenter.fragments.ProfileFragment;
 import com.mobway.pelemedicalcenter.fragments.ScheduleFragment;
 import com.mobway.pelemedicalcenter.utils.BottomNavUtils;
 import com.mobway.pelemedicalcenter.utils.MobwayDialog;
@@ -37,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
 //                case R.id.navigation_notifications:
 //                    replaceFragment(new NotificationsFragment());
 //                    return true;
-//                case R.id.navigation_my_data:
-//                    replaceFragment(new ProfileFragment());
-//                    return true;
+                case R.id.navigation_my_data:
+                    replaceFragment(new ProfileFragment());
+                    return true;
             }
             return false;
         }

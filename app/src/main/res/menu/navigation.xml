@@ -16,9 +16,9 @@
         <!--android:icon="@drawable/ic_notification"-->
         <!--android:title="@string/title_nav_notifications" />-->
 
-    <!--<item-->
-        <!--android:id="@+id/navigation_my_data"-->
-        <!--android:icon="@drawable/ic_user"-->
-        <!--android:title="@string/title_nav_my_data" />-->
+    <item
+        android:id="@+id/navigation_my_data"
+        android:icon="@drawable/ic_user"
+        android:title="@string/title_nav_my_data" />
 
 </menu>

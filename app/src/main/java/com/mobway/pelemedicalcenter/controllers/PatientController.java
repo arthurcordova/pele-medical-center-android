@@ -33,6 +33,7 @@ public class PatientController extends Controller implements Callback<Patient> {
     private PatientService mApi = null;
     private RVAdapterPatient adapterPatient;
     private PatientControllerTask mPatientControllerTask;
+    private UserRequest mUserRequest;
 
     public PatientController(Activity activity) {
         super(activity);
@@ -45,11 +46,13 @@ public class PatientController extends Controller implements Callback<Patient> {
     }
 
     public void create(UserRequest user) {
+        mUserRequest = user;
         Call<Patient> call = mApi.create(user);
         call.enqueue(this);
     }
 
     public void login(UserRequest user) {
+        mUserRequest = user;
         Call<Patient> call = mApi.login(user);
         call.enqueue(this);
     }
@@ -71,6 +74,7 @@ public class PatientController extends Controller implements Callback<Patient> {
             if (response.body() != null) {
                 Log.d(TAG, "RESPONSE: " + response.body().toString());
                 Patient patient = response.body();
+                patient.setEmail(mUserRequest.email);
 
                 SessionManager sm = new SessionManager(activity);
                 sm.createSessionLogin(patient);
