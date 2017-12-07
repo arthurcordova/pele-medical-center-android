@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.mobway.pelemedicalcenter.R;
@@ -23,17 +25,22 @@ public class RVAdapterInsurance extends RecyclerView.Adapter<RVAdapterInsurance.
     private Insurance mSelectedInsurance;
     private AlertDialog mDialog;
     private Button mButtonInsurance;
+    private Switch mSwitchExpress;
 
     public Insurance getSelectedInsurance() {
         return mSelectedInsurance;
     }
 
-    public void delegateDialog(AlertDialog dialog){
+    public void delegateDialog(AlertDialog dialog) {
         mDialog = dialog;
     }
 
-    public void delegateButton(Button button){
+    public void delegateButton(Button button) {
         mButtonInsurance = button;
+    }
+
+    public void delegateSwitchExpress(Switch switchExp) {
+        mSwitchExpress = switchExp;
     }
 
     public RVAdapterInsurance(List<Insurance> list) {
@@ -52,12 +59,22 @@ public class RVAdapterInsurance extends RecyclerView.Adapter<RVAdapterInsurance.
     public void onBindViewHolder(final ViewHolder holder, int index) {
         final Insurance model = mList.get(index);
         holder.tvDescription.setText(model.getDescription());
+        holder.imgIcon.setImageDrawable(model.getDescription().equals("PARTICULAR") ? holder.imgIcon.getContext().getDrawable(R.drawable.ic_monetization) : holder.imgIcon.getContext().getDrawable(R.drawable.ic_credit_card));
+
         holder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mSelectedInsurance = model;
                 if (mButtonInsurance != null) {
                     mButtonInsurance.setText(mSelectedInsurance.getDescription());
+                    if (mSelectedInsurance.getDescription().equals("PARTICULAR")) {
+                        if (mSwitchExpress.isChecked()) {
+                            mSwitchExpress.setChecked(false);
+                        }
+                        mSwitchExpress.setEnabled(false);
+                    } else {
+                        mSwitchExpress.setEnabled(true);
+                    }
                 }
 
                 if (mDialog != null) {
@@ -85,12 +102,13 @@ public class RVAdapterInsurance extends RecyclerView.Adapter<RVAdapterInsurance.
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvDescription;
+        ImageView imgIcon;
         View content;
 
         ViewHolder(View view) {
             super(view);
             tvDescription = view.findViewById(R.id.tv_insurance_name);
-
+            imgIcon = view.findViewById(R.id.imageView2);
             content = view;
         }
 

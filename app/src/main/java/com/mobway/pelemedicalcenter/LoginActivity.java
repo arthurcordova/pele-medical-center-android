@@ -144,25 +144,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return title;
     }
 
-    public String changeView(int viewType) {
-        String title = "";
-        switch (viewType) {
-            case VIEW_SIGN_IN:
-                title = "Login";
-                break;
-            case VIEW_SIGN_UP:
-                title = "Cadastre-se";
-                break;
-            case VIEW_FORGOT_PWD:
-                title = "Esqueceu sua senha?";
-                break;
-            case VIEW_CLOSE:
-
-                break;
-        }
-        return title;
-    }
-
     public void hide(View v) {
         v.setVisibility(View.GONE);
     }

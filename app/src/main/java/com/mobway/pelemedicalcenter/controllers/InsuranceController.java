@@ -1,12 +1,14 @@
 package com.mobway.pelemedicalcenter.controllers;
 
 import android.app.Activity;
+import android.icu.util.IslamicCalendar;
 import android.util.Log;
 
 import com.mobway.pelemedicalcenter.adapters.RVAdapterInsurance;
 import com.mobway.pelemedicalcenter.models.Insurance;
 import com.mobway.pelemedicalcenter.services.InsuranceService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,11 +42,19 @@ public class InsuranceController extends Controller implements Callback<List<Ins
     @Override
     public void onResponse(Call<List<Insurance>> call, Response<List<Insurance>> response) {
         if (response.isSuccessful()) {
-            Log.e("SUCCESS", response.body().toString());
-            List<Insurance> insurances = response.body();
+            if (response.body() != null) {
+                Log.e("SUCCESS", response.body().toString());
+                List<Insurance> insurances = new ArrayList<>();
+                Insurance privatePlan = new Insurance();
+                privatePlan.setUuid("0");
+                privatePlan.setDescription("PARTICULAR");
 
-            if (mAdapterInsurance != null) {
-                mAdapterInsurance.setFilter(insurances);
+                insurances.add(privatePlan);
+                insurances.addAll(response.body());
+
+                if (mAdapterInsurance != null) {
+                    mAdapterInsurance.setFilter(insurances);
+                }
             }
         } else {
 

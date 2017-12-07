@@ -175,6 +175,7 @@ public class FilterFragment extends Fragment {
                 RVAdapterInsurance adapterInsurance = new RVAdapterInsurance(new ArrayList<Insurance>());
                 adapterInsurance.delegateDialog(alert);
                 adapterInsurance.delegateButton(buttonInsurance);
+                adapterInsurance.delegateSwitchExpress(switchEmergency);
 
                 RecyclerView recyclerViewInsurance = v.findViewById(R.id.recycler_view_insurance);
                 recyclerViewInsurance.setLayoutManager(new LinearLayoutManager(getContext()));

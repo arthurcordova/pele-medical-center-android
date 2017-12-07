@@ -1,6 +1,11 @@
 package com.mobway.pelemedicalcenter.models;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+
 import com.google.gson.annotations.SerializedName;
+import com.mobway.pelemedicalcenter.R;
 
 import java.io.Serializable;
 
@@ -50,4 +55,7 @@ public class Insurance implements Serializable {
     public void setAuthorization(Boolean authorization) {
         this.authorization = authorization;
     }
+
+
+
 }
