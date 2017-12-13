@@ -1,14 +1,18 @@
 package com.mobway.pelemedicalcenter.models;
 
+import java.io.Serializable;
+
 /**
  * Created by arthur.stapassoli on 29/11/2017.
  */
 
-public class ScheduleRequest {
+public class ScheduleRequest implements Serializable {
 
     private String codAgenda;
     private String codProcedimento;
     private String codCliente;
+    private String turno;
+    private String data;
 
     public String getCodAgenda() {
         return codAgenda;
@@ -32,5 +36,21 @@ public class ScheduleRequest {
 
     public void setCodCliente(String codCliente) {
         this.codCliente = codCliente;
+    }
+
+    public String getTurno() {
+        return turno;
+    }
+
+    public void setTurno(String turno) {
+        this.turno = turno;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 }

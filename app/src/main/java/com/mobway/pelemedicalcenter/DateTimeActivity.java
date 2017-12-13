@@ -159,7 +159,7 @@ public class DateTimeActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         mButtonVacancy.setText("Manhã");
                         if (mSchedule.getArriveOrderResponse().vacanciesFirstRound != null &&
-                                mSchedule.getArriveOrderResponse().vacanciesFirstRound > 0) {
+                                mSchedule.getArriveOrderResponse().vacanciesFirstRound.intValue() == 0) {
                             mButtonVacancy.setText("Manhã - Indisponível");
                         }
                         alert.dismiss();
@@ -170,7 +170,7 @@ public class DateTimeActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         mButtonVacancy.setText("Tarde");
                         if (mSchedule.getArriveOrderResponse().vacanciesFirstRound != null &&
-                                mSchedule.getArriveOrderResponse().vacanciesFirstRound > 0) {
+                                mSchedule.getArriveOrderResponse().vacanciesFirstRound.intValue() == 0) {
                             mButtonVacancy.setText("tarde - Indisponível");
                         }
                         alert.dismiss();

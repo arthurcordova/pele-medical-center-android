@@ -2,11 +2,13 @@ package com.mobway.pelemedicalcenter.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by arthur.stapassoli on 13/12/2017.
  */
 
-public class ArriveOrderResponse {
+public class ArriveOrderResponse implements Serializable {
 
     @SerializedName("idAgenda")
     public Integer id;

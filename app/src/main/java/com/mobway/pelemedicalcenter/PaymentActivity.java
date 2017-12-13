@@ -107,6 +107,9 @@ public class PaymentActivity extends AppCompatActivity {
                         request.setCodProcedimento(mSchedule.getType().getUuid());
                         request.setCodCliente(mSchedule.getPatient().getUuid());
 
+//                        request.setData();
+//                        request.setTurno();
+
                         ScheduleController controller = new ScheduleController(PaymentActivity.this);
                         controller.postSchedule(request);
 
