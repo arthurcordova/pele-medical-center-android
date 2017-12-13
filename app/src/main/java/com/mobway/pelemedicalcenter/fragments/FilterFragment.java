@@ -18,13 +18,17 @@ import android.widget.Switch;
 import com.mobway.pelemedicalcenter.MainActivity;
 import com.mobway.pelemedicalcenter.PaymentActivity;
 import com.mobway.pelemedicalcenter.R;
+import com.mobway.pelemedicalcenter.adapters.RVAdapterConsult;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterInsurance;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterSpecialty;
+import com.mobway.pelemedicalcenter.controllers.ConsultController;
 import com.mobway.pelemedicalcenter.controllers.Controller;
 import com.mobway.pelemedicalcenter.controllers.InsuranceController;
 import com.mobway.pelemedicalcenter.controllers.SpecialtyController;
+import com.mobway.pelemedicalcenter.models.Consult;
 import com.mobway.pelemedicalcenter.models.Filter;
 import com.mobway.pelemedicalcenter.models.Insurance;
+import com.mobway.pelemedicalcenter.models.Schedule;
 import com.mobway.pelemedicalcenter.models.Specialty;
 import com.mobway.pelemedicalcenter.utils.FilterManager;
 
@@ -42,6 +46,7 @@ public class FilterFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private FilterManager mFilterManager;
     private SpecialtyController mController;
+
 
     public FilterFragment() {
         // Required empty public constructor
@@ -89,6 +94,8 @@ public class FilterFragment extends Fragment {
         final Button buttonCity = root.findViewById(R.id.button_city);
         final Button buttonPlace = root.findViewById(R.id.button_place);
         final Button buttonInsurance = root.findViewById(R.id.button_insurance);
+        final Button buttonConsultType = root.findViewById(R.id.button_consult_type);
+
 
         switchEmergency.setChecked(filterSaved.getEmergency());
         buttonCity.setText(filterSaved.getPlace());
@@ -184,6 +191,30 @@ public class FilterFragment extends Fragment {
                 InsuranceController insuranceController = new InsuranceController(getActivity()).delegateAdapter(adapterInsurance);
                 insuranceController.getInsurances();
 
+                alert.show();
+            }
+        });
+        buttonConsultType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                View v = getLayoutInflater().inflate(R.layout.dialog_select_consult_type, null);
+                builder.setView(v);
+                final AlertDialog alert = builder.create();
+
+                RVAdapterConsult adapterConsult = new RVAdapterConsult(new ArrayList<Consult>());
+                adapterConsult.delegateDialog(alert);
+                adapterConsult.delegateButton(buttonConsultType);
+                adapterConsult.delegateSchedule(new Schedule());
+
+                RecyclerView recyclerViewInsurance = v.findViewById(R.id.recycler_view_consult_type);
+                recyclerViewInsurance.setLayoutManager(new LinearLayoutManager(getContext()));
+                recyclerViewInsurance.setAdapter(adapterConsult);
+
+//                mSchedule.setType(adapterConsult.getSelectedConsult());
+
+                ConsultController consultController = new ConsultController(getActivity()).delegateAdapter(adapterConsult);
+                consultController.getTypes();
                 alert.show();
             }
         });

@@ -15,6 +15,14 @@ public class Consult implements Serializable {
     @SerializedName("descricao")
     private String description;
 
+    public Consult() {
+    }
+
+    public Consult(String uuid, String description) {
+        this.uuid = uuid;
+        this.description = description;
+    }
+
     public String getUuid() {
         return uuid;
     }
@@ -30,4 +38,5 @@ public class Consult implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }

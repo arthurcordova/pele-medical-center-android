@@ -16,15 +16,17 @@ public class Filter implements Serializable {
     private Boolean emergency;
     private Boolean privateSchedule;
     private List<Specialty> specialties;
+    private Consult consult;
 
     public Filter() {
     }
 
-    public Filter(String place, Boolean emergency, Boolean privateSchedule, List<Specialty> specialties) {
+    public Filter(String place, Boolean emergency, Boolean privateSchedule, List<Specialty> specialties, Consult consult) {
         this.place = place;
         this.emergency = emergency;
         this.privateSchedule = privateSchedule;
         this.specialties = specialties;
+        this.consult = consult;
     }
 
     public String getClinic() {
@@ -65,6 +67,14 @@ public class Filter implements Serializable {
 
     public void setPrivateSchedule(Boolean privateSchedule) {
         this.privateSchedule = privateSchedule;
+    }
+
+    public Consult getConsult() {
+        return consult;
+    }
+
+    public void setConsult(Consult consult) {
+        this.consult = consult;
     }
 
     public List<Specialty> getSpecialties() {

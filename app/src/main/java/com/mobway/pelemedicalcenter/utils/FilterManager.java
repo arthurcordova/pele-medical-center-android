@@ -3,6 +3,7 @@ package com.mobway.pelemedicalcenter.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.mobway.pelemedicalcenter.models.Consult;
 import com.mobway.pelemedicalcenter.models.Filter;
 
 
@@ -23,6 +24,8 @@ public final class FilterManager {
     private final String KEY_INSURANCE = "insurance";
     private final String KEY_PRIVATE = "private";
     private final String KEY_SPECIALTIES = "specialties";
+    private final String KEY_CONSULT_TYPE = "consult_type";
+    private final String KEY_CONSULT_TYPE_ID = "consult_type_id";
 
     public FilterManager(Context context) {
         this.context = context;
@@ -37,6 +40,8 @@ public final class FilterManager {
         editor.putString(KEY_INSURANCE, filter.getInsurance());
 //        editor.putBoolean(KEY_PRIVATE, filter.getPrivateSchedule());
         editor.putString(KEY_SPECIALTIES, filter.convertSpecialtiesToSave(filter.getSpecialties()));
+        editor.putString(KEY_CONSULT_TYPE, filter.getConsult().getDescription());
+        editor.putString(KEY_CONSULT_TYPE_ID, filter.getConsult().getUuid());
         editor.commit();
     }
 
@@ -53,7 +58,7 @@ public final class FilterManager {
         filter.setEmergency(preferences.getBoolean(KEY_EMERGENCY, false));
 //        filter.setPrivateSchedule(preferences.getBoolean(KEY_PRIVATE, false));
         filter.setSpecialties(filter.convertSpecialtiesToList(preferences.getString(KEY_SPECIALTIES, "")));
-
+        filter.setConsult(new Consult(preferences.getString(KEY_CONSULT_TYPE_ID,""), preferences.getString(KEY_CONSULT_TYPE,"")));
         return filter;
     }
 }

@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.mobway.pelemedicalcenter.adapters.RVAdapterConsult;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterTime;
+import com.mobway.pelemedicalcenter.controllers.ArriveOrderController;
 import com.mobway.pelemedicalcenter.controllers.ConsultController;
 import com.mobway.pelemedicalcenter.controllers.TimeController;
 import com.mobway.pelemedicalcenter.models.Consult;
@@ -32,8 +33,8 @@ public class DateTimeActivity extends AppCompatActivity {
 
     private Button mButtonDate;
     private Button mButtonNext;
-    private Button mButtonConsultType;
-    private Button mButtonConsultTypeID;
+//    private Button mButtonConsultType;
+//    private Button mButtonConsultTypeID;
     private CalendarView mCalendarView;
     private RecyclerView mRecyclerView;
     private View mContentCalendar;
@@ -42,6 +43,8 @@ public class DateTimeActivity extends AppCompatActivity {
     private TextView mLabelSpecialty;
     private View mWarningLine;
     private ProgressBar mProgressBar;
+    private View mLineVacancy;
+    private Button mButtonVacancy;
 
     private Schedule mSchedule;
     private RVAdapterTime mAdapterTime;
@@ -53,7 +56,7 @@ public class DateTimeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date_time);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Data/Horário");
@@ -61,8 +64,8 @@ public class DateTimeActivity extends AppCompatActivity {
         mSchedule = (Schedule) getIntent().getSerializableExtra("schedule");
 
         mButtonDate = findViewById(R.id.button_date);
-        mButtonConsultType = findViewById(R.id.button_consult_type);
-        mButtonConsultTypeID = findViewById(R.id.button_consult_type_id);
+//        mButtonConsultType = findViewById(R.id.button_consult_type);
+//        mButtonConsultTypeID = findViewById(R.id.button_consult_type_id);
         mButtonNext = findViewById(R.id.button_next);
         mCalendarView = findViewById(R.id.calendar_view);
         mContentCalendar = findViewById(R.id.content_calendar);
@@ -72,6 +75,8 @@ public class DateTimeActivity extends AppCompatActivity {
         mLabelSpecialty = findViewById(R.id.tv_specialty);
         mWarningLine = findViewById(R.id.line_warning);
         mProgressBar = findViewById(R.id.progressBarTime);
+        mLineVacancy = findViewById(R.id.line_vacancies);
+        mButtonVacancy = findViewById(R.id.button_vacancy);
 
         mLabelName.setText(mSchedule.getPhysician().getName());
         mLabelSpecialty.setText(mSchedule.getPhysician().getSpecialty());
@@ -82,31 +87,31 @@ public class DateTimeActivity extends AppCompatActivity {
         mAdapterTime = new RVAdapterTime(times);
         mRecyclerView.setAdapter(mAdapterTime);
 
-        mButtonConsultType.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(DateTimeActivity.this);
-                View v = getLayoutInflater().inflate(R.layout.dialog_select_consult_type, null);
-                builder.setView(v);
-                final AlertDialog alert = builder.create();
-
-                RVAdapterConsult adapterConsult = new RVAdapterConsult(new ArrayList<Consult>());
-                adapterConsult.delegateDialog(alert);
-                adapterConsult.delegateButton(mButtonConsultType);
-                adapterConsult.delegateSchedule(mSchedule);
-
-                RecyclerView recyclerViewInsurance = v.findViewById(R.id.recycler_view_consult_type);
-                recyclerViewInsurance.setLayoutManager(new LinearLayoutManager(DateTimeActivity.this));
-                recyclerViewInsurance.setAdapter(adapterConsult);
-
-//                mSchedule.setType(adapterConsult.getSelectedConsult());
-
-                ConsultController consultController = new ConsultController(DateTimeActivity.this).delegateAdapter(adapterConsult);
-                consultController.getTypes();
-
-                alert.show();
-            }
-        });
+//        mButtonConsultType.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(DateTimeActivity.this);
+//                View v = getLayoutInflater().inflate(R.layout.dialog_select_consult_type, null);
+//                builder.setView(v);
+//                final AlertDialog alert = builder.create();
+//
+//                RVAdapterConsult adapterConsult = new RVAdapterConsult(new ArrayList<Consult>());
+//                adapterConsult.delegateDialog(alert);
+//                adapterConsult.delegateButton(mButtonConsultType);
+//                adapterConsult.delegateSchedule(mSchedule);
+//
+//                RecyclerView recyclerViewInsurance = v.findViewById(R.id.recycler_view_consult_type);
+//                recyclerViewInsurance.setLayoutManager(new LinearLayoutManager(DateTimeActivity.this));
+//                recyclerViewInsurance.setAdapter(adapterConsult);
+//
+////                mSchedule.setType(adapterConsult.getSelectedConsult());
+//
+//                ConsultController consultController = new ConsultController(DateTimeActivity.this).delegateAdapter(adapterConsult);
+//                consultController.getTypes();
+//
+//                alert.show();
+//            }
+//        });
 
         mButtonDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,9 +125,13 @@ public class DateTimeActivity extends AppCompatActivity {
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 String date = i2 + "/" + (i1 + 1) + "/" + i;
                 mButtonDate.setText(date);
-                if (mSchedule.getPhysician().getOrdemChegada()) {
+                if (isOrderChegada()) {
                     mWarningLine.setVisibility(View.VISIBLE);
+                    mLineVacancy.setVisibility(View.VISIBLE);
                     mContentCalendar.setVisibility(View.GONE);
+                    ArriveOrderController arriveOrderController = new ArriveOrderController(DateTimeActivity.this);
+                    arriveOrderController.vacancies(date.replaceAll("/","-"), mSchedule.getPhysician().getCodSala());
+
                 } else {
                     mControllerTime = new TimeController(DateTimeActivity.this)
                             .delegateAdapter(mAdapterTime)
@@ -131,6 +140,32 @@ public class DateTimeActivity extends AppCompatActivity {
 
                     changeStatusView(mContentTime);
                 }
+            }
+        });
+
+        mButtonVacancy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(DateTimeActivity.this);
+                View v = getLayoutInflater().inflate(R.layout.dialog_select_round, null);
+                builder.setView(v);
+                final AlertDialog alert = builder.create();
+                v.findViewById(R.id.line_manha).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mButtonVacancy.setText("Manhã");
+                        alert.dismiss();
+                    }
+                });
+                v.findViewById(R.id.line_tarde).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mButtonVacancy.setText("Tarde");
+                        alert.dismiss();
+                    }
+                });
+
+                alert.show();
             }
         });
 
@@ -174,24 +209,32 @@ public class DateTimeActivity extends AppCompatActivity {
     }
 
     public boolean validateStep() {
-        if (mButtonConsultType.getText().equals("")) {
-            mErrorMsg = "Antes de avançar, por favor selecione tipo da consulta.";
-            return false;
-        }
+//        if (mButtonConsultType.getText().equals("")) {
+//            mErrorMsg = "Antes de avançar, por favor selecione tipo da consulta.";
+//            return false;
+//        }
 
         if (mButtonDate.getText().equals("")) {
             mErrorMsg = "Antes de avançar, por favor selecione uma data.";
             return false;
         }
         if (mAdapterTime.getSelectedTime() == null) {
-            if (!mSchedule.getPhysician().getOrdemChegada()) {
+            if (!isOrderChegada()) {
                 mErrorMsg = "Antes de avançar, por favor selecione um horário.";
                 return false;
             } else {
+                if (mButtonVacancy.getText().toString().equals("")) {
+                    mErrorMsg = "Antes de avançar, por favor selecione um turno.";
+                    return false;
+                }
                 return true;
             }
         }
         return true;
+    }
+
+    private boolean isOrderChegada() {
+        return mSchedule.getPhysician().getOrdemChegada();
     }
 
 }
