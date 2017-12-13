@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.mobway.pelemedicalcenter.R;
+import com.mobway.pelemedicalcenter.fragments.FilterFragment;
 import com.mobway.pelemedicalcenter.models.Consult;
 import com.mobway.pelemedicalcenter.models.Insurance;
 import com.mobway.pelemedicalcenter.models.Schedule;
@@ -25,7 +26,9 @@ public class RVAdapterConsult extends RecyclerView.Adapter<RVAdapterConsult.View
     private Consult mSelectedConsult;
     private AlertDialog mDialog;
     private Button mButtonConsult;
+    private Button mButtonConsultID;
     private Schedule mParentSchedule;
+    private FilterFragment mFragment;
 
     public Consult getSelectedConsult() {
         return mSelectedConsult;
@@ -39,8 +42,16 @@ public class RVAdapterConsult extends RecyclerView.Adapter<RVAdapterConsult.View
         mButtonConsult = button;
     }
 
+    public void delegateButtonID(Button button){
+        mButtonConsultID = button;
+    }
+
     public void delegateSchedule(Schedule schedule){
         mParentSchedule = schedule;
+    }
+
+    public void delegateFragment(FilterFragment fragment) {
+        mFragment = fragment;
     }
 
     public RVAdapterConsult(List<Consult> list) {
@@ -66,6 +77,10 @@ public class RVAdapterConsult extends RecyclerView.Adapter<RVAdapterConsult.View
                 mParentSchedule.setType(model);
                 if (mButtonConsult != null) {
                     mButtonConsult.setText(model.getDescription());
+                    mButtonConsultID.setText(model.getUuid());
+                    if (mFragment!= null) {
+                        mFragment.validateConsultType();
+                    }
                 }
 
                 if (mDialog != null) {

@@ -1,6 +1,7 @@
 package com.mobway.pelemedicalcenter.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Switch;
 
+import com.mobway.pelemedicalcenter.LoginActivity;
 import com.mobway.pelemedicalcenter.MainActivity;
 import com.mobway.pelemedicalcenter.PaymentActivity;
 import com.mobway.pelemedicalcenter.R;
@@ -47,6 +49,10 @@ public class FilterFragment extends Fragment {
     private FilterManager mFilterManager;
     private SpecialtyController mController;
 
+    Button buttonConsultType;
+    Button buttonConsultTypeID;
+    Button buttonInsurance;
+    Switch switchEmergency;
 
     public FilterFragment() {
         // Required empty public constructor
@@ -89,22 +95,36 @@ public class FilterFragment extends Fragment {
         mController.delegateAdapter(adapter);
         mController.getSpecialties();
 
-        final Switch switchEmergency = root.findViewById(R.id.switch_emergency);
-//        final Switch switchPrivate = root.findViewById(R.id.switch_private);
+        switchEmergency = root.findViewById(R.id.switch_emergency);
         final Button buttonCity = root.findViewById(R.id.button_city);
         final Button buttonPlace = root.findViewById(R.id.button_place);
-        final Button buttonInsurance = root.findViewById(R.id.button_insurance);
-        final Button buttonConsultType = root.findViewById(R.id.button_consult_type);
-
+        buttonInsurance = root.findViewById(R.id.button_insurance);
+        buttonConsultType = root.findViewById(R.id.button_consult_type);
+        buttonConsultTypeID = root.findViewById(R.id.button_consult_type_id);
 
         switchEmergency.setChecked(filterSaved.getEmergency());
         buttonCity.setText(filterSaved.getPlace());
         buttonPlace.setText(filterSaved.getClinic());
         buttonInsurance.setText(filterSaved.getInsurance());
+        buttonConsultType.setText(filterSaved.getConsult().getDescription());
+        buttonConsultTypeID.setText(filterSaved.getConsult().getUuid());
+
+        validateConsultType();
 
         root.findViewById(R.id.button_apply_filter).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (buttonConsultType.getText().toString().equals("")) {
+                    final AlertDialog.Builder b =
+                            new AlertDialog.Builder(getActivity());
+                    b.setTitle("Campo obrigatório");
+                    b.setMessage("Por favor, selecione o tipo da consulta!");
+                    b.setPositiveButton("Fechar", null);
+                    b.setNegativeButton("", null);
+                    b.show();
+                    return;
+                }
 
                 List<Specialty> specialties = adapter.getSelectedSpecialties();
 
@@ -115,10 +135,12 @@ public class FilterFragment extends Fragment {
                 filter.setClinic(buttonPlace.getText().toString());
 //                filter.setPrivateSchedule(switchPrivate.isChecked());
                 filter.setSpecialties(specialties);
+                filter.setConsult(new Consult(buttonConsultTypeID.getText().toString(), buttonConsultType.getText().toString()));
                 mFilterManager.save(filter);
 
                 Intent it = new Intent(getContext(), MainActivity.class);
                 startActivity(it);
+
             }
         });
         buttonCity.setOnClickListener(new View.OnClickListener() {
@@ -205,7 +227,9 @@ public class FilterFragment extends Fragment {
                 RVAdapterConsult adapterConsult = new RVAdapterConsult(new ArrayList<Consult>());
                 adapterConsult.delegateDialog(alert);
                 adapterConsult.delegateButton(buttonConsultType);
+                adapterConsult.delegateButtonID(buttonConsultTypeID);
                 adapterConsult.delegateSchedule(new Schedule());
+                adapterConsult.delegateFragment(FilterFragment.this);
 
                 RecyclerView recyclerViewInsurance = v.findViewById(R.id.recycler_view_consult_type);
                 recyclerViewInsurance.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -221,6 +245,19 @@ public class FilterFragment extends Fragment {
 
 
         return root;
+    }
+
+    public void validateConsultType() {
+        if (buttonConsultType.getText().toString().equals("CONSULTA PARTICULAR")) {
+            buttonInsurance.setText("");
+            switchEmergency.setChecked(false);
+
+            buttonInsurance.setEnabled(false);
+            switchEmergency.setEnabled(false);
+        } else {
+            buttonInsurance.setEnabled(true);
+            switchEmergency.setEnabled(true);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
