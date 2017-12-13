@@ -22,8 +22,10 @@ import com.mobway.pelemedicalcenter.controllers.ArriveOrderController;
 import com.mobway.pelemedicalcenter.controllers.ConsultController;
 import com.mobway.pelemedicalcenter.controllers.TimeController;
 import com.mobway.pelemedicalcenter.models.Consult;
+import com.mobway.pelemedicalcenter.models.Filter;
 import com.mobway.pelemedicalcenter.models.Schedule;
 import com.mobway.pelemedicalcenter.models.Time;
+import com.mobway.pelemedicalcenter.utils.FilterManager;
 import com.mobway.pelemedicalcenter.utils.MobwayDialog;
 
 import java.util.ArrayList;
@@ -129,7 +131,9 @@ public class DateTimeActivity extends AppCompatActivity {
                     mWarningLine.setVisibility(View.VISIBLE);
                     mLineVacancy.setVisibility(View.VISIBLE);
                     mContentCalendar.setVisibility(View.GONE);
+
                     ArriveOrderController arriveOrderController = new ArriveOrderController(DateTimeActivity.this);
+                    arriveOrderController.delegateSchedule(mSchedule);
                     arriveOrderController.vacancies(date.replaceAll("/","-"), mSchedule.getPhysician().getCodSala());
 
                 } else {
@@ -154,6 +158,10 @@ public class DateTimeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         mButtonVacancy.setText("Manhã");
+                        if (mSchedule.getArriveOrderResponse().vacanciesFirstRound != null &&
+                                mSchedule.getArriveOrderResponse().vacanciesFirstRound > 0) {
+                            mButtonVacancy.setText("Manhã - Indisponível");
+                        }
                         alert.dismiss();
                     }
                 });
@@ -161,6 +169,10 @@ public class DateTimeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         mButtonVacancy.setText("Tarde");
+                        if (mSchedule.getArriveOrderResponse().vacanciesFirstRound != null &&
+                                mSchedule.getArriveOrderResponse().vacanciesFirstRound > 0) {
+                            mButtonVacancy.setText("tarde - Indisponível");
+                        }
                         alert.dismiss();
                     }
                 });
@@ -176,6 +188,10 @@ public class DateTimeActivity extends AppCompatActivity {
                     MobwayDialog.show(view.getContext(), mErrorMsg, mErroTitle);
                     return;
                 }
+                FilterManager filter = new FilterManager(getBaseContext());
+                Consult consult = filter.getFilters().getConsult();
+
+                mSchedule.setType(consult);
                 mSchedule.setDate(mButtonDate.getText().toString());
                 mSchedule.setTime(!mSchedule.getPhysician().getOrdemChegada() ? mAdapterTime.getSelectedTime().getHour(): "Ordem de chegada");
                 mSchedule.setTimeInfo(!mSchedule.getPhysician().getOrdemChegada() ? mAdapterTime.getSelectedTime(): null);

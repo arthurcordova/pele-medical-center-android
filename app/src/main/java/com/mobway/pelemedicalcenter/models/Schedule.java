@@ -30,6 +30,9 @@ public class Schedule implements Serializable {
     private String status;
     private String payment;
 
+    private TimerOrderArrive timerOrderArrive;
+    private ArriveOrderResponse arriveOrderResponse;
+
     private String codProcedimento;
     private String descProcedimento;
     private String medico;
@@ -74,8 +77,25 @@ public class Schedule implements Serializable {
         return time;
     }
 
+
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public TimerOrderArrive getTimerOrderArrive() {
+        return timerOrderArrive;
+    }
+
+    public void setTimerOrderArrive(TimerOrderArrive timerOrderArrive) {
+        this.timerOrderArrive = timerOrderArrive;
+    }
+
+    public ArriveOrderResponse getArriveOrderResponse() {
+        return arriveOrderResponse;
+    }
+
+    public void setArriveOrderResponse(ArriveOrderResponse arriveOrderResponse) {
+        this.arriveOrderResponse = arriveOrderResponse;
     }
 
     public String getStatus() {

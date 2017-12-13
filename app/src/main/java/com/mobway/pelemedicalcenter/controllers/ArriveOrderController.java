@@ -7,7 +7,9 @@ import android.widget.ProgressBar;
 
 import com.mobway.pelemedicalcenter.adapters.RVAdapterTime;
 import com.mobway.pelemedicalcenter.models.ArriveOrderResponse;
+import com.mobway.pelemedicalcenter.models.Schedule;
 import com.mobway.pelemedicalcenter.models.Time;
+import com.mobway.pelemedicalcenter.models.TimerOrderArrive;
 import com.mobway.pelemedicalcenter.services.ArriveOrderService;
 import com.mobway.pelemedicalcenter.services.TimeService;
 
@@ -24,10 +26,15 @@ import retrofit2.Response;
 public class ArriveOrderController extends Controller implements Callback<ArriveOrderResponse> {
 
     private ArriveOrderService mApi = null;
+    private Schedule mSchedule;
 
     public ArriveOrderController(Activity activity) {
         super(activity);
         mApi = retrofit.create(ArriveOrderService.class);
+    }
+
+    public void delegateSchedule(Schedule schedule){
+        mSchedule = schedule;
     }
 
     public void vacancies(String date, String codeRoom) {
@@ -40,6 +47,8 @@ public class ArriveOrderController extends Controller implements Callback<Arrive
         if (response.isSuccessful()) {
             Log.e("SUCCESS", response.body().toString());
             ArriveOrderResponse orderResponse = response.body();
+            mSchedule.setTimerOrderArrive(new TimerOrderArrive(orderResponse.id));
+            mSchedule.setArriveOrderResponse(orderResponse);
 
         } else {
 
