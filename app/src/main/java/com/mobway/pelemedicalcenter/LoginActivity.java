@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mobway.pelemedicalcenter.controllers.PatientController;
+import com.mobway.pelemedicalcenter.controllers.RecoverController;
 import com.mobway.pelemedicalcenter.models.UserRequest;
 
 
@@ -21,7 +22,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public static final int VIEW_CLOSE = 3;
 
     private TextView mMainTitle;
-    private View mButtonClose;
+    public View mButtonClose;
     private View mButtonSignIn;
     private View mButtonSignUp;
     private View mButtonForgot;
@@ -93,7 +94,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.button_recover:
-                validateSignForgot();
+                TextInputLayout tilEmailRecover = findViewById(R.id.til_recover_email);
+                TextInputEditText inputEmailRecover = findViewById(R.id.input_recover_email);
+                if (validateSignForgot(tilEmailRecover, inputEmailRecover)) {
+                    RecoverController recoverController = new RecoverController(this);
+                    recoverController.recoverPassword(inputEmailRecover.getText().toString());
+                }
                 break;
         }
     }
@@ -191,8 +197,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    public boolean validateSignForgot() {
-        return false;
+    public boolean validateSignForgot(TextInputLayout layout, TextInputEditText input) {
+        return validateEmptyInput(layout, input);
     }
 
     private boolean validateEmptyInput(TextInputLayout layout, TextInputEditText input) {
