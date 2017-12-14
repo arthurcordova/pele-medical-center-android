@@ -57,6 +57,7 @@ public class MobwayDialog {
         TextView payment = v.findViewById(R.id.label_payment);
         Button button = v.findViewById(R.id.button_confirm);
         View buttonClose = v.findViewById(R.id.button_close);
+        View linePayment = v.findViewById(R.id.line_payment);
 
         if (schedule.getPhysician() != null) {
             physicianName.setText(schedule.getPhysician().getName());
@@ -67,9 +68,12 @@ public class MobwayDialog {
         }
         date.setText(schedule.getDate());
         time.setText(schedule.getTime());
-        payment.setText(schedule.getPayment());
 
-
+        if (schedule.getPayment() == null){
+            linePayment.setVisibility(View.GONE);
+        } else {
+            payment.setText(schedule.getPayment());
+        }
         v.findViewById(R.id.button_confirm).setVisibility(View.GONE);
         v.findViewById(R.id.button_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,10 +120,12 @@ public class MobwayDialog {
         TextView date = v.findViewById(R.id.label_date);
         TextView time = v.findViewById(R.id.label_time);
         TextView patient = v.findViewById(R.id.label_patient);
+
         TextView payment = v.findViewById(R.id.label_payment);
         Button buttonConfirm = v.findViewById(R.id.button_confirm);
         Button buttonCancel = v.findViewById(R.id.button_cancel);
         View buttonClose = v.findViewById(R.id.button_close);
+        View linePayment = v.findViewById(R.id.line_payment);
 
         String round = null;
         if (schedule.getTimerOrderArrive() != null && schedule.getTimerOrderArrive().round != null) {
@@ -135,7 +141,12 @@ public class MobwayDialog {
         date.setText(schedule.getDate());
         time.setText(schedule.getTime() != null ? schedule.getTime() : round);
         patient.setText(schedule.getPatient().getName());
-        payment.setText(schedule.getPayment());
+
+        if (schedule.getPayment() == null){
+            linePayment.setVisibility(View.GONE);
+        } else {
+            payment.setText(schedule.getPayment());
+        }
 
         builder.setView(v);
         final AlertDialog alert = builder.create();

@@ -46,14 +46,14 @@ public class PatientControllerTask extends AsyncTask<Patient, String, List<Patie
     protected List<Patient> doInBackground(Patient... patients) {
         switch (mTask) {
             case TASK_FIND_ALL:
-                return mDao.find();
+//                return mDao.find();
             case TASK_SAVE:
-                try {
-                    mDao.insert(patients);
-                } catch (SQLiteConstraintException e) {
-                    Log.e(TAG, "Constraint exception");
-                }
-                return mDao.find();
+//                try {
+//                    mDao.insert(patients);
+//                } catch (SQLiteConstraintException e) {
+//                    Log.e(TAG, "Constraint exception");
+//                }
+//                return mDao.find();
             default:
                 return null;
         }

@@ -16,6 +16,7 @@ import com.mobway.pelemedicalcenter.adapters.RVAdapterPatient;
 import com.mobway.pelemedicalcenter.controllers.PatientController;
 import com.mobway.pelemedicalcenter.models.Patient;
 import com.mobway.pelemedicalcenter.models.Schedule;
+import com.mobway.pelemedicalcenter.preferences.SessionManager;
 import com.mobway.pelemedicalcenter.utils.MobwayDialog;
 
 import java.util.ArrayList;
@@ -36,14 +37,20 @@ public class PatientListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Paciente");
+        getSupportActionBar().setTitle("Quem será o paciente?");
 
         mSchedule = (Schedule) getIntent().getSerializableExtra("schedule");
 
-        mRvAdapterPatient = new RVAdapterPatient(new ArrayList<Patient>());
+        SessionManager sessionManager = new SessionManager(this);
+        Patient patientMaster = sessionManager.getSessionUser();
+
+        List<Patient> patients = new ArrayList<>();
+        patients.add(patientMaster);
+
+        mRvAdapterPatient = new RVAdapterPatient(patients);
 
         mRecyclerView = findViewById(R.id.recycler_view_patients);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -67,9 +74,16 @@ public class PatientListActivity extends AppCompatActivity {
                     return;
                 }
                 mSchedule.setPatient(mRvAdapterPatient.getSelectedPatient());
-                Intent it = new Intent(getBaseContext(), PaymentActivity.class);
-                it.putExtra("schedule", mSchedule);
-                startActivity(it);
+
+                Intent it;
+                if (mSchedule.getType().getDescription().equalsIgnoreCase("CONSULTA PARTICULAR")) {
+                    it = new Intent(getBaseContext(), PaymentActivity.class);
+                    it.putExtra("schedule", mSchedule);
+                    startActivity(it);
+                } else {
+                    MobwayDialog.finishScheduleDialog(PatientListActivity.this, mSchedule);
+                }
+
             }
         });
 

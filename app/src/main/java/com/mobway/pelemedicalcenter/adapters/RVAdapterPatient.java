@@ -83,21 +83,25 @@ public class RVAdapterPatient extends RecyclerView.Adapter<RVAdapterPatient.View
         TextView tvGender;
         TextView tvBirth;
         View content;
+        View checked;
 
         ViewHolder(View view) {
             super(view);
             tvName = view.findViewById(R.id.tv_name);
             tvGender = view.findViewById(R.id.tv_gender);
             tvBirth = view.findViewById(R.id.tv_birth);
+            checked = view.findViewById(R.id.img_checked);
             content = view;
         }
 
         public void setChecked(boolean value, View v) {
             if (value) {
                 v.setBackgroundColor(v.getContext().getResources().getColor(R.color.lighterGray));
+                checked.setVisibility(View.VISIBLE);
 
             } else {
                 v.setBackgroundColor(v.getContext().getResources().getColor(R.color.white));
+                checked.setVisibility(View.GONE);
 
             }
         }

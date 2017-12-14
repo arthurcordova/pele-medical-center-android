@@ -141,8 +141,10 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/line_payment"
                 android:layout_width="match_parent"
-                android:layout_height="41dp">
+                android:layout_height="41dp"
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"
