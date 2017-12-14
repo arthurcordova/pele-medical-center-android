@@ -71,97 +71,100 @@ public class PaymentActivity extends AppCompatActivity {
                 }
                 mSchedule.setPayment(mAdapterPayment.getSelectedPayment());
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(PaymentActivity.this);
-                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View v = inflater.inflate(R.layout.dialog_schedule_details, null);
+                MobwayDialog.finishScheduleDialog(PaymentActivity.this, mSchedule);
 
-                TextView physicianName = v.findViewById(R.id.tv_physician_name);
-                TextView specialty = v.findViewById(R.id.tv_specialty);
-                TextView date = v.findViewById(R.id.label_date);
-                TextView time = v.findViewById(R.id.label_time);
-                TextView patient = v.findViewById(R.id.label_patient);
-                TextView payment = v.findViewById(R.id.label_payment);
-                Button buttonConfirm = v.findViewById(R.id.button_confirm);
-                Button buttonCancel = v.findViewById(R.id.button_cancel);
-                View buttonClose = v.findViewById(R.id.button_close);
-
-
-                String round = null;
-                if (mSchedule.getTimerOrderArrive() != null && mSchedule.getTimerOrderArrive().round != null) {
-                    if (mSchedule.getTimerOrderArrive().round == 1) {
-                        round = "Turno da manhã";
-                    } else {
-                        round = "Turno da tarde";
-                    }
-                }
-
-                physicianName.setText(mSchedule.getPhysician().getName());
-                specialty.setText(mSchedule.getPhysician().getSpecialty());
-                date.setText(mSchedule.getDate());
-                time.setText(mSchedule.getTime() != null ? mSchedule.getTime() : round);
-                patient.setText(mSchedule.getPatient().getName());
-                payment.setText(mSchedule.getPayment());
-
-                builder.setView(v);
-                final AlertDialog alert = builder.create();
-                alert.show();
-
-                buttonConfirm.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+//
+//                AlertDialog.Builder builder = new AlertDialog.Builder(PaymentActivity.this);
+//                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//                View v = inflater.inflate(R.layout.dialog_schedule_details, null);
+//
+//                TextView physicianName = v.findViewById(R.id.tv_physician_name);
+//                TextView specialty = v.findViewById(R.id.tv_specialty);
+//                TextView date = v.findViewById(R.id.label_date);
+//                TextView time = v.findViewById(R.id.label_time);
+//                TextView patient = v.findViewById(R.id.label_patient);
+//                TextView payment = v.findViewById(R.id.label_payment);
+//                Button buttonConfirm = v.findViewById(R.id.button_confirm);
+//                Button buttonCancel = v.findViewById(R.id.button_cancel);
+//                View buttonClose = v.findViewById(R.id.button_close);
+//
+//
+//                String round = null;
+//                if (mSchedule.getTimerOrderArrive() != null && mSchedule.getTimerOrderArrive().round != null) {
+//                    if (mSchedule.getTimerOrderArrive().round == 1) {
+//                        round = "Turno da manhã";
+//                    } else {
+//                        round = "Turno da tarde";
+//                    }
+//                }
+//
+//                physicianName.setText(mSchedule.getPhysician().getName());
+//                specialty.setText(mSchedule.getPhysician().getSpecialty());
+//                date.setText(mSchedule.getDate());
+//                time.setText(mSchedule.getTime() != null ? mSchedule.getTime() : round);
+//                patient.setText(mSchedule.getPatient().getName());
+//                payment.setText(mSchedule.getPayment());
+//
+//                builder.setView(v);
+//                final AlertDialog alert = builder.create();
+//                alert.show();
+//
+//                buttonConfirm.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+////                        alert.dismiss();
+//                        String round = null;
+//                        String date = null;
+//                        if (mSchedule.getTimerOrderArrive() != null && mSchedule.getTimerOrderArrive().round != null) {
+//                            round = mSchedule.getTimerOrderArrive().round.toString();
+//                            date = mSchedule.getTimerOrderArrive().date;
+//                        }
+//
+//                        ScheduleRequest request = new ScheduleRequest();
+//                        request.setCodAgenda(mSchedule.getUuid() == null ? mSchedule.getTimerOrderArrive().code.toString() : mSchedule.getUuid());
+//                        request.setCodProcedimento(mSchedule.getType().getUuid());
+//                        request.setTurno(round);
+//                        request.setCodCliente(mSchedule.getPatient().getUuid());
+//                        request.setData(date);
+//
+//                        ScheduleController controller = new ScheduleController(PaymentActivity.this);
+//                        controller.postSchedule(request);
+//
+//                    }
+//                });
+//
+//                buttonClose.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
 //                        alert.dismiss();
-                        String round = null;
-                        String date = null;
-                        if (mSchedule.getTimerOrderArrive() != null && mSchedule.getTimerOrderArrive().round != null) {
-                            round = mSchedule.getTimerOrderArrive().round.toString();
-                            date = mSchedule.getTimerOrderArrive().date;
-                        }
-
-                        ScheduleRequest request = new ScheduleRequest();
-                        request.setCodAgenda(mSchedule.getUuid() == null ? mSchedule.getTimerOrderArrive().code.toString() : mSchedule.getUuid());
-                        request.setCodProcedimento(mSchedule.getType().getUuid());
-                        request.setTurno(round);
-                        request.setCodCliente(mSchedule.getPatient().getUuid());
-                        request.setData(date);
-
-                        ScheduleController controller = new ScheduleController(PaymentActivity.this);
-                        controller.postSchedule(request);
-
-                    }
-                });
-
-                buttonClose.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alert.dismiss();
-                    }
-                });
-
-
-                buttonCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-//                        alert.dismiss();
-
-                        final AlertDialog.Builder b =
-                                new AlertDialog.Builder(PaymentActivity.this);
-                        b.setTitle("Cancelar agendamento");
-                        b.setMessage("Todos os dados do agendamento serão perdidos. Deseja cancelar o agendamento?");
-                        b.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                MobwayDialog.TAB_SCHEDULE = false;
-                                Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // this will clear all the stack
-                                startActivity(intent);
-                            }
-                        });
-                        b.setNegativeButton("Não", null);
-                        b.show();
-
-
-                    }
-                });
+//                    }
+//                });
+//
+//
+//                buttonCancel.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+////                        alert.dismiss();
+//
+//                        final AlertDialog.Builder b =
+//                                new AlertDialog.Builder(PaymentActivity.this);
+//                        b.setTitle("Cancelar agendamento");
+//                        b.setMessage("Todos os dados do agendamento serão perdidos. Deseja cancelar o agendamento?");
+//                        b.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                MobwayDialog.TAB_SCHEDULE = false;
+//                                Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
+//                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // this will clear all the stack
+//                                startActivity(intent);
+//                            }
+//                        });
+//                        b.setNegativeButton("Não", null);
+//                        b.show();
+//
+//
+//                    }
+//                });
 
             }
         });
