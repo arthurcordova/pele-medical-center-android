@@ -134,6 +134,7 @@ public class DateTimeActivity extends AppCompatActivity {
 
                     ArriveOrderController arriveOrderController = new ArriveOrderController(DateTimeActivity.this);
                     arriveOrderController.delegateSchedule(mSchedule);
+                    arriveOrderController.delegateDate(date);
                     arriveOrderController.vacancies(date.replaceAll("/","-"), mSchedule.getPhysician().getCodSala());
 
                 } else {
@@ -161,6 +162,10 @@ public class DateTimeActivity extends AppCompatActivity {
                         if (mSchedule.getArriveOrderResponse().vacanciesFirstRound != null &&
                                 mSchedule.getArriveOrderResponse().vacanciesFirstRound.intValue() == 0) {
                             mButtonVacancy.setText("Manhã - Indisponível");
+                        } else {
+                            mSchedule.getTimerOrderArrive().round = 1;
+                            mSchedule.getTimerOrderArrive().roundName = "Manhã";
+
                         }
                         alert.dismiss();
                     }
@@ -172,6 +177,10 @@ public class DateTimeActivity extends AppCompatActivity {
                         if (mSchedule.getArriveOrderResponse().vacanciesFirstRound != null &&
                                 mSchedule.getArriveOrderResponse().vacanciesFirstRound.intValue() == 0) {
                             mButtonVacancy.setText("tarde - Indisponível");
+                        } else {
+                            mSchedule.getTimerOrderArrive().round = 2;
+                            mSchedule.getTimerOrderArrive().roundName = "Tarde";
+
                         }
                         alert.dismiss();
                     }
@@ -193,9 +202,10 @@ public class DateTimeActivity extends AppCompatActivity {
 
                 mSchedule.setType(consult);
                 mSchedule.setDate(mButtonDate.getText().toString());
-                mSchedule.setTime(!mSchedule.getPhysician().getOrdemChegada() ? mAdapterTime.getSelectedTime().getHour(): "Ordem de chegada");
+                mSchedule.setTime(!mSchedule.getPhysician().getOrdemChegada() ? mAdapterTime.getSelectedTime().getHour(): null);
                 mSchedule.setTimeInfo(!mSchedule.getPhysician().getOrdemChegada() ? mAdapterTime.getSelectedTime(): null);
                 mSchedule.setUuid(!mSchedule.getPhysician().getOrdemChegada() ? mAdapterTime.getSelectedTime().getId(): null);
+
 
                 Intent it = new Intent(getBaseContext(), PaymentActivity.class);
 //                Intent it = new Intent(getBaseContext(), PatientListActivity.class);

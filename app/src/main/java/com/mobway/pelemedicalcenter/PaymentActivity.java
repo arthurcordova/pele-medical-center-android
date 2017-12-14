@@ -55,7 +55,6 @@ public class PaymentActivity extends AppCompatActivity {
         List<String> payments = new ArrayList<>();
         payments.add("Cartão");
         payments.add("Dinheiro");
-        payments.add("Plano de saúde");
 
         mAdapterPayment = new RVAdapterPayment(payments);
 
@@ -86,10 +85,20 @@ public class PaymentActivity extends AppCompatActivity {
                 Button buttonCancel = v.findViewById(R.id.button_cancel);
                 View buttonClose = v.findViewById(R.id.button_close);
 
+
+                String round = null;
+                if (mSchedule.getTimerOrderArrive() != null && mSchedule.getTimerOrderArrive().round != null) {
+                    if (mSchedule.getTimerOrderArrive().round == 1) {
+                        round = "Turno da manhã";
+                    } else {
+                        round = "Turno da tarde";
+                    }
+                }
+
                 physicianName.setText(mSchedule.getPhysician().getName());
                 specialty.setText(mSchedule.getPhysician().getSpecialty());
                 date.setText(mSchedule.getDate());
-                time.setText(mSchedule.getTime());
+                time.setText(mSchedule.getTime() != null ? mSchedule.getTime() : round);
                 patient.setText(mSchedule.getPatient().getName());
                 payment.setText(mSchedule.getPayment());
 
@@ -101,14 +110,19 @@ public class PaymentActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 //                        alert.dismiss();
+                        String round = null;
+                        String date = null;
+                        if (mSchedule.getTimerOrderArrive() != null && mSchedule.getTimerOrderArrive().round != null) {
+                            round = mSchedule.getTimerOrderArrive().round.toString();
+                            date = mSchedule.getTimerOrderArrive().date;
+                        }
 
                         ScheduleRequest request = new ScheduleRequest();
-                        request.setCodAgenda(mSchedule.getUuid());
+                        request.setCodAgenda(mSchedule.getUuid() == null ? mSchedule.getTimerOrderArrive().code.toString() : mSchedule.getUuid());
                         request.setCodProcedimento(mSchedule.getType().getUuid());
+                        request.setTurno(round);
                         request.setCodCliente(mSchedule.getPatient().getUuid());
-
-//                        request.setData();
-//                        request.setTurno();
+                        request.setData(date);
 
                         ScheduleController controller = new ScheduleController(PaymentActivity.this);
                         controller.postSchedule(request);

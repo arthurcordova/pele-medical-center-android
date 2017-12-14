@@ -27,6 +27,7 @@ public class ArriveOrderController extends Controller implements Callback<Arrive
 
     private ArriveOrderService mApi = null;
     private Schedule mSchedule;
+    private String mDate;
 
     public ArriveOrderController(Activity activity) {
         super(activity);
@@ -35,6 +36,10 @@ public class ArriveOrderController extends Controller implements Callback<Arrive
 
     public void delegateSchedule(Schedule schedule){
         mSchedule = schedule;
+    }
+
+    public void delegateDate(String date){
+        mDate = date;
     }
 
     public void vacancies(String date, String codeRoom) {
@@ -49,6 +54,7 @@ public class ArriveOrderController extends Controller implements Callback<Arrive
             ArriveOrderResponse orderResponse = response.body();
             mSchedule.setTimerOrderArrive(new TimerOrderArrive(orderResponse.id));
             mSchedule.setArriveOrderResponse(orderResponse);
+            mSchedule.getTimerOrderArrive().date = mDate;
 
         } else {
 

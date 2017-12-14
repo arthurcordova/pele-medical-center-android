@@ -10,8 +10,9 @@ public class TimerOrderArrive implements Serializable {
 
     public Integer code;
     // 1 - manha 2 - tarde
-    private Integer round;
-    private String roundName;
+    public Integer round;
+    public String roundName;
+    public String date;
 
     public TimerOrderArrive(Integer code) {
         this.code = code;
