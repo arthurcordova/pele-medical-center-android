@@ -44,6 +44,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_toEndOf="@+id/textView34"
                         android:background="@android:color/transparent"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down"
                         android:text="Maceió"
                         android:textAlignment="textEnd"
                         android:textAllCaps="false"
@@ -84,6 +85,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_toEndOf="@+id/textView"
                         android:background="@android:color/transparent"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down"
                         android:textAlignment="textEnd"
                         android:textAllCaps="false"
                         android:textColor="#212121"
@@ -121,9 +123,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignParentTop="true"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginEnd="16dp"
                         android:layout_toEndOf="@+id/textView8"
                         android:background="@android:color/transparent"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down"
                         android:textAlignment="textEnd"
                         android:textColor="#212121"
                         android:textSize="14sp" />
@@ -159,10 +162,10 @@
                     android:layout_height="match_parent">
 
                     <TextView
+                        android:id="@+id/text123"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="8dp"
-                        android:id="@+id/text123"
                         android:gravity="center_vertical"
                         android:text="Convênio:"
                         android:textColor="#555555"
@@ -176,6 +179,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_toEndOf="@+id/text123"
                         android:background="@android:color/transparent"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down"
                         android:textAlignment="textEnd"
                         android:textAllCaps="false"
                         android:textColor="#212121"

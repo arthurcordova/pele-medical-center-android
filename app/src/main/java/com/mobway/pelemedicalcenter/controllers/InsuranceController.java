@@ -44,14 +44,14 @@ public class InsuranceController extends Controller implements Callback<List<Ins
         if (response.isSuccessful()) {
             if (response.body() != null) {
                 Log.e("SUCCESS", response.body().toString());
-                List<Insurance> insurances = new ArrayList<>();
-                Insurance privatePlan = new Insurance();
-                privatePlan.setUuid("0");
-                privatePlan.setDescription("PARTICULAR");
+//                List<Insurance> insurances = new ArrayList<>();
+//                Insurance privatePlan = new Insurance();
+//                privatePlan.setUuid("0");
+//                privatePlan.setDescription("PARTICULAR");
 
-                insurances.add(privatePlan);
-                insurances.addAll(response.body());
-
+//                insurances.add(privatePlan);
+//                insurances.addAll(response.body());
+                List<Insurance> insurances = response.body();
                 if (mAdapterInsurance != null) {
                     mAdapterInsurance.setFilter(insurances);
                 }

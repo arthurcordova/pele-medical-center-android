@@ -109,6 +109,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_toEndOf="@+id/textView"
                 android:background="@android:color/transparent"
+                android:drawableEnd="@drawable/ic_arrow_drop_down"
                 android:textAlignment="textEnd"
                 android:textColor="#212121"
                 android:textSize="12sp" />
@@ -122,10 +123,10 @@
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_marginEnd="0dp"
-        android:visibility="gone"
         android:layout_marginStart="0dp"
         android:layout_marginTop="8dp"
-        android:background="#ffffff">
+        android:background="#ffffff"
+        android:visibility="gone">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -149,6 +150,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_toEndOf="@+id/textView34"
                 android:background="@android:color/transparent"
+                android:drawableEnd="@drawable/ic_arrow_drop_down"
                 android:textAlignment="textEnd"
                 android:textColor="#212121"
                 android:textSize="12sp" />
