@@ -8,15 +8,11 @@ import android.util.Log;
 import com.mobway.pelemedicalcenter.StartActivity;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterPatient;
 import com.mobway.pelemedicalcenter.models.Patient;
-import com.mobway.pelemedicalcenter.models.Physician;
 import com.mobway.pelemedicalcenter.models.UserRequest;
 import com.mobway.pelemedicalcenter.preferences.SessionManager;
 import com.mobway.pelemedicalcenter.services.PatientService;
-import com.mobway.pelemedicalcenter.services.PhysicianService;
 import com.mobway.pelemedicalcenter.utils.TaskDao;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -55,6 +51,29 @@ public class PatientController extends Controller implements Callback<Patient> {
         mUserRequest = user;
         Call<Patient> call = mApi.login(user);
         call.enqueue(this);
+    }
+
+    public void getDependents(Patient master, final RVAdapterPatient adapterPatient){
+        Call<List<Patient>> call = mApi.dependents(String.valueOf(master.getUuid()));
+        call.enqueue(new Callback<List<Patient>>() {
+            @Override
+            public void onResponse(Call<List<Patient>> call, Response<List<Patient>> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        Log.d(TAG, "RESPONSE: " + response.body().toString());
+                        List<Patient> patients = response.body();
+                        if (adapterPatient != null) {
+                            adapterPatient.setFilter(patients);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Patient>> call, Throwable t) {
+                Log.d(TAG, "FAIL CONNECTION");
+            }
+        });
     }
 
     /**

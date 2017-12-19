@@ -2,8 +2,6 @@ package com.mobway.pelemedicalcenter;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,7 +29,8 @@ public class PatientListActivity extends AppCompatActivity {
 
     private Schedule mSchedule;
     private String mErrorMsg;
-    private String mErroTitle = "Oops, encontramos um erro!";
+    private String mErrorTitle = "Oops, encontramos um erro!";
+    private Patient mUserMaster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +44,10 @@ public class PatientListActivity extends AppCompatActivity {
         mSchedule = (Schedule) getIntent().getSerializableExtra("schedule");
 
         SessionManager sessionManager = new SessionManager(this);
-        Patient patientMaster = sessionManager.getSessionUser();
+        mUserMaster = sessionManager.getSessionUser();
 
         List<Patient> patients = new ArrayList<>();
-        patients.add(patientMaster);
+        patients.add(mUserMaster);
 
         mRvAdapterPatient = new RVAdapterPatient(patients);
 
@@ -70,7 +69,7 @@ public class PatientListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!validateStep()) {
-                    MobwayDialog.show(view.getContext(), mErrorMsg, mErroTitle);
+                    MobwayDialog.show(view.getContext(), mErrorMsg, mErrorTitle);
                     return;
                 }
                 mSchedule.setPatient(mRvAdapterPatient.getSelectedPatient());
@@ -87,14 +86,8 @@ public class PatientListActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
         mController = new PatientController(this);
-        mController.getPatients(mRvAdapterPatient);
+        mController.getDependents(mUserMaster, mRvAdapterPatient);
 
     }
 
