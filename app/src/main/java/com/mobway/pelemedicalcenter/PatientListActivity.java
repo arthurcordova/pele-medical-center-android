@@ -47,7 +47,7 @@ public class PatientListActivity extends AppCompatActivity {
         mUserMaster = sessionManager.getSessionUser();
 
         List<Patient> patients = new ArrayList<>();
-        patients.add(mUserMaster);
+//        patients.add(mUserMaster);
 
         mRvAdapterPatient = new RVAdapterPatient(patients);
 
@@ -86,9 +86,14 @@ public class PatientListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
         mController = new PatientController(this);
         mController.getDependents(mUserMaster, mRvAdapterPatient);
 
+        super.onResume();
     }
 
     @Override

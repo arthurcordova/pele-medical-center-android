@@ -1,8 +1,6 @@
 package com.mobway.pelemedicalcenter;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -11,38 +9,43 @@ import android.widget.EditText;
 
 import com.mobway.pelemedicalcenter.controllers.PatientController;
 import com.mobway.pelemedicalcenter.models.Patient;
+import com.mobway.pelemedicalcenter.models.UserRequest;
+import com.mobway.pelemedicalcenter.preferences.SessionManager;
 
 public class PatientRecordActivity extends AppCompatActivity {
 
     private PatientController mController;
     private EditText mInputName;
-    private EditText mInputGender;
-    private EditText mInputBirth;
+    private EditText mInputEmail;
+//    private EditText mInputBirth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_record);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Cadastro de paciente");
+        getSupportActionBar().setTitle("Cadastro de dependentes");
 
         mInputName = findViewById(R.id.input_name);
-        mInputGender = findViewById(R.id.input_sexo);
-        mInputBirth = findViewById(R.id.input_birth);
+        mInputEmail = findViewById(R.id.input_email);
+//        mInputBirth = findViewById(R.id.input_birth);
+
+        final SessionManager sm = new SessionManager(this);
 
         findViewById(R.id.button_save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Patient patient = new Patient();
-                patient.setName(mInputName.getText().toString());
-                patient.setGender(mInputGender.getText().toString());
-                patient.setBirth(mInputBirth.getText().toString());
 
-                mController = new PatientController(PatientRecordActivity.this);
-                mController.savePatient(patient);
-                finish();
+                if (checkField(mInputName) && checkField(mInputEmail)) {
+                    Patient userMaster = sm.getSessionUser();
+                    UserRequest patient = new UserRequest(mInputName.getText().toString(), mInputEmail.getText().toString(), null, userMaster.getUuid());
+
+                    mController = new PatientController(PatientRecordActivity.this);
+                    mController.create(patient);
+                    finish();
+                }
             }
         });
 
@@ -54,6 +57,14 @@ public class PatientRecordActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean checkField(EditText input) {
+        if (input.getText().toString().equals("")) {
+            input.setError("Campo obrigatório!");
+            return false;
+        }
+        return true;
     }
 
 }

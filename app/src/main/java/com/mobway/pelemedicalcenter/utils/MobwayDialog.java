@@ -63,9 +63,11 @@ public class MobwayDialog {
             physicianName.setText(schedule.getPhysician().getName());
             specialty.setText(schedule.getPhysician().getSpecialty());
         }
+        patient.setText(schedule.getNomeCliente());
         if (schedule.getPatient() != null) {
             patient.setText(schedule.getPatient().getName());
         }
+
         date.setText(schedule.getDate());
         time.setText(schedule.getTime());
 
@@ -163,9 +165,9 @@ public class MobwayDialog {
                 }
 
                 ScheduleRequest request = new ScheduleRequest();
-                request.setCodAgenda(schedule.getUuid() == null ? schedule.getTimerOrderArrive().code.toString() : schedule.getUuid());
+                request.setCodAgenda(schedule.getUuid() == null ? String.valueOf(schedule.getTimerOrderArrive().code) : schedule.getUuid());
                 request.setCodProcedimento(schedule.getType().getUuid());
-                request.setTurno(round);
+                request.setTurno(round == null ? "0" : round);
                 request.setCodCliente(schedule.getPatient().getUuid());
                 request.setData(date);
 

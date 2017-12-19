@@ -13,6 +13,7 @@ import com.mobway.pelemedicalcenter.preferences.SessionManager;
 import com.mobway.pelemedicalcenter.services.PatientService;
 import com.mobway.pelemedicalcenter.utils.TaskDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,6 +31,7 @@ public class PatientController extends Controller implements Callback<Patient> {
     private RVAdapterPatient adapterPatient;
     private PatientControllerTask mPatientControllerTask;
     private UserRequest mUserRequest;
+    private boolean isDependent = false;
 
     public PatientController(Activity activity) {
         super(activity);
@@ -43,6 +45,7 @@ public class PatientController extends Controller implements Callback<Patient> {
 
     public void create(UserRequest user) {
         mUserRequest = user;
+        isDependent =  user.parentCode != null;
         Call<Patient> call = mApi.create(user);
         call.enqueue(this);
     }
@@ -53,7 +56,7 @@ public class PatientController extends Controller implements Callback<Patient> {
         call.enqueue(this);
     }
 
-    public void getDependents(Patient master, final RVAdapterPatient adapterPatient){
+    public void getDependents(final Patient master, final RVAdapterPatient adapterPatient){
         Call<List<Patient>> call = mApi.dependents(String.valueOf(master.getUuid()));
         call.enqueue(new Callback<List<Patient>>() {
             @Override
@@ -61,7 +64,9 @@ public class PatientController extends Controller implements Callback<Patient> {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         Log.d(TAG, "RESPONSE: " + response.body().toString());
-                        List<Patient> patients = response.body();
+                        List<Patient> patients = new ArrayList<>();
+                        patients.add(master);
+                        patients.addAll(response.body());
                         if (adapterPatient != null) {
                             adapterPatient.setFilter(patients);
                         }
@@ -92,15 +97,17 @@ public class PatientController extends Controller implements Callback<Patient> {
         if (response.isSuccessful()) {
             if (response.body() != null) {
                 Log.d(TAG, "RESPONSE: " + response.body().toString());
-                Patient patient = response.body();
-                patient.setEmail(mUserRequest.email);
+                if (!isDependent) {
+                    Patient patient = response.body();
+                    patient.setEmail(mUserRequest.email);
 
-                SessionManager sm = new SessionManager(activity);
-                sm.createSessionLogin(patient);
+                    SessionManager sm = new SessionManager(activity);
+                    sm.createSessionLogin(patient);
 
-                Intent intent = new Intent(activity, StartActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                activity.startActivity(intent);
+                    Intent intent = new Intent(activity, StartActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    activity.startActivity(intent);
+                }
             } else {
                 Snackbar.make(activity.getWindow().getDecorView(), "Usuário o senha inválido. Por favor tente novamente.", Snackbar.LENGTH_LONG).show();
             }

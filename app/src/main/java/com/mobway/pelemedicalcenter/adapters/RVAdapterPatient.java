@@ -65,9 +65,9 @@ public class RVAdapterPatient extends RecyclerView.Adapter<RVAdapterPatient.View
     }
 
     public void setFilter(List<Patient> list) {
-//        if (!mList.isEmpty()) {
-//            mList.clear();
-//        }
+        if (!mList.isEmpty()) {
+            mList.clear();
+        }
         mList.addAll(list);
         notifyDataSetChanged();
     }

@@ -40,8 +40,9 @@ public class RVAdapterSchedule extends RecyclerView.Adapter<RVAdapterSchedule.Vi
         holder.tvMonth.setText(model.getMonthName());
         holder.tvWeek.setText(model.getWeekName());
         holder.tvTitle.setText(model.getDescProcedimento());
-        holder.tvTime.setText(model.getTime());
+        holder.tvTime.setText(model.getTurno().equals("0")? model.getTime() : model.getTurno().equals("1") ? "Manhã" : "Tarde");
         holder.tvPhysician.setText(model.getMedico());
+        holder.tvPatient.setText(model.getNomeCliente());
 
         holder.content.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,8 +73,8 @@ public class RVAdapterSchedule extends RecyclerView.Adapter<RVAdapterSchedule.Vi
         TextView tvWeek;
         TextView tvTitle;
         TextView tvTime;
-//        TextView tvSpecialty;
         TextView tvPhysician;
+        TextView tvPatient;
         View content;
 
         ViewHolder(View view) {
@@ -84,8 +85,8 @@ public class RVAdapterSchedule extends RecyclerView.Adapter<RVAdapterSchedule.Vi
             tvWeek = view.findViewById(R.id.tv_week_name);
             tvTitle = view.findViewById(R.id.tv_title);
             tvTime = view.findViewById(R.id.tv_time);
-//            tvSpecialty = view.findViewById(R.id.tv_time);
             tvPhysician = view.findViewById(R.id.tv_physician_name);
+            tvPatient = view.findViewById(R.id.tv_patient_name);
         }
     }
 }
