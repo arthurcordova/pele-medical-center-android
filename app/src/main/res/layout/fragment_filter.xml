@@ -55,6 +55,36 @@
 
             </LinearLayout>
 
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif"
+                android:text="Especialidades"
+                android:textColor="#555555"
+                android:textSize="14sp" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="8dp"
+                android:background="#EBEBF1"
+                android:scrollIndicators="none"
+                android:scrollbars="none">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_specialty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#EBEBF1" />
+
+            </HorizontalScrollView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
@@ -223,34 +253,7 @@
             </LinearLayout>
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="sans-serif-light"
-                android:text="Especialidades"
-                android:textColor="#555555"
-                android:textSize="14sp" />
 
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="8dp"
-                android:background="#EBEBF1"
-                android:scrollIndicators="none"
-                android:scrollbars="none">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_specialty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="#EBEBF1" />
-
-            </HorizontalScrollView>
 
         </LinearLayout>
 
