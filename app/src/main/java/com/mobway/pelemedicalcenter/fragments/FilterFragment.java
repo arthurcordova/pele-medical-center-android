@@ -21,15 +21,18 @@ import com.mobway.pelemedicalcenter.MainActivity;
 import com.mobway.pelemedicalcenter.PaymentActivity;
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterCity;
+import com.mobway.pelemedicalcenter.adapters.RVAdapterClinic;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterConsult;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterInsurance;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterSpecialty;
 import com.mobway.pelemedicalcenter.controllers.CityController;
+import com.mobway.pelemedicalcenter.controllers.ClinicController;
 import com.mobway.pelemedicalcenter.controllers.ConsultController;
 import com.mobway.pelemedicalcenter.controllers.Controller;
 import com.mobway.pelemedicalcenter.controllers.InsuranceController;
 import com.mobway.pelemedicalcenter.controllers.SpecialtyController;
 import com.mobway.pelemedicalcenter.models.CityResponse;
+import com.mobway.pelemedicalcenter.models.ClinicResponse;
 import com.mobway.pelemedicalcenter.models.Consult;
 import com.mobway.pelemedicalcenter.models.Filter;
 import com.mobway.pelemedicalcenter.models.Insurance;
@@ -178,20 +181,16 @@ public class FilterFragment extends Fragment {
 
                 Filter filter = mFilterManager.getFilters();
 
-                v.findViewById(R.id.line_fortaleza).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        buttonPlace.setText("Parque Shopping Maceió");
-                        alert.dismiss();
-                    }
-                });
-                v.findViewById(R.id.line_maceio).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        buttonPlace.setText("Maceió Shopping");
-                        alert.dismiss();
-                    }
-                });
+                RVAdapterClinic adapterClinic = new RVAdapterClinic(new ArrayList<ClinicResponse>());
+                adapterClinic.delegateDialog(alert);
+                adapterClinic.delegateButton(buttonPlace);
+
+                RecyclerView rvClinics = v.findViewById(R.id.recycler_view_clinics);
+                rvClinics.setLayoutManager(new LinearLayoutManager(getContext()));
+                rvClinics.setAdapter(adapterClinic);
+
+                ClinicController cityController = new ClinicController(getActivity()).delegateAdapter(adapterClinic);
+                cityController.getClinics(filter.getPlaceID());
 
                 alert.show();
             }
