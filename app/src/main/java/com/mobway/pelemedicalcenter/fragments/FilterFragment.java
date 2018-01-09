@@ -20,13 +20,16 @@ import com.mobway.pelemedicalcenter.LoginActivity;
 import com.mobway.pelemedicalcenter.MainActivity;
 import com.mobway.pelemedicalcenter.PaymentActivity;
 import com.mobway.pelemedicalcenter.R;
+import com.mobway.pelemedicalcenter.adapters.RVAdapterCity;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterConsult;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterInsurance;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterSpecialty;
+import com.mobway.pelemedicalcenter.controllers.CityController;
 import com.mobway.pelemedicalcenter.controllers.ConsultController;
 import com.mobway.pelemedicalcenter.controllers.Controller;
 import com.mobway.pelemedicalcenter.controllers.InsuranceController;
 import com.mobway.pelemedicalcenter.controllers.SpecialtyController;
+import com.mobway.pelemedicalcenter.models.CityResponse;
 import com.mobway.pelemedicalcenter.models.Consult;
 import com.mobway.pelemedicalcenter.models.Filter;
 import com.mobway.pelemedicalcenter.models.Insurance;
@@ -150,20 +153,17 @@ public class FilterFragment extends Fragment {
                 View v = getLayoutInflater().inflate(R.layout.dialog_select_city, null);
                 builder.setView(v);
                 final AlertDialog alert = builder.create();
-                v.findViewById(R.id.line_fortaleza).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        buttonCity.setText("Fortaleza");
-                        alert.dismiss();
-                    }
-                });
-                v.findViewById(R.id.line_maceio).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        buttonCity.setText("Maceió");
-                        alert.dismiss();
-                    }
-                });
+
+                RVAdapterCity adapterCity = new RVAdapterCity(new ArrayList<CityResponse>());
+                adapterCity.delegateDialog(alert);
+                adapterCity.delegateButton(buttonCity);
+
+                RecyclerView rvCities = v.findViewById(R.id.recycler_view_cities);
+                rvCities.setLayoutManager(new LinearLayoutManager(getContext()));
+                rvCities.setAdapter(adapterCity);
+
+                CityController cityController = new CityController(getActivity()).delegateAdapter(adapterCity);
+                cityController.getCities();
 
                 alert.show();
             }
