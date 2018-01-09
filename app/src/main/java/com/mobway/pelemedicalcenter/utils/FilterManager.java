@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import com.mobway.pelemedicalcenter.models.Consult;
 import com.mobway.pelemedicalcenter.models.Filter;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 /**
  * Created by arthurcordova on 7/5/16.
@@ -19,6 +21,7 @@ public final class FilterManager {
     private final String PREF_NAME = "filters_manager";
 
     private final String KEY_PLACE = "place";
+    private final String KEY_PLACE_ID = "place_id";
     private final String KEY_CLINIC = "clinic";
     private final String KEY_EMERGENCY = "emergency";
     private final String KEY_INSURANCE = "insurance";
@@ -29,19 +32,35 @@ public final class FilterManager {
 
     public FilterManager(Context context) {
         this.context = context;
-        preferences = context.getSharedPreferences(PREF_NAME, context.MODE_PRIVATE);
+        preferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         editor = preferences.edit();
     }
 
     public void save(Filter filter) {
-        editor.putString(KEY_PLACE, filter.getPlace());
-        editor.putBoolean(KEY_EMERGENCY, filter.getEmergency());
-        editor.putString(KEY_CLINIC, filter.getClinic());
-        editor.putString(KEY_INSURANCE, filter.getInsurance());
-//        editor.putBoolean(KEY_PRIVATE, filter.getPrivateSchedule());
-        editor.putString(KEY_SPECIALTIES, filter.convertSpecialtiesToSave(filter.getSpecialties()));
-        editor.putString(KEY_CONSULT_TYPE, filter.getConsult().getDescription());
-        editor.putString(KEY_CONSULT_TYPE_ID, filter.getConsult().getUuid());
+        if (filter.getPlaceID() != null) {
+            editor.putInt(KEY_PLACE_ID, filter.getPlaceID());
+        }
+        if (filter.getPlace() != null) {
+            editor.putString(KEY_PLACE, filter.getPlace());
+        }
+        if (filter.getEmergency() != null) {
+            editor.putBoolean(KEY_EMERGENCY, filter.getEmergency());
+        }
+        if (filter.getClinic() != null) {
+            editor.putString(KEY_CLINIC, filter.getClinic());
+        }
+        if (filter.getInsurance() != null) {
+            editor.putString(KEY_INSURANCE, filter.getInsurance());
+        }
+        if (filter.getSpecialties() != null) {
+            editor.putString(KEY_SPECIALTIES, filter.convertSpecialtiesToSave(filter.getSpecialties()));
+        }
+        if (filter.getConsult() != null) {
+            editor.putString(KEY_CONSULT_TYPE, filter.getConsult().getDescription());
+        }
+        if (filter.getConsult() != null) {
+            editor.putString(KEY_CONSULT_TYPE_ID, filter.getConsult().getUuid());
+        }
         editor.commit();
     }
 
@@ -52,6 +71,7 @@ public final class FilterManager {
 
     public Filter getFilters() {
         Filter filter = new Filter();
+        filter.setPlaceID(preferences.getInt(KEY_PLACE_ID, 0));
         filter.setPlace(preferences.getString(KEY_PLACE,""));
         filter.setClinic(preferences.getString(KEY_CLINIC,""));
         filter.setInsurance(preferences.getString(KEY_INSURANCE,""));

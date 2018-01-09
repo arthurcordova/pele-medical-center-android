@@ -175,6 +175,9 @@ public class FilterFragment extends Fragment {
                 View v = getLayoutInflater().inflate(R.layout.dialog_select_place, null);
                 builder.setView(v);
                 final AlertDialog alert = builder.create();
+
+                Filter filter = mFilterManager.getFilters();
+
                 v.findViewById(R.id.line_fortaleza).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

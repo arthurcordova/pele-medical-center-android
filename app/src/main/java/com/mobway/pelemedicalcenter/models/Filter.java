@@ -13,6 +13,7 @@ public class Filter implements Serializable {
     private String clinic;
     private String insurance;
     private String place;
+    private Integer placeID;
     private Boolean emergency;
     private Boolean privateSchedule;
     private List<Specialty> specialties;
@@ -109,4 +110,11 @@ public class Filter implements Serializable {
         return null;
     }
 
+    public Integer getPlaceID() {
+        return placeID;
+    }
+
+    public void setPlaceID(Integer placeID) {
+        this.placeID = placeID;
+    }
 }

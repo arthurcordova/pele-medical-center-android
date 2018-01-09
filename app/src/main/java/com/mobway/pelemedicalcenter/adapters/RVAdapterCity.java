@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.models.CityResponse;
+import com.mobway.pelemedicalcenter.models.Filter;
+import com.mobway.pelemedicalcenter.utils.FilterManager;
 
 import java.util.List;
 
@@ -23,6 +25,7 @@ public class RVAdapterCity extends RecyclerView.Adapter<RVAdapterCity.ViewHolder
     private CityResponse mSelectedCity;
     private AlertDialog mDialog;
     private Button mButtonCity;
+    private FilterManager mFilterManager;
 
     public CityResponse getSelectedInsurance() {
         return mSelectedCity;
@@ -59,6 +62,16 @@ public class RVAdapterCity extends RecyclerView.Adapter<RVAdapterCity.ViewHolder
                 mSelectedCity = model;
                 if (mButtonCity != null) {
                     mButtonCity.setText(mSelectedCity.getName());
+
+                    if (mFilterManager == null) {
+                        mFilterManager = new FilterManager(view.getContext());
+                    }
+
+                    Filter filterPlace = new Filter();
+                    filterPlace.setPlace(mSelectedCity.getName());
+                    filterPlace.setPlaceID(mSelectedCity.getId());
+
+                    mFilterManager.save(filterPlace);
                 }
 
                 if (mDialog != null) {
