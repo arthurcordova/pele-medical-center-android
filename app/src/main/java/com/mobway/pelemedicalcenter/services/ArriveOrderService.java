@@ -16,7 +16,7 @@ import retrofit2.http.Url;
 
 public interface ArriveOrderService {
 
-    @GET("queue/getqueue/1/{date}/{room}")
-    Call<ArriveOrderResponse> vacancies(@Path("date") String date, @Path("room") String room);
+    @GET("queue/getqueue/{filial}/{date}/{room}")
+    Call<ArriveOrderResponse> vacancies(@Path("filial") Integer filial, @Path("date") String date, @Path("room") String room);
 
 }

@@ -42,8 +42,8 @@ public class SpecialtyController extends Controller implements Callback<List<Spe
         mApi = retrofit.create(SpecialtyService.class);
     }
 
-    public void getSpecialties() {
-        Call<List<Specialty>> call = mApi.specialties();
+    public void getSpecialties(Integer filial) {
+        Call<List<Specialty>> call = mApi.specialties(filial);
         call.enqueue(this);
     }
 

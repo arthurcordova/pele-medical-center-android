@@ -53,6 +53,7 @@ public class DateTimeActivity extends AppCompatActivity {
     private String mErrorMsg;
     private String mErroTitle = "Oops, encontramos um erro!";
     private TimeController mControllerTime;
+    private FilterManager mFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,8 @@ public class DateTimeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Data/Horário");
+
+        mFilter = new FilterManager(this);
 
         mSchedule = (Schedule) getIntent().getSerializableExtra("schedule");
 
@@ -135,13 +138,13 @@ public class DateTimeActivity extends AppCompatActivity {
                     ArriveOrderController arriveOrderController = new ArriveOrderController(DateTimeActivity.this);
                     arriveOrderController.delegateSchedule(mSchedule);
                     arriveOrderController.delegateDate(date);
-                    arriveOrderController.vacancies(date.replaceAll("/","-"), mSchedule.getPhysician().getCodSala());
+                    arriveOrderController.vacancies(date.replaceAll("/","-"), mSchedule.getPhysician().getCodSala(), mFilter.getFilters().getPlaceID());
 
                 } else {
                     mControllerTime = new TimeController(DateTimeActivity.this)
                             .delegateAdapter(mAdapterTime)
                             .delegateProgressBar(mProgressBar);
-                    mControllerTime.getHours(date.replaceAll("/","-"),mSchedule.getPhysician().getCodSala());
+                    mControllerTime.getHours(date.replaceAll("/","-"),mSchedule.getPhysician().getCodSala(), mFilter.getFilters().getPlaceID());
 
                     changeStatusView(mContentTime);
                 }
@@ -197,8 +200,8 @@ public class DateTimeActivity extends AppCompatActivity {
                     MobwayDialog.show(view.getContext(), mErrorMsg, mErroTitle);
                     return;
                 }
-                FilterManager filter = new FilterManager(getBaseContext());
-                Consult consult = filter.getFilters().getConsult();
+
+                Consult consult = mFilter.getFilters().getConsult();
 
                 mSchedule.setType(consult);
                 mSchedule.setDate(mButtonDate.getText().toString());

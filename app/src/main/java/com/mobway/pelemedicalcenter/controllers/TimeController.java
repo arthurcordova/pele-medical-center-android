@@ -40,9 +40,9 @@ public class TimeController extends Controller implements Callback<List<Time>> {
         mApi = retrofit.create(TimeService.class);
     }
 
-    public void getHours(String date, String codeRoom) {
+    public void getHours(String date, String codeRoom, Integer filial) {
 //        startProgress();
-        String url = "/clickwebservice/servidor/pelews/agenda/horarios/1/"+date+"/"+codeRoom;
+        String url = "/clickwebservice/servidor/pelews/agenda/horarios/"+String.valueOf(filial)+"/"+date+"/"+codeRoom;
         Call<List<Time>> call = mApi.hours(url);
         call.enqueue(this);
     }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 /**
  * Created by acstapassoli on 10/11/17.
@@ -14,7 +15,7 @@ import retrofit2.http.GET;
 
 public interface SpecialtyService {
 
-    @GET("especialidade/getespecialidades/0")
-    Call<List<Specialty>> specialties();
+    @GET("especialidade/getespecialidades/{filial}")
+    Call<List<Specialty>> specialties(@Path("filial") Integer filial);
 
 }

@@ -35,8 +35,8 @@ public class ConsultController extends Controller implements Callback<List<Consu
         mApi = retrofit.create(ConsultService.class);
     }
 
-    public void getTypes() {
-        Call<List<Consult>> call = mApi.typeConsults();
+    public void getTypes(Integer filial) {
+        Call<List<Consult>> call = mApi.typeConsults(filial);
         call.enqueue(this);
     }
 

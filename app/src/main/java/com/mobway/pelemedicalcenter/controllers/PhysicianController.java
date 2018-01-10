@@ -36,8 +36,8 @@ public class PhysicianController extends Controller implements Callback<List<Phy
         mApi = retrofit.create(PhysicianService.class);
     }
 
-    public void getPhysicians() {
-        Call<List<Physician>> call = mApi.physicians();
+    public void getPhysicians(Integer filial) {
+        Call<List<Physician>> call = mApi.physicians(filial);
         call.enqueue(this);
     }
 

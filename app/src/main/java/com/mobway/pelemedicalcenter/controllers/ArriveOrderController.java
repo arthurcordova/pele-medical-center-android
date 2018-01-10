@@ -42,8 +42,8 @@ public class ArriveOrderController extends Controller implements Callback<Arrive
         mDate = date;
     }
 
-    public void vacancies(String date, String codeRoom) {
-        Call<ArriveOrderResponse> call = mApi.vacancies(date, codeRoom);
+    public void vacancies(String date, String codeRoom, Integer filial) {
+        Call<ArriveOrderResponse> call = mApi.vacancies(filial, date, codeRoom);
         call.enqueue(this);
     }
 

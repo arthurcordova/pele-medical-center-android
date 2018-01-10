@@ -99,7 +99,7 @@ public class FilterFragment extends Fragment {
         mController = new SpecialtyController(getActivity());
         mController.delegateRecyclerView(recyclerView);
         mController.delegateAdapter(adapter);
-        mController.getSpecialties();
+        mController.getSpecialties(mFilterManager.getFilters().getPlaceID());
 
         switchEmergency = root.findViewById(R.id.switch_emergency);
         final Button buttonCity = root.findViewById(R.id.button_city);
@@ -213,7 +213,7 @@ public class FilterFragment extends Fragment {
                 recyclerViewInsurance.setAdapter(adapterInsurance);
 
                 InsuranceController insuranceController = new InsuranceController(getActivity()).delegateAdapter(adapterInsurance);
-                insuranceController.getInsurances();
+                insuranceController.getInsurances(mFilterManager.getFilters().getPlaceID());
 
                 alert.show();
             }
@@ -240,7 +240,7 @@ public class FilterFragment extends Fragment {
 //                mSchedule.setType(adapterConsult.getSelectedConsult());
 
                 ConsultController consultController = new ConsultController(getActivity()).delegateAdapter(adapterConsult);
-                consultController.getTypes();
+                consultController.getTypes(mFilterManager.getFilters().getPlaceID());
                 alert.show();
             }
         });

@@ -34,8 +34,8 @@ public class InsuranceController extends Controller implements Callback<List<Ins
         mApi = retrofit.create(InsuranceService.class);
     }
 
-    public void getInsurances() {
-        Call<List<Insurance>> call = mApi.insurances();
+    public void getInsurances(Integer filial) {
+        Call<List<Insurance>> call = mApi.insurances(filial);
         call.enqueue(this);
     }
 

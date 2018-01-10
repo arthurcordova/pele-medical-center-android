@@ -4,9 +4,7 @@
     <modules>
       <module fileurl="file://C:\ProjetosGIT\pele-medical-center-android\PeleMedicalCenter.iml" filepath="C:\ProjetosGIT\pele-medical-center-android\PeleMedicalCenter.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\ProjetosGIT\pele-medical-center-android\app\app.iml" filepath="C:\ProjetosGIT\pele-medical-center-android\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/pele-medical-center-android.iml" filepath="$PROJECT_DIR$/pele-medical-center-android.iml" />
-      <module fileurl="file://C:\ProjetosGIT\pele-medical-center-android\pele-medical-center-android.iml" filepath="C:\ProjetosGIT\pele-medical-center-android\pele-medical-center-android.iml" />
       <module fileurl="file://C:\ARTHUR-MOB\PeleMedicalCenter\pele-medical-center-android.iml" filepath="C:\ARTHUR-MOB\PeleMedicalCenter\pele-medical-center-android.iml" />
     </modules>
   </component>

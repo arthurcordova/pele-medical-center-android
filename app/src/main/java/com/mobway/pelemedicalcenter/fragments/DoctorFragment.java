@@ -13,6 +13,7 @@ import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterPhysician;
 import com.mobway.pelemedicalcenter.controllers.PhysicianController;
 import com.mobway.pelemedicalcenter.models.Physician;
+import com.mobway.pelemedicalcenter.utils.FilterManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,15 +46,8 @@ public class DoctorFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_doctor, container, false);
 
-        // MOCK ONLY
+        FilterManager filterManager = new FilterManager(getContext());
         List<Physician> physicians = new ArrayList<>();
-
-//        for (int i = 0; i < 30; i++) {
-//            Physician d1 = new Physician();
-//            d1.setName("Arthur Cordova Stapassoli");
-//            physicians.add(d1);
-//        }
-        // MOCK ONLY
 
         RVAdapterPhysician adapterDoctor = new RVAdapterPhysician(physicians);
 
@@ -61,8 +55,7 @@ public class DoctorFragment extends android.support.v4.app.Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapterDoctor);
 
-        new PhysicianController(getActivity()).delegateAdapter(adapterDoctor).getPhysicians();
-
+        new PhysicianController(getActivity()).delegateAdapter(adapterDoctor).getPhysicians(filterManager.getFilters().getPlaceID());
 
         return view;
     }
