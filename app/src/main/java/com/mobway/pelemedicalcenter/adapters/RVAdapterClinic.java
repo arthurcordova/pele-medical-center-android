@@ -69,6 +69,7 @@ public class RVAdapterClinic extends RecyclerView.Adapter<RVAdapterClinic.ViewHo
 
                     Filter filterPlace = new Filter();
                     filterPlace.setClinic(mSelectedClinic.getName());
+                    filterPlace.setClinicID(mSelectedClinic.getId());
 
                     mFilterManager.save(filterPlace);
                 }

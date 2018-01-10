@@ -11,7 +11,9 @@ import java.util.List;
 public class Filter implements Serializable {
 
     private String clinic;
+    private Integer clinicID;
     private String insurance;
+    private Integer insuranceID;
     private String place;
     private Integer placeID;
     private Boolean emergency;
@@ -117,4 +119,21 @@ public class Filter implements Serializable {
     public void setPlaceID(Integer placeID) {
         this.placeID = placeID;
     }
+
+    public Integer getClinicID() {
+        return clinicID;
+    }
+
+    public void setClinicID(Integer clinicID) {
+        this.clinicID = clinicID;
+    }
+
+    public Integer getInsuranceID() {
+        return insuranceID;
+    }
+
+    public void setInsuranceID(Integer insuranceID) {
+        this.insuranceID = insuranceID;
+    }
 }
+

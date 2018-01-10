@@ -23,8 +23,10 @@ public final class FilterManager {
     private final String KEY_PLACE = "place";
     private final String KEY_PLACE_ID = "place_id";
     private final String KEY_CLINIC = "clinic";
+    private final String KEY_CLINIC_ID = "clinic_id";
     private final String KEY_EMERGENCY = "emergency";
     private final String KEY_INSURANCE = "insurance";
+    private final String KEY_INSURANCE_ID = "insurance_id";
     private final String KEY_PRIVATE = "private";
     private final String KEY_SPECIALTIES = "specialties";
     private final String KEY_CONSULT_TYPE = "consult_type";
@@ -49,8 +51,14 @@ public final class FilterManager {
         if (filter.getClinic() != null) {
             editor.putString(KEY_CLINIC, filter.getClinic());
         }
+        if (filter.getClinicID() != null) {
+            editor.putInt(KEY_CLINIC_ID, filter.getClinicID());
+        }
         if (filter.getInsurance() != null) {
             editor.putString(KEY_INSURANCE, filter.getInsurance());
+        }
+        if (filter.getInsuranceID() != null) {
+            editor.putInt(KEY_INSURANCE_ID, filter.getInsuranceID());
         }
         if (filter.getSpecialties() != null) {
             editor.putString(KEY_SPECIALTIES, filter.convertSpecialtiesToSave(filter.getSpecialties()));
@@ -74,7 +82,9 @@ public final class FilterManager {
         filter.setPlaceID(preferences.getInt(KEY_PLACE_ID, 0));
         filter.setPlace(preferences.getString(KEY_PLACE,""));
         filter.setClinic(preferences.getString(KEY_CLINIC,""));
+        filter.setClinicID(preferences.getInt(KEY_CLINIC_ID, 0));
         filter.setInsurance(preferences.getString(KEY_INSURANCE,""));
+        filter.setInsuranceID(preferences.getInt(KEY_INSURANCE_ID,0));
         filter.setEmergency(preferences.getBoolean(KEY_EMERGENCY, false));
 //        filter.setPrivateSchedule(preferences.getBoolean(KEY_PRIVATE, false));
         filter.setSpecialties(filter.convertSpecialtiesToList(preferences.getString(KEY_SPECIALTIES, "")));

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.mobway.pelemedicalcenter.adapters.RVAdapterPhysician;
+import com.mobway.pelemedicalcenter.models.DoctorFilterRequest;
 import com.mobway.pelemedicalcenter.models.Filter;
 import com.mobway.pelemedicalcenter.models.Physician;
 import com.mobway.pelemedicalcenter.models.Specialty;
@@ -38,6 +39,11 @@ public class PhysicianController extends Controller implements Callback<List<Phy
 
     public void getPhysicians(Integer filial) {
         Call<List<Physician>> call = mApi.physicians(filial);
+        call.enqueue(this);
+    }
+
+    public void getPhysicians(DoctorFilterRequest filters) {
+        Call<List<Physician>> call = mApi.physicians(filters);
         call.enqueue(this);
     }
 

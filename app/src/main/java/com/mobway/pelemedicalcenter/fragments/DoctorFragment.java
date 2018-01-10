@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterPhysician;
 import com.mobway.pelemedicalcenter.controllers.PhysicianController;
+import com.mobway.pelemedicalcenter.models.DoctorFilterRequest;
 import com.mobway.pelemedicalcenter.models.Physician;
 import com.mobway.pelemedicalcenter.utils.FilterManager;
 
@@ -55,7 +56,14 @@ public class DoctorFragment extends android.support.v4.app.Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapterDoctor);
 
-        new PhysicianController(getActivity()).delegateAdapter(adapterDoctor).getPhysicians(filterManager.getFilters().getPlaceID());
+        DoctorFilterRequest filterRequest = new DoctorFilterRequest();
+        filterRequest.setCityCode(filterManager.getFilters().getPlaceID());
+        filterRequest.setClinicCode(filterManager.getFilters().getClinicID());
+        filterRequest.setTypeCode(Integer.parseInt(filterManager.getFilters().getConsult().getUuid()));
+        filterRequest.setInsuranceCode(filterManager.getFilters().getInsuranceID());
+
+//        new PhysicianController(getActivity()).delegateAdapter(adapterDoctor).getPhysicians(filterManager.getFilters().getPlaceID());
+        new PhysicianController(getActivity()).delegateAdapter(adapterDoctor).getPhysicians(filterRequest);
 
         return view;
     }
