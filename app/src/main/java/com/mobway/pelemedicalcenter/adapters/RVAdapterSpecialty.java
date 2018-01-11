@@ -44,9 +44,10 @@ public class RVAdapterSpecialty extends RecyclerView.Adapter<RVAdapterSpecialty.
     @Override
     public void onBindViewHolder(final ViewHolder holder, int index) {
         final Specialty model = mList.get(index);
+        final FilterManager fm = new FilterManager(holder.viewBack.getContext());
         mHolders.add(holder);
         holder.tvName.setText(model.getName());
-//        holder.viewBack.setBackground(model.isSelected() ? holder.viewBack.getContext().getDrawable(R.drawable.ic_selected) : holder.viewBack.getContext().getDrawable(R.drawable.ic_unselected));
+        holder.viewBack.setBackground(fm.getFilters().getSpecialtyID().equals(Integer.parseInt(model.getUuid())) ? holder.viewBack.getContext().getDrawable(R.drawable.ic_selected) : holder.viewBack.getContext().getDrawable(R.drawable.ic_unselected));
 
         holder.viewBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +60,6 @@ public class RVAdapterSpecialty extends RecyclerView.Adapter<RVAdapterSpecialty.
                 Filter filter = new Filter();
                 filter.setSpecialtyID(Integer.parseInt(model.getUuid()));
 
-                FilterManager fm = new FilterManager(view.getContext());
                 fm.save(filter);
             }
         });
