@@ -29,6 +29,7 @@ public final class FilterManager {
     private final String KEY_INSURANCE_ID = "insurance_id";
     private final String KEY_PRIVATE = "private";
     private final String KEY_SPECIALTIES = "specialties";
+    private final String KEY_SPECIALTY_ID = "specialty_id";
     private final String KEY_CONSULT_TYPE = "consult_type";
     private final String KEY_CONSULT_TYPE_ID = "consult_type_id";
 
@@ -63,6 +64,9 @@ public final class FilterManager {
         if (filter.getSpecialties() != null) {
             editor.putString(KEY_SPECIALTIES, filter.convertSpecialtiesToSave(filter.getSpecialties()));
         }
+        if (filter.getSpecialtyID() != null) {
+            editor.putInt(KEY_SPECIALTY_ID, filter.getSpecialtyID());
+        }
         if (filter.getConsult() != null) {
             editor.putString(KEY_CONSULT_TYPE, filter.getConsult().getDescription());
         }
@@ -86,6 +90,7 @@ public final class FilterManager {
         filter.setInsurance(preferences.getString(KEY_INSURANCE,""));
         filter.setInsuranceID(preferences.getInt(KEY_INSURANCE_ID,0));
         filter.setEmergency(preferences.getBoolean(KEY_EMERGENCY, false));
+        filter.setSpecialtyID(preferences.getInt(KEY_SPECIALTY_ID, 0));
 //        filter.setPrivateSchedule(preferences.getBoolean(KEY_PRIVATE, false));
         filter.setSpecialties(filter.convertSpecialtiesToList(preferences.getString(KEY_SPECIALTIES, "")));
         filter.setConsult(new Consult(preferences.getString(KEY_CONSULT_TYPE_ID,""), preferences.getString(KEY_CONSULT_TYPE,"")));

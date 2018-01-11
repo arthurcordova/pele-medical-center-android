@@ -19,6 +19,7 @@ public class Filter implements Serializable {
     private Boolean emergency;
     private Boolean privateSchedule;
     private List<Specialty> specialties;
+    private Integer specialtyID;
     private Consult consult;
 
     public Filter() {
@@ -134,6 +135,14 @@ public class Filter implements Serializable {
 
     public void setInsuranceID(Integer insuranceID) {
         this.insuranceID = insuranceID;
+    }
+
+    public Integer getSpecialtyID() {
+        return specialtyID;
+    }
+
+    public void setSpecialtyID(Integer specialtyID) {
+        this.specialtyID = specialtyID;
     }
 }
 

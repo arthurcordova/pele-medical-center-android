@@ -14,7 +14,7 @@ public class Specialty implements Serializable {
     private String uuid;
     @SerializedName("descricao")
     private String name;
-    private boolean selected = false;
+//    private boolean selected = false;
 
     public Specialty(String uuid, String name) {
         this.uuid = uuid;
@@ -41,22 +41,22 @@ public class Specialty implements Serializable {
         this.name = name;
     }
 
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
-
-    public void mergeWithSaved(List<Specialty> list) {
-        if (list != null) {
-            for (Specialty specialty : list) {
-                if (specialty.getUuid().equals(uuid)) {
-                    selected = true;
-                }
-            }
-        }
-
-    }
+//    public boolean isSelected() {
+//        return selected;
+//    }
+//
+//    public void setSelected(boolean selected) {
+//        this.selected = selected;
+//    }
+//
+//    public void mergeWithSaved(List<Specialty> list) {
+//        if (list != null) {
+//            for (Specialty specialty : list) {
+//                if (specialty.getUuid().equals(uuid)) {
+//                    selected = true;
+//                }
+//            }
+//        }
+//
+//    }
 }

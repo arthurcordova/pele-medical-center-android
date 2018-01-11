@@ -7,8 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mobway.pelemedicalcenter.R;
-import com.mobway.pelemedicalcenter.models.Physician;
+import com.mobway.pelemedicalcenter.models.Filter;
 import com.mobway.pelemedicalcenter.models.Specialty;
+import com.mobway.pelemedicalcenter.utils.FilterManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,8 @@ public class RVAdapterSpecialty extends RecyclerView.Adapter<RVAdapterSpecialty.
 
     private List<Specialty> mList;
     private List<Specialty> mSelectedSpecialties = new ArrayList<>();
+    private List<RVAdapterSpecialty.ViewHolder> mHolders = new ArrayList<>();
+    public Specialty selectedSpecialty;
 
     public List<Specialty> getSelectedSpecialties() {
         return mSelectedSpecialties;
@@ -41,22 +44,25 @@ public class RVAdapterSpecialty extends RecyclerView.Adapter<RVAdapterSpecialty.
     @Override
     public void onBindViewHolder(final ViewHolder holder, int index) {
         final Specialty model = mList.get(index);
+        mHolders.add(holder);
         holder.tvName.setText(model.getName());
-        holder.viewBack.setBackground(model.isSelected() ? holder.viewBack.getContext().getDrawable(R.drawable.ic_selected) : holder.viewBack.getContext().getDrawable(R.drawable.ic_unselected));
+//        holder.viewBack.setBackground(model.isSelected() ? holder.viewBack.getContext().getDrawable(R.drawable.ic_selected) : holder.viewBack.getContext().getDrawable(R.drawable.ic_unselected));
 
         holder.viewBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                holder.setChecked(model.isSelected(), view);
-                if (holder.checked) {
-                    mSelectedSpecialties.add(model);
-                } else {
-                    mSelectedSpecialties.remove(model);
+                for (ViewHolder h : mHolders) {
+                    h.setChecked(false, h.viewBack);
                 }
+                holder.setChecked(true, holder.viewBack);
+                selectedSpecialty = model;
+                Filter filter = new Filter();
+                filter.setSpecialtyID(Integer.parseInt(model.getUuid()));
+
+                FilterManager fm = new FilterManager(view.getContext());
+                fm.save(filter);
             }
         });
-
-
     }
 
     public void setFilter(List<Specialty> list) {
@@ -85,14 +91,10 @@ public class RVAdapterSpecialty extends RecyclerView.Adapter<RVAdapterSpecialty.
         }
 
         public void setChecked(boolean value, View v) {
-            if (!value && !checked) {
+            if (value) {
                 v.setBackground(v.getContext().getDrawable(R.drawable.ic_selected));
-                checked = true;
-
             } else {
                 v.setBackground(v.getContext().getDrawable(R.drawable.ic_unselected));
-                checked = false;
-
             }
         }
 
