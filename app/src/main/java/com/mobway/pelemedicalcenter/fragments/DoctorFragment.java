@@ -61,6 +61,7 @@ public class DoctorFragment extends android.support.v4.app.Fragment {
         filterRequest.setClinicCode(filterManager.getFilters().getClinicID());
         filterRequest.setTypeCode(Integer.parseInt(filterManager.getFilters().getConsult().getUuid()));
         filterRequest.setInsuranceCode(filterManager.getFilters().getInsuranceID());
+        filterRequest.setSpecialtyCode(0);
 
 //        new PhysicianController(getActivity()).delegateAdapter(adapterDoctor).getPhysicians(filterManager.getFilters().getPlaceID());
         new PhysicianController(getActivity()).delegateAdapter(adapterDoctor).getPhysicians(filterRequest);

@@ -12,9 +12,9 @@ public class DoctorFilterRequest {
     private Integer cityCode;
     @SerializedName("codClinica")
     private Integer clinicCode;
-    @SerializedName("codCEspecialidade")
+    @SerializedName("codEspecialidade")
     private Integer specialtyCode;
-    @SerializedName("codConsulta")
+    @SerializedName("tipoConsulta")
     private Integer typeCode;
     @SerializedName("codConvenio")
     private Integer insuranceCode;
