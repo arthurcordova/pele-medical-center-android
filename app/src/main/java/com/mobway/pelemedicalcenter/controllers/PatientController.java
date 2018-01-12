@@ -44,6 +44,7 @@ public class PatientController extends Controller implements Callback<Patient> {
     }
 
     public void create(UserRequest user) {
+        showProgress();
         mUserRequest = user;
         isDependent =  user.parentCode != null;
         Call<Patient> call = mApi.create(user);
@@ -51,16 +52,19 @@ public class PatientController extends Controller implements Callback<Patient> {
     }
 
     public void login(UserRequest user) {
+        showProgress();
         mUserRequest = user;
         Call<Patient> call = mApi.login(user);
         call.enqueue(this);
     }
 
     public void getDependents(final Patient master, final RVAdapterPatient adapterPatient){
+        showProgress();
         Call<List<Patient>> call = mApi.dependents(String.valueOf(master.getUuid()));
         call.enqueue(new Callback<List<Patient>>() {
             @Override
             public void onResponse(Call<List<Patient>> call, Response<List<Patient>> response) {
+                hideProgress();
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         Log.d(TAG, "RESPONSE: " + response.body().toString());
@@ -76,6 +80,7 @@ public class PatientController extends Controller implements Callback<Patient> {
 
             @Override
             public void onFailure(Call<List<Patient>> call, Throwable t) {
+                hideProgress();
                 Log.d(TAG, "FAIL CONNECTION");
             }
         });
@@ -94,6 +99,7 @@ public class PatientController extends Controller implements Callback<Patient> {
 
     @Override
     public void onResponse(Call<Patient> call, Response<Patient> response) {
+        hideProgress();
         if (response.isSuccessful()) {
             if (response.body() != null) {
                 Log.d(TAG, "RESPONSE: " + response.body().toString());
@@ -116,6 +122,7 @@ public class PatientController extends Controller implements Callback<Patient> {
 
     @Override
     public void onFailure(Call<Patient> call, Throwable t) {
+        hideProgress();
         Log.d(TAG, "FAIL CONNECTION");
     }
 }

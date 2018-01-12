@@ -36,12 +36,14 @@ public class ConsultController extends Controller implements Callback<List<Consu
     }
 
     public void getTypes(Integer filial) {
+        showProgress();
         Call<List<Consult>> call = mApi.typeConsults(filial);
         call.enqueue(this);
     }
 
     @Override
     public void onResponse(Call<List<Consult>> call, Response<List<Consult>> response) {
+        hideProgress();
         if (response.isSuccessful()) {
             Log.e("SUCCESS", response.body().toString());
             List<Consult> consultList = response.body();
@@ -56,7 +58,7 @@ public class ConsultController extends Controller implements Callback<List<Consu
 
     @Override
     public void onFailure(Call<List<Consult>> call, Throwable t) {
-
+        hideProgress();
         Log.e("FAIL", "FAIL");
     }
 }

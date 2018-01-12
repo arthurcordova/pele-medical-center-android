@@ -1,6 +1,7 @@
 package com.mobway.pelemedicalcenter.controllers;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.util.Log;
 
 import com.mobway.pelemedicalcenter.adapters.RVAdapterCity;
@@ -33,12 +34,14 @@ public class CityController extends Controller implements Callback<List<CityResp
     }
 
     public void getCities() {
+        showProgress();
         Call<List<CityResponse>> call = mApi.cities();
         call.enqueue(this);
     }
 
     @Override
     public void onResponse(Call<List<CityResponse>> call, Response<List<CityResponse>> response) {
+        hideProgress();
         if (response.isSuccessful()) {
             if (response.body() != null) {
                 Log.e("SUCCESS", response.body().toString());
@@ -54,7 +57,7 @@ public class CityController extends Controller implements Callback<List<CityResp
 
     @Override
     public void onFailure(Call<List<CityResponse>> call, Throwable t) {
-
+        hideProgress();
         Log.e("FAIL", "FAIL");
     }
 }

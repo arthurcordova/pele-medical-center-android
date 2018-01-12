@@ -52,16 +52,19 @@ public class ScheduleController extends Controller implements Callback<List<Sche
     }
 
     public void getSchedules(String userID) {
+        showProgress();
         Call<List<Schedule>> call = mApi.getSchedules(userID);
         call.enqueue(this);
     }
 
     public void postSchedule(ScheduleRequest request) {
+        showProgress();
         Call<ScheduleResponse> call = mApi.postSchedule(request);
         call.enqueue(new Callback<ScheduleResponse>() {
             @Override
             public void onResponse(Call<ScheduleResponse> call, Response<ScheduleResponse> response) {
                 if (response.isSuccessful()) {
+                    hideProgress();
                     Log.e("SUCCESS", response.body().toString());
                     ScheduleResponse reponse = response.body();
 
@@ -81,22 +84,19 @@ public class ScheduleController extends Controller implements Callback<List<Sche
                     });
 //                    b.setNegativeButton("Não", null);
                     b.show();
-
-
-                } else {
-
                 }
             }
 
             @Override
             public void onFailure(Call<ScheduleResponse> call, Throwable t) {
-
+                hideProgress();
             }
         });
     }
 
     @Override
     public void onResponse(Call<List<Schedule>> call, Response<List<Schedule>> response) {
+        hideProgress();
         if (response.isSuccessful()) {
             Log.e("SUCCESS", response.body().toString());
             List<Schedule> schedules = response.body();
@@ -105,13 +105,12 @@ public class ScheduleController extends Controller implements Callback<List<Sche
                 mAdapterSchedule.setFilter(schedules);
             }
 
-        } else {
-
         }
     }
 
     @Override
     public void onFailure(Call<List<Schedule>> call, Throwable t) {
+        hideProgress();
         Log.e("FAIL", "FAIL");
     }
 }

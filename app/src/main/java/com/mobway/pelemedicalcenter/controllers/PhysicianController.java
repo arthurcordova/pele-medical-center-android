@@ -43,12 +43,14 @@ public class PhysicianController extends Controller implements Callback<List<Phy
     }
 
     public void getPhysicians(DoctorFilterRequest filters) {
+        showProgress();
         Call<List<Physician>> call = mApi.physicians(filters);
         call.enqueue(this);
     }
 
     @Override
     public void onResponse(Call<List<Physician>> call, Response<List<Physician>> response) {
+        hideProgress();
         if (response.isSuccessful()) {
             Log.e("SUCCESS", response.body().toString());
             List<Physician> physicians = response.body();
@@ -78,7 +80,7 @@ public class PhysicianController extends Controller implements Callback<List<Phy
 
     @Override
     public void onFailure(Call<List<Physician>> call, Throwable t) {
-
+        hideProgress();
         Log.e("FAIL", "FAIL");
     }
 }

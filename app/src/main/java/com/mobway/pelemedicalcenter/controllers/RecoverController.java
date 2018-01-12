@@ -39,12 +39,14 @@ public class RecoverController extends Controller implements Callback<RecoverRes
     }
 
     public void recoverPassword(String email) {
+        showProgress();
         Call<RecoverResponse> call = mApi.recoverPassword(email);
         call.enqueue(this);
     }
 
     @Override
     public void onResponse(Call<RecoverResponse> call, Response<RecoverResponse> response) {
+        hideProgress();
         if (response.isSuccessful()) {
             Log.e("SUCCESS", response.body().toString());
             RecoverResponse responde = response.body();
@@ -61,17 +63,12 @@ public class RecoverController extends Controller implements Callback<RecoverRes
             });
             b.setNegativeButton("", null);
             b.show();
-
-
-
-
-        } else {
-
         }
     }
 
     @Override
     public void onFailure(Call<RecoverResponse> call, Throwable t) {
+        hideProgress();
         Log.e("FAIL", "FAIL");
     }
 }

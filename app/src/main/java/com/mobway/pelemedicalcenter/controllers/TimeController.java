@@ -42,6 +42,7 @@ public class TimeController extends Controller implements Callback<List<Time>> {
 
     public void getHours(String date, String codeRoom, Integer filial) {
 //        startProgress();
+        showProgress();
         String url = "/clickwebservice/servidor/pelews/agenda/horarios/"+String.valueOf(filial)+"/"+date+"/"+codeRoom;
         Call<List<Time>> call = mApi.hours(url);
         call.enqueue(this);
@@ -62,6 +63,7 @@ public class TimeController extends Controller implements Callback<List<Time>> {
     @Override
     public void onResponse(Call<List<Time>> call, Response<List<Time>> response) {
 //        endProgress();
+        hideProgress();
         if (response.isSuccessful()) {
             Log.e("SUCCESS", response.body().toString());
             List<Time> hours = response.body();
@@ -77,7 +79,7 @@ public class TimeController extends Controller implements Callback<List<Time>> {
 
     @Override
     public void onFailure(Call<List<Time>> call, Throwable t) {
-
+        hideProgress();
         Log.e("FAIL", "FAIL");
     }
 }

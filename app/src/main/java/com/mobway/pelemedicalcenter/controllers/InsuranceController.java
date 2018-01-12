@@ -35,12 +35,14 @@ public class InsuranceController extends Controller implements Callback<List<Ins
     }
 
     public void getInsurances(Integer filial) {
+        showProgress();
         Call<List<Insurance>> call = mApi.insurances(filial);
         call.enqueue(this);
     }
 
     @Override
     public void onResponse(Call<List<Insurance>> call, Response<List<Insurance>> response) {
+        hideProgress();
         if (response.isSuccessful()) {
             if (response.body() != null) {
                 Log.e("SUCCESS", response.body().toString());
@@ -63,7 +65,7 @@ public class InsuranceController extends Controller implements Callback<List<Ins
 
     @Override
     public void onFailure(Call<List<Insurance>> call, Throwable t) {
-
+        hideProgress();
         Log.e("FAIL", "FAIL");
     }
 }

@@ -41,12 +41,14 @@ public class ClinicController extends Controller implements Callback<List<Clinic
      * @param code - Código da cidade
      */
     public void getClinics(Integer code) {
+        showProgress();
         Call<List<ClinicResponse>> call = mApi.clinics(code);
         call.enqueue(this);
     }
 
     @Override
     public void onResponse(Call<List<ClinicResponse>> call, Response<List<ClinicResponse>> response) {
+        hideProgress();
         if (response.isSuccessful()) {
             if (response.body() != null) {
                 Log.e("SUCCESS", response.body().toString());
@@ -62,7 +64,7 @@ public class ClinicController extends Controller implements Callback<List<Clinic
 
     @Override
     public void onFailure(Call<List<ClinicResponse>> call, Throwable t) {
-
+        hideProgress();
         Log.e("FAIL", "FAIL");
     }
 }

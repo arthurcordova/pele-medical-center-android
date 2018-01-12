@@ -43,12 +43,14 @@ public class SpecialtyController extends Controller implements Callback<List<Spe
     }
 
     public void getSpecialties(Integer filial) {
+        showProgress();
         Call<List<Specialty>> call = mApi.specialties(filial);
         call.enqueue(this);
     }
 
     @Override
     public void onResponse(Call<List<Specialty>> call, Response<List<Specialty>> response) {
+        hideProgress();
         if (response.isSuccessful()) {
             Log.e("SUCCESS", response.body().toString());
             List<Specialty> specialties = response.body();
@@ -62,13 +64,12 @@ public class SpecialtyController extends Controller implements Callback<List<Spe
                 mRecyclerView.setLayoutManager(new GridLayoutManager(activity, specialties.size()));
                 mRecyclerView.setAdapter(mAdapterSpecialty);
             }
-
         }
     }
 
     @Override
     public void onFailure(Call<List<Specialty>> call, Throwable t) {
-
+        hideProgress();
         Log.e("FAIL", "FAIL");
     }
 }

@@ -1,16 +1,11 @@
 package com.mobway.pelemedicalcenter.controllers;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
-
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -23,6 +18,7 @@ public abstract class Controller {
     Gson gsonBuilder;
     Retrofit retrofit;
     Activity activity;
+    ProgressDialog dialog;
 
     public Controller(Activity activity) {
         this.activity = activity;
@@ -36,6 +32,17 @@ public abstract class Controller {
                 .addConverterFactory(GsonConverterFactory.create(gsonBuilder))
                 .build();
 
+    }
+
+    public void showProgress() {
+        dialog = ProgressDialog.show(activity, "",
+                "Carregando. Por favor aguarde...", true);
+    }
+
+    public void hideProgress() {
+        if (dialog != null) {
+            dialog.dismiss();
+        }
     }
 
 
