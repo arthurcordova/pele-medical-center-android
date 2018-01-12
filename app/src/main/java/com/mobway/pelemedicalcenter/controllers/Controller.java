@@ -2,6 +2,8 @@ package com.mobway.pelemedicalcenter.controllers;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.support.v7.app.AlertDialog;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -36,6 +38,11 @@ public abstract class Controller {
 
     public void showProgress() {
         dialog = ProgressDialog.show(activity, "",
+                "Carregando. Por favor aguarde...", true);
+    }
+
+    public void showProgress(Context context) {
+        dialog = ProgressDialog.show(context, "",
                 "Carregando. Por favor aguarde...", true);
     }
 

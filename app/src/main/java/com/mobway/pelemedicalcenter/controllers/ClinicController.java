@@ -1,6 +1,7 @@
 package com.mobway.pelemedicalcenter.controllers;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
 import com.mobway.pelemedicalcenter.adapters.RVAdapterCity;
@@ -40,8 +41,8 @@ public class ClinicController extends Controller implements Callback<List<Clinic
      *
      * @param code - Código da cidade
      */
-    public void getClinics(Integer code) {
-        showProgress();
+    public void getClinics(Integer code, Context context) {
+        showProgress(context);
         Call<List<ClinicResponse>> call = mApi.clinics(code);
         call.enqueue(this);
     }

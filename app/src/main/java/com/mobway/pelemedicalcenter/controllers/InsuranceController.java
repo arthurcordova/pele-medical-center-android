@@ -1,6 +1,7 @@
 package com.mobway.pelemedicalcenter.controllers;
 
 import android.app.Activity;
+import android.content.Context;
 import android.icu.util.IslamicCalendar;
 import android.util.Log;
 
@@ -34,8 +35,8 @@ public class InsuranceController extends Controller implements Callback<List<Ins
         mApi = retrofit.create(InsuranceService.class);
     }
 
-    public void getInsurances(Integer filial) {
-        showProgress();
+    public void getInsurances(Integer filial, Context context) {
+        showProgress(context);
         Call<List<Insurance>> call = mApi.insurances(filial);
         call.enqueue(this);
     }

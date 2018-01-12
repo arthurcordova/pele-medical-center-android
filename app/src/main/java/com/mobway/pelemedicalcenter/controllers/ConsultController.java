@@ -1,6 +1,7 @@
 package com.mobway.pelemedicalcenter.controllers;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
 import com.mobway.pelemedicalcenter.adapters.RVAdapterConsult;
@@ -35,8 +36,8 @@ public class ConsultController extends Controller implements Callback<List<Consu
         mApi = retrofit.create(ConsultService.class);
     }
 
-    public void getTypes(Integer filial) {
-        showProgress();
+    public void getTypes(Integer filial, Context context) {
+        showProgress(context);
         Call<List<Consult>> call = mApi.typeConsults(filial);
         call.enqueue(this);
     }

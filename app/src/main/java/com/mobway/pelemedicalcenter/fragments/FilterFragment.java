@@ -165,10 +165,10 @@ public class FilterFragment extends Fragment {
                 rvCities.setLayoutManager(new LinearLayoutManager(getContext()));
                 rvCities.setAdapter(adapterCity);
 
-                CityController cityController = new CityController(getActivity()).delegateAdapter(adapterCity);
-                cityController.getCities();
-
                 alert.show();
+
+                CityController cityController = new CityController(getActivity()).delegateAdapter(adapterCity);
+                cityController.getCities(alert.getContext());
             }
         });
         buttonPlace.setOnClickListener(new View.OnClickListener() {
@@ -189,10 +189,10 @@ public class FilterFragment extends Fragment {
                 rvClinics.setLayoutManager(new LinearLayoutManager(getContext()));
                 rvClinics.setAdapter(adapterClinic);
 
-                ClinicController cityController = new ClinicController(getActivity()).delegateAdapter(adapterClinic);
-                cityController.getClinics(filter.getPlaceID());
-
                 alert.show();
+
+                ClinicController cityController = new ClinicController(getActivity()).delegateAdapter(adapterClinic);
+                cityController.getClinics(filter.getPlaceID(), alert.getContext());
             }
         });
         buttonInsurance.setOnClickListener(new View.OnClickListener() {
@@ -212,10 +212,10 @@ public class FilterFragment extends Fragment {
                 recyclerViewInsurance.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerViewInsurance.setAdapter(adapterInsurance);
 
-                InsuranceController insuranceController = new InsuranceController(getActivity()).delegateAdapter(adapterInsurance);
-                insuranceController.getInsurances(mFilterManager.getFilters().getPlaceID());
-
                 alert.show();
+
+                InsuranceController insuranceController = new InsuranceController(getActivity()).delegateAdapter(adapterInsurance);
+                insuranceController.getInsurances(mFilterManager.getFilters().getPlaceID(), alert.getContext());
             }
         });
         buttonConsultType.setOnClickListener(new View.OnClickListener() {
@@ -237,11 +237,10 @@ public class FilterFragment extends Fragment {
                 recyclerViewInsurance.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerViewInsurance.setAdapter(adapterConsult);
 
-//                mSchedule.setType(adapterConsult.getSelectedConsult());
+                alert.show();
 
                 ConsultController consultController = new ConsultController(getActivity()).delegateAdapter(adapterConsult);
-                consultController.getTypes(mFilterManager.getFilters().getPlaceID());
-                alert.show();
+                consultController.getTypes(mFilterManager.getFilters().getPlaceID(), alert.getContext());
             }
         });
 

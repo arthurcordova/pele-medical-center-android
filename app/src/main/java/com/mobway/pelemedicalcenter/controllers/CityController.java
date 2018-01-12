@@ -2,6 +2,9 @@ package com.mobway.pelemedicalcenter.controllers;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.support.annotation.UiThread;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.mobway.pelemedicalcenter.adapters.RVAdapterCity;
@@ -33,8 +36,8 @@ public class CityController extends Controller implements Callback<List<CityResp
         mApi = retrofit.create(CityService.class);
     }
 
-    public void getCities() {
-        showProgress();
+    public void getCities(Context context) {
+        showProgress(context);
         Call<List<CityResponse>> call = mApi.cities();
         call.enqueue(this);
     }
@@ -50,8 +53,6 @@ public class CityController extends Controller implements Callback<List<CityResp
                     mAdapterCity.setFilter(insurances);
                 }
             }
-        } else {
-
         }
     }
 
