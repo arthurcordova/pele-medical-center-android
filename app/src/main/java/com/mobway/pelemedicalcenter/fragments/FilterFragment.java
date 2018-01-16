@@ -192,7 +192,7 @@ public class FilterFragment extends Fragment {
                 alert.show();
 
                 ClinicController cityController = new ClinicController(getActivity()).delegateAdapter(adapterClinic);
-                cityController.getClinics(filter.getPlaceID(), alert.getContext());
+                cityController.getClinics(filter.getPlaceID(), filter.getSpecialtyID(), alert.getContext());
             }
         });
         buttonInsurance.setOnClickListener(new View.OnClickListener() {
