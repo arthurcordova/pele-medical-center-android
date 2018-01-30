@@ -75,13 +75,16 @@ public class NotificationsFragment extends android.support.v4.app.Fragment {
 
         RVAdapterNotification adapterNotification = new RVAdapterNotification(noticationData.notification.get());
         adapterNotification.mFragmentManager = getFragmentManager();
-
+        adapterNotification.context = getContext();
+        adapterNotification.activity = getActivity();
 
         RecyclerView recyclerView = root.findViewById(R.id.recycler_view_notifications);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapterNotification);
 
         NotificationController controller = new NotificationController(getActivity());
+        adapterNotification.controller = controller;
+
         controller.delegateAdapter(adapterNotification).getNotifications();
 
 //        root.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
@@ -92,39 +95,39 @@ public class NotificationsFragment extends android.support.v4.app.Fragment {
 //            }
 //        });
 
-        LinearLayout layoutBottomSheet = root.findViewById(R.id.bottom_sheet);
-        sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
+//        LinearLayout layoutBottomSheet = root.findViewById(R.id.bottom_sheet);
+//        sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
+//
+//        adapterNotification.sheetBehavior = sheetBehavior;
+//        adapterNotification.layoutBottomSheet = layoutBottomSheet;
 
-        adapterNotification.sheetBehavior = sheetBehavior;
-        adapterNotification.layoutBottomSheet = layoutBottomSheet;
-
-        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                switch (newState) {
-                    case BottomSheetBehavior.STATE_HIDDEN:
-                        break;
-                    case BottomSheetBehavior.STATE_EXPANDED: {
-
-                    }
-                    break;
-                    case BottomSheetBehavior.STATE_COLLAPSED: {
-
-                    }
-                    break;
-                    case BottomSheetBehavior.STATE_DRAGGING:
-                        break;
-                    case BottomSheetBehavior.STATE_SETTLING:
-                        break;
-                }
-            }
-
-            @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
-            }
-        });
-
+//        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+//            @Override
+//            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+//                switch (newState) {
+//                    case BottomSheetBehavior.STATE_HIDDEN:
+//                        break;
+//                    case BottomSheetBehavior.STATE_EXPANDED: {
+//
+//                    }
+//                    break;
+//                    case BottomSheetBehavior.STATE_COLLAPSED: {
+//
+//                    }
+//                    break;
+//                    case BottomSheetBehavior.STATE_DRAGGING:
+//                        break;
+//                    case BottomSheetBehavior.STATE_SETTLING:
+//                        break;
+//                }
+//            }
+//
+//            @Override
+//            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+//
+//            }
+//        });
+//
 
         return root;
     }

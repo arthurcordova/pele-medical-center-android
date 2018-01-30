@@ -12,6 +12,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Url;
 
 /**
@@ -25,5 +26,11 @@ public interface NotificationService {
 
     @POST("messages/settoken")
     Call<TokenResponse> setNotificationToken(@Body TokenRequest request);
+
+    @POST("messages/setread/{messageID}")
+    Call<TokenResponse> setAsRead(@Path("messageID") Integer messageID);
+
+    @POST("messages/delete/{messageID}")
+    Call<TokenResponse> delete(@Path("messageID") Integer messageID);
 
 }

@@ -2,6 +2,7 @@ package com.mobway.pelemedicalcenter.controllers;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.design.widget.BottomSheetDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -77,7 +78,7 @@ public class NotificationController extends Controller implements Callback<List<
                     if (response.isSuccessful()) {
                         TokenResponse tokenResponse = response.body();
                         if (tokenResponse != null) {
-                            Log.d("TOKEN", "TOKEN GRAVADO COM SUCESSO --------- "+token+" --------- " + tokenResponse.message);
+                            Log.d("TOKEN", "TOKEN GRAVADO COM SUCESSO --------- " + token + " --------- " + tokenResponse.message);
                         } else {
                             Log.d("TOKEN", "TOKEN GRAVADO COM ERRO --------- ");
                         }
@@ -96,6 +97,55 @@ public class NotificationController extends Controller implements Callback<List<
             Log.d("TOKEN", "USUÁRIO NULL");
         }
     }
+
+    public void setAsRead(final Integer messageID, final BottomSheetDialog bottomSheetDialog) {
+        Call<TokenResponse> call = mApi.setAsRead(messageID);
+        call.enqueue(new Callback<TokenResponse>() {
+            @Override
+            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+                bottomSheetDialog.dismiss();
+                Log.d("SETREAD", "SETREAD GRAVADO RETORNOU");
+                if (response.isSuccessful()) {
+                    Log.d("SETREAD", "SETREAD GRAVADO COM SUCESSO ---------");
+                } else {
+                    Log.d("SETREAD", "SETREAD COM ERRO");
+                }
+                getNotifications();
+            }
+
+            @Override
+            public void onFailure(Call<TokenResponse> call, Throwable t) {
+                bottomSheetDialog.dismiss();
+                Log.d("SETREAD", "FALHA AO GRAVAR O SETREAD");
+                getNotifications();
+            }
+        });
+    }
+
+    public void delete(final Integer messageID, final BottomSheetDialog bottomSheetDialog) {
+        Call<TokenResponse> call = mApi.delete(messageID);
+        call.enqueue(new Callback<TokenResponse>() {
+            @Override
+            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+                Log.d("DELETEMSG", "DELETEMSG GRAVADO RETORNOU");
+                bottomSheetDialog.dismiss();
+                if (response.isSuccessful()) {
+                    Log.d("DELETEMSG", "DELETEMSG GRAVADO COM SUCESSO ---------");
+                } else {
+                    Log.d("DELETEMSG", "DELETEMSG COM ERRO");
+                }
+                getNotifications();
+            }
+
+            @Override
+            public void onFailure(Call<TokenResponse> call, Throwable t) {
+                Log.d("DELETEMSG", "FALHA AO GRAVAR O DELETEMSG");
+                bottomSheetDialog.dismiss();
+                getNotifications();
+            }
+        });
+    }
+
 
 
     @Override
