@@ -250,7 +250,8 @@ public class FilterFragment extends Fragment {
         return root;
     }
 
-    public void validateConsultType() {
+    public void
+    validateConsultType() {
         if (buttonConsultType.getText().toString().equals("CONSULTA PARTICULAR")) {
             buttonInsurance.setText("");
             switchEmergency.setChecked(false);

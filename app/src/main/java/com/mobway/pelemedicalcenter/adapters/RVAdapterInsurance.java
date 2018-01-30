@@ -11,7 +11,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.mobway.pelemedicalcenter.R;
+import com.mobway.pelemedicalcenter.models.Filter;
 import com.mobway.pelemedicalcenter.models.Insurance;
+import com.mobway.pelemedicalcenter.utils.FilterManager;
 
 import java.util.List;
 
@@ -22,14 +24,10 @@ import java.util.List;
 public class RVAdapterInsurance extends RecyclerView.Adapter<RVAdapterInsurance.ViewHolder> {
 
     private List<Insurance> mList;
-    private Insurance mSelectedInsurance;
     private AlertDialog mDialog;
     private Button mButtonInsurance;
     private Switch mSwitchExpress;
-
-    public Insurance getSelectedInsurance() {
-        return mSelectedInsurance;
-    }
+    private FilterManager mFilterManager;
 
     public void delegateDialog(AlertDialog dialog) {
         mDialog = dialog;
@@ -64,10 +62,9 @@ public class RVAdapterInsurance extends RecyclerView.Adapter<RVAdapterInsurance.
         holder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSelectedInsurance = model;
                 if (mButtonInsurance != null) {
-                    mButtonInsurance.setText(mSelectedInsurance.getDescription());
-                    if (mSelectedInsurance.getDescription().equals("PARTICULAR")) {
+                    mButtonInsurance.setText(model.getDescription());
+                    if (model.getDescription().equals("PARTICULAR")) {
                         if (mSwitchExpress.isChecked()) {
                             mSwitchExpress.setChecked(false);
                         }
@@ -75,6 +72,13 @@ public class RVAdapterInsurance extends RecyclerView.Adapter<RVAdapterInsurance.
                     } else {
                         mSwitchExpress.setEnabled(true);
                     }
+                    if (mFilterManager == null) {
+                        mFilterManager = new FilterManager(view.getContext());
+                    }
+
+                    Filter filter = new Filter();
+                    filter.setInsuranceID(Integer.parseInt(model.getUuid()));
+                    mFilterManager.save(filter);
                 }
 
                 if (mDialog != null) {
