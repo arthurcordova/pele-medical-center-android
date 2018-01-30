@@ -1,37 +1,14 @@
-<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--tools:context="com.mobway.pelemedicalcenter.fragments.NotificationsFragment">-->
-
-
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="com.mobway.pelemedicalcenter.fragments.NotificationsFragment">
-        <data>
-            <variable name="temp" type="com.mobway.pelemedicalcenter.models.TemperatureData"/>
-        </data>
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{temp.location}"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{temp.celsius}"/>
-
-            <Button
-                android:layout_width="match_parent"
-                android:id="@+id/button"
-                android:layout_height="wrap_content"
-                android:text="Change"/>
-
-        </LinearLayout>
-    </layout>
 
 
-<!--</FrameLayout>-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_notifications"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</FrameLayout>

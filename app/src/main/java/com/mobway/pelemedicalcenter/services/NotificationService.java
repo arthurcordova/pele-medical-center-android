@@ -16,9 +16,9 @@ import retrofit2.http.Url;
  * Created by acstapassoli on 10/11/17.
  */
 
-public interface MessageService {
+public interface NotificationService {
 
-    @POST("general/getclinics")
+    @POST("messages/getmessages")
     Call<List<NotificationResponse>> notifications(@Body NotificationRequest request);
 
 }
