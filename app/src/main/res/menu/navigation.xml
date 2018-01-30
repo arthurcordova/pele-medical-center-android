@@ -11,10 +11,10 @@
         android:icon="@drawable/ic_calendar"
         android:title="@string/title_nav_schedules" />
 
-    <!--<item-->
-        <!--android:id="@+id/navigation_notifications"-->
-        <!--android:icon="@drawable/ic_notification"-->
-        <!--android:title="@string/title_nav_notifications" />-->
+    <item
+        android:id="@+id/navigation_notifications"
+        android:icon="@drawable/ic_message"
+        android:title="@string/title_nav_notifications" />
 
     <item
         android:id="@+id/navigation_my_data"

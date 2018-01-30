@@ -61,7 +61,11 @@ public class SpecialtyController extends Controller implements Callback<List<Spe
 //                    specialty.mergeWithSaved(filter.getSpecialties());
 //                }
                 mAdapterSpecialty.setFilter(specialties);
-                mRecyclerView.setLayoutManager(new GridLayoutManager(activity, specialties.size()));
+                int colunms = 1;
+                if (specialties.size() > 0) {
+                    colunms = specialties.size();
+                }
+                mRecyclerView.setLayoutManager(new GridLayoutManager(activity, colunms));
                 mRecyclerView.setAdapter(mAdapterSpecialty);
             }
         }
