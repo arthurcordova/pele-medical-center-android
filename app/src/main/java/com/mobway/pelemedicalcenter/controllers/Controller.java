@@ -36,6 +36,19 @@ public abstract class Controller {
 
     }
 
+    public Controller() {
+        gsonBuilder = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://www2.beautyclinic.com.br/clickwebservice/servidor/pelews/")
+//                .baseUrl("https://us-central1-scheduling-tracker.cloudfunctions.net")
+                .addConverterFactory(GsonConverterFactory.create(gsonBuilder))
+                .build();
+
+    }
+
     public void showProgress() {
         dialog = ProgressDialog.show(activity, "",
                 "Carregando. Por favor aguarde...", true);

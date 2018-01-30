@@ -3,6 +3,8 @@ package com.mobway.pelemedicalcenter.services;
 import com.mobway.pelemedicalcenter.models.NotificationRequest;
 import com.mobway.pelemedicalcenter.models.NotificationResponse;
 import com.mobway.pelemedicalcenter.models.Time;
+import com.mobway.pelemedicalcenter.models.TokenRequest;
+import com.mobway.pelemedicalcenter.models.TokenResponse;
 
 import java.util.List;
 
@@ -20,5 +22,8 @@ public interface NotificationService {
 
     @POST("messages/getmessages")
     Call<List<NotificationResponse>> notifications(@Body NotificationRequest request);
+
+    @POST("messages/settoken")
+    Call<TokenResponse> setNotificationToken(@Body TokenRequest request);
 
 }

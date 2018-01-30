@@ -31,6 +31,7 @@ import com.mobway.pelemedicalcenter.controllers.ConsultController;
 import com.mobway.pelemedicalcenter.controllers.Controller;
 import com.mobway.pelemedicalcenter.controllers.InsuranceController;
 import com.mobway.pelemedicalcenter.controllers.SpecialtyController;
+import com.mobway.pelemedicalcenter.fcm.PeleMedicalCenterFirebaseInstanceIdService;
 import com.mobway.pelemedicalcenter.models.CityResponse;
 import com.mobway.pelemedicalcenter.models.ClinicResponse;
 import com.mobway.pelemedicalcenter.models.Consult;
@@ -244,6 +245,7 @@ public class FilterFragment extends Fragment {
             }
         });
 
+        new PeleMedicalCenterFirebaseInstanceIdService(getContext()).onTokenRefresh();
 
         return root;
     }
