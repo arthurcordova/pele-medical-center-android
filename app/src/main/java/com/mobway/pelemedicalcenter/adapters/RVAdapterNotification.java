@@ -2,10 +2,13 @@ package com.mobway.pelemedicalcenter.adapters;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.mobway.pelemedicalcenter.BR;
 import com.mobway.pelemedicalcenter.R;
@@ -20,6 +23,9 @@ import java.util.List;
 public class RVAdapterNotification extends RecyclerView.Adapter<RVAdapterNotification.ViewHolder> {
 
     private List<NotificationResponse> mList;
+    public FragmentManager mFragmentManager;
+    public BottomSheetBehavior sheetBehavior;
+    public LinearLayout layoutBottomSheet;
 
     public RVAdapterNotification(List<NotificationResponse> list) {
         mList = list;
@@ -39,7 +45,23 @@ public class RVAdapterNotification extends RecyclerView.Adapter<RVAdapterNotific
 
         holder.getBinding().setVariable(BR.notificBind, notif);
         holder.getBinding().executePendingBindings();
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleBottomSheet();
+//                BottomSheetDialogFragment bottomSheetFragment = new BottomSheetDialogFragment();
+//                bottomSheetFragment.show(mFragmentManager, bottomSheetFragment.getTag());
+            }
+        });
 
+    }
+
+    public void toggleBottomSheet() {
+        if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        } else {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
     }
 
     public void setFilter(List<NotificationResponse> list) {

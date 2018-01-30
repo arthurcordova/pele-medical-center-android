@@ -5,11 +5,15 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.mobway.pelemedicalcenter.R;
 import com.mobway.pelemedicalcenter.adapters.RVAdapterNotification;
@@ -55,6 +59,8 @@ public class NotificationsFragment extends android.support.v4.app.Fragment {
 
     ViewDataBinding notificationsFragment;
 
+    BottomSheetBehavior sheetBehavior;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,6 +74,8 @@ public class NotificationsFragment extends android.support.v4.app.Fragment {
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
 
         RVAdapterNotification adapterNotification = new RVAdapterNotification(noticationData.notification.get());
+        adapterNotification.mFragmentManager = getFragmentManager();
+
 
         RecyclerView recyclerView = root.findViewById(R.id.recycler_view_notifications);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -83,6 +91,41 @@ public class NotificationsFragment extends android.support.v4.app.Fragment {
 //
 //            }
 //        });
+
+        LinearLayout layoutBottomSheet = root.findViewById(R.id.bottom_sheet);
+        sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
+
+        adapterNotification.sheetBehavior = sheetBehavior;
+        adapterNotification.layoutBottomSheet = layoutBottomSheet;
+
+        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED: {
+
+                    }
+                    break;
+                    case BottomSheetBehavior.STATE_COLLAPSED: {
+
+                    }
+                    break;
+                    case BottomSheetBehavior.STATE_DRAGGING:
+                        break;
+                    case BottomSheetBehavior.STATE_SETTLING:
+                        break;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+
+
         return root;
     }
 
